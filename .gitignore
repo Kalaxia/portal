@@ -16,3 +16,5 @@
 /vendor/
 /web/bundles/
 /nbproject
+portal.env
+/volumes
