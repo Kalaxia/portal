@@ -1,0 +1,56 @@
+---
+version: "3"
+networks:
+    portal:
+        driver: bridge
+        
+services:
+    phpfpm:
+        container_name: portal_phpfpm
+        build: docker/phpfpm
+        working_dir: /srv/app
+        env_file:
+            - portal.env
+        networks:
+            - portal
+        volumes:
+            - "./:/srv/app"
+            
+    nginx:
+        container_name: portal_nginx
+        build: docker/nginx
+        depends_on:
+            - phpfpm
+        env_file:
+            - portal.env
+        extra_hosts:
+            - "local.portal.com:127.0.0.1"
+        volumes:
+            # applications
+            - "./:/srv/app"
+            # nginx
+            - "./volumes/html:/usr/share/nginx/html"
+            - "./volumes/logs/nginx:/var/log/nginx"
+        networks:
+            - portal
+        ports:
+            - "443:443"
+            - "80:80"
+    
+    mysql:
+        container_name: portal_mysql
+        image: mysql
+        env_file:
+            - portal.env
+        networks:
+            - portal
+        volumes:
+            - "./volumes/mysql:/var/lib/mysql"
+
+    phpmyadmin:
+        container_name: portal_phpmyadmin
+        image: nazarpc/phpmyadmin
+        networks:
+            - portal
+        ports:
+            - 8082:80
