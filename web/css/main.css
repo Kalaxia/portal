@@ -1,0 +1,32 @@
+html {
+    background: url('../images/backgrounds/wallpaper.jpg') no-repeat;
+    background-size: cover;
+    color: #EFEFEF;
+}
+
+body {
+    margin:0px;
+}
+
+header {
+    padding-left:20px;
+    padding-right:10px;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #EFEFEF;
+}
+
+header a {
+    color: #08C;
+    padding-left:10px;
+    padding-right:10px;
+    font-size:1.2em;
+    text-decoration:none;
+}
+
+#toolbar {
+    display: flex;
+    align-items: center;
+}

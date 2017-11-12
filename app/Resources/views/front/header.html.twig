@@ -1,0 +1,20 @@
+<header>
+    <h1>Portail</h1>
+    <div id="toolbar">
+        {% if is_granted('ROLE_USER') %}
+            <a>
+                {{ app.user.username }}
+            </a>
+            <a href="{{ path('fos_user_security_logout') }}">
+                <img src="{{ asset('images/icons/logout.png') }}" />
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_registration_register') }}">
+                Inscription
+            </a>
+            <a href="{{ path('fos_user_security_login') }}">
+                Connexion
+            </a>
+        {% endif %}
+    </div>
+</header>
