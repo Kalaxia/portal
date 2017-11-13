@@ -29,18 +29,22 @@
 
 .board-column {
     width: 300px;
-    height: 600px;
     background-color: rgba(0,0,0,0.8);
     border: 1px solid #EFEFEF;
-    overflow-y: scroll;
 }
 
 .board-column h3 {
     margin:0;
     padding-top: 20px;
     padding-bottom: 20px;
-    text-align:center;
+    text-align: center;
     background-color: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid #EFEFEF;
+}
+
+.board-column > section {
+    height: 600px;
+    overflow-y: auto;
 }
 
 .board-card {

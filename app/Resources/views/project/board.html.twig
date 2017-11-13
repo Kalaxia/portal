@@ -22,23 +22,25 @@
     {% for status in statuses %}
         <div class="board-column">
             <h3>{{ ("project.status." ~ status) | trans }}</h3>
-            {% if feedbacks[status] is defined %}
-                {% for feedback in feedbacks[status] %}
-                    <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}" class="board-card">
-                        <div class="type-image">
-                            <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
-                        </div>
-                        <div class="infos">
-                            <div class="title">
-                                {{ feedback.title }}
+            <section>
+                {% if feedbacks[status] is defined %}
+                    {% for feedback in feedbacks[status] %}
+                        <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}" class="board-card">
+                            <div class="type-image">
+                                <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
                             </div>
-                            <div class="author">
-                                {{ feedback.author }}
+                            <div class="infos">
+                                <div class="title">
+                                    {{ feedback.title }}
+                                </div>
+                                <div class="author">
+                                    {{ feedback.author }}
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                {% endfor %}
-            {% endif %}
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </section>
         </div>
     {% endfor %}
     </div>
