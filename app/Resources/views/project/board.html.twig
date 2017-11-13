@@ -26,7 +26,7 @@
                 {% for feedback in feedbacks[status] %}
                     <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}" class="board-card">
                         <div class="type-image">
-                            <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'feature.png')) }}" />
+                            <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
                         </div>
                         <div class="infos">
                             <div class="title">
