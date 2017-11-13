@@ -1,9 +1,9 @@
 <header>
-    <h1>Portail</h1>
+    <h1>{{ 'website_name' | trans }}</h1>
     <div id="toolbar">
         {% if is_granted('ROLE_USER') %}
             <a href="{{ path('project_board') }}">
-                Gestionnaire de projet
+                {{ 'project.board' | trans }}
             </a>
             <a>
                 {{ app.user.username }}
@@ -13,10 +13,10 @@
             </a>
         {% else %}
             <a href="{{ path('fos_user_registration_register') }}">
-                Inscription
+                {{ 'registration' | trans }}
             </a>
             <a href="{{ path('fos_user_security_login') }}">
-                Connexion
+                {{ 'connection' | trans }}
             </a>
         {% endif %}
     </div>

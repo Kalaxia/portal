@@ -8,7 +8,7 @@
 
 {% block body %}
     <div id="board-header">
-        <h2>Board</h2>
+        <h2>{{ 'project.board' | trans }}</h2>
         <div id="board-tools">
             <a href="{{ path('report_bug') }}">
                 {{ 'project.feedback.report_bug' | trans }}
@@ -21,7 +21,7 @@
     <div id="board">
     {% for status in statuses %}
         <div class="board-column">
-            <h3>{{ "project.status." ~ status | trans }}</h3>
+            <h3>{{ ("project.status." ~ status) | trans }}</h3>
             {% if feedbacks[status] is defined %}
                 {% for feedback in feedbacks[status] %}
                     <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}" class="board-card">

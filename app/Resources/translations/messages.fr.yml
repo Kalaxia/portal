@@ -1,2 +1,26 @@
 ---
-full_date: '\L\e d/m/Y \à H:i'
+full_date: 'd/m/Y \à H:i'
+website_name: 'Kalaxia'
+registration: 'Inscription'
+connection: 'Connexion'
+
+project:
+    board: 'Gestionnaire de projet'
+    feedback:
+        title: 'Intitulé'
+        description: 'Description'
+        status: 'Statut'
+        author: 'Auteur'
+        created_at: 'Créé le'
+        updated_at: 'Mis à jour le'
+        
+        report_bug: 'Reporter un bug'
+        propose_evolution: 'Proposer une évolution'
+        create: 'Valider'
+    status:
+        to_specify: 'À spécifier'
+        ready: 'Prêt'
+        in_progress: 'En cours'
+        to_validate: 'À valider'
+        to_deploy: 'À déployer'
+        done: 'Terminé'
