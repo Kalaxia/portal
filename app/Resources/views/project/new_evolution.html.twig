@@ -1,0 +1,19 @@
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div id="feedback-form">
+        <h2>{{ 'project.feedback.propose_evolution' | trans }}</h2>
+        <form method="post" action="{{ path('create_evolution') }}">
+            <input type="text" name="title" placeholder="{{ 'project.feedback.title' | trans }}" />
+            <textarea name="description"></textarea>
+            <button type="submit">{{ 'project.feedback.create' | trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+

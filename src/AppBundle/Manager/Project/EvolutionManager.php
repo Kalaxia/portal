@@ -44,13 +44,13 @@ class EvolutionManager
      */
     public function create($title, $description, User $user)
     {
-        return $this->gateway->createEvolution(
+        return $this->format(json_decode($this->gateway->createEvolution(
             $title,
             $description,
-            Evolution::STATUS_TODO,
+            Evolution::STATUS_TO_SPECIFY,
             $user->getUsername(),
             $user->getEmail()
-        );
+        )->getBody(), true));
     }
     
     /**
@@ -120,8 +120,10 @@ class EvolutionManager
             ->setCreatedAt(new \DateTime($data['created_at']))
             ->setUpdatedAt(new \DateTime($data['updated_at']))
         ;
-        foreach ($data['commentaries'] as $commentary) {
-            $evolution->addCommentary($this->commentaryManager->format($commentary, true));
+        if (!empty($data['commentaries'])) {
+            foreach ($data['commentaries'] as $commentary) {
+                $evolution->addCommentary($this->commentaryManager->format($commentary, true));
+            }
         }
         return $evolution;
     }

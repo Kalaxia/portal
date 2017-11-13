@@ -44,13 +44,13 @@ class BugManager
      */
     public function create($title, $description, User $user)
     {
-        return $this->gateway->createBug(
+        return $this->format(json_decode($this->gateway->createBug(
             $title,
             $description,
-            Bug::STATUS_TODO,
+            Bug::STATUS_TO_SPECIFY,
             $user->getUsername(),
             $user->getEmail()
-        );
+        )->getBody(), true));
     }
     
     /**
@@ -100,7 +100,6 @@ class BugManager
      */
     public function get($id)
     {
-        
         return $this->format(json_decode($this->gateway->getBug($id)->getBody(), true), true);
     }
     
@@ -121,8 +120,10 @@ class BugManager
             ->setCreatedAt(new \DateTime($data['created_at']))
             ->setUpdatedAt(new \DateTime($data['updated_at']))
         ;
-        foreach ($data['commentaries'] as $commentary) {
-            $bug->addCommentary($this->commentaryManager->format($commentary, true));
+        if (!empty($data['commentaries'])) {
+            foreach ($data['commentaries'] as $commentary) {
+                $bug->addCommentary($this->commentaryManager->format($commentary, true));
+            }
         }
         return $bug;
     }

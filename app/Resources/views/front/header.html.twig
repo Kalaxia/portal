@@ -2,6 +2,9 @@
     <h1>Portail</h1>
     <div id="toolbar">
         {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('project_board') }}">
+                Gestionnaire de projet
+            </a>
             <a>
                 {{ app.user.username }}
             </a>
