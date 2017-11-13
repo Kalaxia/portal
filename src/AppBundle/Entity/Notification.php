@@ -15,7 +15,7 @@ class Notification extends NotificationModel
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="auto")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     /**
