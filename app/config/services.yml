@@ -43,3 +43,7 @@ services:
         public: true
         arguments:
             - "%project.feedback.api_url%"
+            
+    AppBundle\Subscriber\RegistrationSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
