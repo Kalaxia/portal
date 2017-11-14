@@ -65,8 +65,8 @@ class FeedbackGateway
                 'description' => $evolution->getDescription(),
                 'status' => $evolution->getStatus(),
                 'author' => [
-                    'name' => $evolution->getAuthor()->getName(),
-                    'email' => $evolution->getAuthor()->getBind()
+                    'name' => $evolution->getAuthor()->getUsername(),
+                    'email' => $evolution->getAuthor()->getEmail()
                 ],
             ])
         ]);
@@ -130,8 +130,8 @@ class FeedbackGateway
                 'description' => $bug->getDescription(),
                 'status' => $bug->getStatus(),
                 'author' => [
-                    'name' => $bug->getAuthor()->getName(),
-                    'email' => $bug->getAuthor()->getBind()
+                    'name' => $bug->getAuthor()->getUsername(),
+                    'email' => $bug->getAuthor()->getEmail()
                 ],
             ])
         ]);

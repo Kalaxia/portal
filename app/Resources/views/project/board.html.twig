@@ -6,6 +6,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}" />
 {% endblock %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/project.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <div id="board-header">
         <h2>{{ 'project.board' | trans }}</h2>
@@ -22,10 +26,22 @@
     {% for status in statuses %}
         <div class="board-column">
             <h3>{{ ("project.status." ~ status) | trans }}</h3>
-            <section>
+            <section {% if is_granted('ROLE_DEVELOPER') %}
+                data-status="{{ status }}"
+                ondrop="drop_handler(event);"
+                ondragover="dragover_handler(event);"
+                {% endif %}>
                 {% if feedbacks[status] is defined %}
                     {% for feedback in feedbacks[status] %}
-                        <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}" class="board-card">
+                        <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}"
+                           id="feedback-{{ feedback.id }}}"
+                           class="board-card"
+                           {% if is_granted('ROLE_DEVELOPER') %}
+                               data-id="{{ feedback.id }}"
+                               data-type="{{ feedback.type }}"
+                               draggable="true"
+                               ondragstart="dragstart_handler(event);"
+                           {% endif %}>
                             <div class="type-image">
                                 <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
                             </div>

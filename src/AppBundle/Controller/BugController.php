@@ -3,8 +3,10 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,6 +28,7 @@ class BugController extends Controller
     }
     
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/bugs", name="create_bug")
      * @Method({"POST"})
      */
@@ -46,7 +49,30 @@ class BugController extends Controller
     }
     
     /**
+     * @Security("has_role('ROLE_DEVELOPER')")
+     * @Route("/bugs/{id}", name="update_bug")
+     * @Method({"PUT"})
+     */
+    public function updateBugStatusAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        if (empty($id = $request->attributes->get('id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_id');
+        }
+        if (empty($data['status'])) {
+            throw new BadRequestHttpException('project.feedback.missing_status');
+        }
+        $bugManager = $this->get(BugManager::class);
+        if (($bug = $bugManager->get($id)) === null) {
+            throw new NotFoundHttpException('project.feedback.not_found');
+        }
+        $bug->setStatus($data['status']);
+        return new JsonResponse($bugManager->update($bug, $this->getUser()));
+    }
+    
+    /**
      * @Route("/bugs/{id}", name="get_bug")
+     * @Method({"GET"})
      */
     public function getAction($id)
     {

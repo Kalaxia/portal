@@ -3,8 +3,11 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,6 +29,7 @@ class EvolutionController extends Controller
     }
     
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/evolutions", name="create_evolution")
      * @Method({"POST"})
      */
@@ -43,6 +47,29 @@ class EvolutionController extends Controller
                 ->create($title, $description, $this->getUser())
                 ->getId()
         ]);
+    }
+    
+    
+    /**
+     * @Security("has_role('ROLE_DEVELOPER')")
+     * @Route("/evolutions/{id}", name="update_evolution")
+     * @Method({"PUT"})
+     */
+    public function updateEvolutionStatusAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        if (empty($id = $request->attributes->get('id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_id');
+        }
+        if (empty($data['status'])) {
+            throw new BadRequestHttpException('project.feedback.missing_status');
+        }
+        $evolutionManager = $this->get(EvolutionManager::class);
+        if (($evolution = $evolutionManager->get($id)) === null) {
+            throw new NotFoundHttpException('project.feedback.not_found');
+        }
+        $evolution->setStatus($data['status']);
+        return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
     }
     
     /**
