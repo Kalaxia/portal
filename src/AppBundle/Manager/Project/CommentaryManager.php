@@ -10,6 +10,7 @@ use AppBundle\Manager\NotificationManager;
 
 use AppBundle\Model\Project\{Commentary, Feedback};
 
+use AppBundle\Utils\Parser;
 
 class CommentaryManager
 {
@@ -19,17 +20,26 @@ class CommentaryManager
     protected $notificationManager;
     /** @var UserManager **/
     protected $userManager;
+    /** @var Parser **/
+    protected $parser;
     
     /**
      * @param FeedbackGateway $feedbackGateway
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
+     * @param Parser $parser
      */
-    public function __construct(FeedbackGateway $feedbackGateway, NotificationManager $notificationManager, UserManager $userManager)
+    public function __construct(
+        FeedbackGateway $feedbackGateway,
+        NotificationManager $notificationManager,
+        UserManager $userManager,
+        Parser $parser
+    )
     {
         $this->feedbackGateway = $feedbackGateway;
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
+        $this->parser = $parser;
     }
     
     /**
@@ -43,7 +53,13 @@ class CommentaryManager
     {
         $commentary = $this->format(json_decode($this
             ->feedbackGateway
-            ->createCommentary($feedback->getId(), $feedback->getType(), $content, $author->getName(), $author->getBind())
+            ->createCommentary(
+                $feedback->getId(),
+                $feedback->getType(),
+                $this->parser->parse($content),
+                $author->getName(),
+                $author->getBind()
+            )
             ->getBody()
         , true));
         

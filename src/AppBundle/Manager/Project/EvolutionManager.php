@@ -11,6 +11,8 @@ use AppBundle\Entity\User;
 
 use AppBundle\Model\Project\Evolution;
 
+use AppBundle\Utils\Parser;
+
 class EvolutionManager
 {
     /** @var FeedbackGateway **/
@@ -21,19 +23,29 @@ class EvolutionManager
     protected $notificationManager;
     /** @var UserManager **/
     protected $userManager;
+    /** @var Parser **/
+    protected $parser;
     
     /**
      * @param FeedbackGateway $gateway
      * @param CommentaryManager $commentaryManager
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
+     * @param Parser $parser
      */
-    public function __construct(FeedbackGateway $gateway, CommentaryManager $commentaryManager, NotificationManager $notificationManager, UserManager $userManager)
+    public function __construct(
+        FeedbackGateway $gateway,
+        CommentaryManager $commentaryManager,
+        NotificationManager $notificationManager,
+        UserManager $userManager,
+        Parser $parser
+    )
     {
         $this->gateway = $gateway;
         $this->commentaryManager = $commentaryManager;
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
+        $this->parser = $parser;
     }
     
     /**
@@ -46,7 +58,7 @@ class EvolutionManager
     {
         return $this->format(json_decode($this->gateway->createEvolution(
             $title,
-            $description,
+            $this->parser->parse($description),
             Evolution::STATUS_TO_SPECIFY,
             $user->getUsername(),
             $user->getEmail()
