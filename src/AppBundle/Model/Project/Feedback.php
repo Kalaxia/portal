@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model\Project;
 
-abstract class Feedback
+abstract class Feedback implements \JsonSerializable
 {
     /** @var string **/
     protected $id;
@@ -199,6 +199,19 @@ abstract class Feedback
             self::STATUS_TO_VALIDATE,
             self::STATUS_TO_DEPLOY,
             self::STATUS_DONE
+        ];
+    }
+    
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'author' => $this->author,
+            'commentaries' => $this->commentaries,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt
         ];
     }
 }

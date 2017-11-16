@@ -103,8 +103,27 @@
     background: rgba(0,0,0,0.6);
 }
 
+#feedback > section > .content > .description > textarea {
+    width:100%;
+    resize: none;
+    padding: 5px;
+}
+
 #feedback > section > .actions {
     flex-grow: 1;
+}
+
+#feedback > section > .actions > button {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.8);
+    padding:15px 30px;
+    color: #A0A0A0;
+    border: 1px solid #A0A0A0;
+    border-radius:40px;
+}
+
+#update-description-button {
+    display: none;
 }
 
 .comment {

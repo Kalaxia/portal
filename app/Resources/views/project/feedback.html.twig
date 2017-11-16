@@ -64,7 +64,14 @@
                 </div>
             </div>
             <div class="actions">
-                
+                {% if app.user.username is defined and feedback.author.username == app.user.username %}
+                    <button id="edit-description-button" onclick="edit_description('{{ feedback.id }}', '{{ feedback.type }}');">
+                        {{ 'project.feedback.edit' | trans }}
+                    </button>
+                    <button id="update-description-button" onclick="update_description('{{ feedback.id }}', '{{ feedback.type }}');">
+                        {{ 'project.feedback.update' | trans }}
+                    </button>
+                {% endif %}
             </div>
         </section>
     </div>

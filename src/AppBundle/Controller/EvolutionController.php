@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use AppBundle\Utils\Parser;
+
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -55,20 +57,22 @@ class EvolutionController extends Controller
      * @Route("/evolutions/{id}", name="update_evolution")
      * @Method({"PUT"})
      */
-    public function updateEvolutionStatusAction(Request $request)
+    public function updateEvolutionAction(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         if (empty($id = $request->attributes->get('id'))) {
             throw new BadRequestHttpException('project.feedback.missing_id');
         }
-        if (empty($data['status'])) {
-            throw new BadRequestHttpException('project.feedback.missing_status');
-        }
         $evolutionManager = $this->get(EvolutionManager::class);
         if (($evolution = $evolutionManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
-        $evolution->setStatus($data['status']);
+        if (!empty($data['status'])) {
+            $evolution->setStatus($data['status']);
+        }
+        if (!empty($description = trim($data['description']))) {
+            $evolution->setDescription($this->get(Parser::class)->parse($description));
+        }
         return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
     }
     

@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use AppBundle\Utils\Parser;
+
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -53,20 +55,22 @@ class BugController extends Controller
      * @Route("/bugs/{id}", name="update_bug")
      * @Method({"PUT"})
      */
-    public function updateBugStatusAction(Request $request)
+    public function updateBugAction(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         if (empty($id = $request->attributes->get('id'))) {
             throw new BadRequestHttpException('project.feedback.missing_id');
         }
-        if (empty($data['status'])) {
-            throw new BadRequestHttpException('project.feedback.missing_status');
-        }
         $bugManager = $this->get(BugManager::class);
         if (($bug = $bugManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
-        $bug->setStatus($data['status']);
+        if (!empty($data['status'])) {
+            $bug->setStatus($data['status']);
+        }
+        if (!empty($description = trim($data['description']))) {
+            $bug->setDescription($this->get(Parser::class)->parse($description));
+        }
         return new JsonResponse($bugManager->update($bug, $this->getUser()));
     }
     

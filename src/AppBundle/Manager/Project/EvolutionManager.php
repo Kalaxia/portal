@@ -72,7 +72,7 @@ class EvolutionManager
      */
     public function update(Evolution $evolution, User $user)
     {
-        $updatedEvolution = $this->gateway->updateEvolution($evolution);
+        $updatedEvolution = $this->format(json_decode($this->gateway->updateEvolution($evolution)->getBody(), true));
         
         $title = 'Evolution mise à jour';
         $content = "{$user->getUsername()} a mis à jour l'évolution \"{$evolution->getTitle()}\".";

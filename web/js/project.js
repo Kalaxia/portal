@@ -26,6 +26,40 @@ const drop_handler = event => {
     });
 };
 
+const edit_description = (id, type) => {
+    var descriptionElement = document.querySelector('#feedback .description');
+    
+    if (descriptionElement.firstChild.tagName === 'textarea') {
+        return;
+    }
+    var textArea = document.createElement('textarea');
+    
+    textArea.setAttribute('name', 'description-update');
+    textArea.innerHTML = descriptionElement.innerText;
+    textArea.style.height = descriptionElement.style.height;
+    descriptionElement.innerHTML = textArea.outerHTML;
+    
+    document.querySelector('#update-description-button').style.display = 'block';
+};
+
+const update_description = (id, type) => {
+    fetch('/' + ((type === 'bug') ? 'bugs' : 'evolutions') + '/' + id, {
+        method: 'PUT', 
+        body: JSON.stringify({
+            description: document.querySelector('#feedback .description > textarea').value
+        }),
+        credentials: 'include'
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw 'Error';
+    }).then(data => {
+        document.querySelector('#feedback .description').innerHTML = data.description;
+        document.querySelector('#update-description-button').style.display = 'none';
+    }).catch(error => console.log(error));
+};
+
 const create_comment = (id, type) => {
     var textArea = document.querySelector('textarea[name="comment-content"]');
     var content = textArea.value;
