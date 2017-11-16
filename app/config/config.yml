@@ -73,5 +73,5 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
-        address:        webmaster@example.com
-        sender_name:    Admin
+        address:        no-reply@kalaxia.com
+        sender_name:    L'équipe de Kalaxia
