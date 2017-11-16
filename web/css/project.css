@@ -96,6 +96,47 @@
     flex-grow: 4;
 }
 
+#feedback > section > .content > .description {
+    margin: auto;
+    width:80%;
+    padding:20px;
+    background: rgba(0,0,0,0.6);
+}
+
 #feedback > section > .actions {
     flex-grow: 1;
+}
+
+.comment {
+    margin:10px 10%;
+    background-color: rgba(0,0,0,0.8);
+    color: #EFEFEF;
+    padding: 20px;
+}
+
+.comment > .author {
+    text-align: right;
+    font-style: italic;
+}
+
+#new-comment {
+    width:80%;
+    margin: auto;
+}
+
+#new-comment textarea {
+    display:block;
+    width: 100%;
+    height:150px;
+    resize: none;
+}
+
+#new-comment button {
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    background-color: rgba(0,0,0,0.8);
+    color: #EFEFEF;
+    padding: 10px 15px;
+    cursor: pointer;
 }

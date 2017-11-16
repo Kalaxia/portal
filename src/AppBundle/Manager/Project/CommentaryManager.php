@@ -4,6 +4,7 @@ namespace AppBundle\Manager\Project;
 
 use AppBundle\Gateway\FeedbackGateway;
 
+use AppBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager;
 
 use AppBundle\Manager\NotificationManager;
@@ -46,10 +47,10 @@ class CommentaryManager
      * @param string $feedbackId
      * @param string $feedbackType
      * @param string $content
-     * @param Player $author
+     * @param User $author
      * @return Response
      */
-    public function create(Feedback $feedback, $content, Player $author)
+    public function create(Feedback $feedback, $content, User $author)
     {
         $commentary = $this->format(json_decode($this
             ->feedbackGateway
@@ -57,15 +58,15 @@ class CommentaryManager
                 $feedback->getId(),
                 $feedback->getType(),
                 $this->parser->parse($content),
-                $author->getName(),
-                $author->getBind()
+                $author->getUsername(),
+                $author->getEmail()
             )
             ->getBody()
         , true));
         
         $title = 'Nouveau commentaire';
         $content =
-            "{$author->getName()} a posté un commentaire sur " .
+            "{$author->getUsername()} a posté un commentaire sur " .
             (($feedback->getType() === Feedback::TYPE_BUG) ? 'le bug ': 'l\'évolution ') .
             " \"{$feedback->getTitle()}\"."
         ;

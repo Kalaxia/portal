@@ -2,6 +2,8 @@
 
 namespace AppBundle\Manager\Project;
 
+use AppBundle\Model\Project\Feedback;
+
 class FeedbackManager
 {
     /** @var BugManager **/
@@ -19,6 +21,23 @@ class FeedbackManager
         $this->evolutionManager = $evolutionManager;
     }
     
+    /**
+     * @param string $id
+     * @param string $type
+     * @return Feedback
+     */
+    public function getFeedback($id, $type)
+    {
+        return
+            ($type === Feedback::TYPE_BUG)
+            ? $this->bugManager->get($id)
+            : $this->evolutionManager->get($id)
+        ;
+    }
+    
+    /**
+     * @return array
+     */
     public function getBoardFeedbacks()
     {
         $bugs = $this->bugManager->getAll();

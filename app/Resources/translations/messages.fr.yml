@@ -24,3 +24,7 @@ project:
         to_validate: 'À valider'
         to_deploy: 'À déployer'
         done: 'Terminé'
+        
+    commentary:
+        create: 'Poster mon commentaire'
+        created_at: 'posté le %date%'

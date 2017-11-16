@@ -35,10 +35,10 @@ class EvolutionController extends Controller
      */
     public function createEvolutionAction(Request $request)
     {
-        if (empty($title = $request->request->get('title'))) {
+        if (empty($title = trim($request->request->get('title')))) {
             throw new BadRequestHttpException('project.feedback.missing_title');
         }
-        if (empty($description = $request->request->get('description'))) {
+        if (empty($description = trim($request->request->get('description')))) {
             throw new BadRequestHttpException('project.feedback.missing_description');
         }
         return $this->redirectToRoute('get_evolution', [

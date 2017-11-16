@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model\Project;
 
-class Commentary
+class Commentary implements \JsonSerializable
 {
     /** @var string **/
     protected $id;
@@ -108,5 +108,19 @@ class Commentary
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'content' => $this->content,
+            'author' => $this->author,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt
+        ];
     }
 }

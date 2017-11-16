@@ -6,6 +6,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}" />
 {% endblock %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/project.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <div id="feedback">
         <header>
@@ -40,6 +44,23 @@
             <div class="content">
                 <div class="description">
                     {{ feedback.description | raw }}
+                </div>
+                <hr>
+                <div class="comments">
+                    {% for comment in feedback.commentaries %}
+                        <div class="comment">
+                            <div class="content">
+                                {{ comment.content | raw }}
+                            </div>
+                            <div class="author">
+                                {{ comment.author.username }}, {{ 'project.commentary.created_at' | trans({"%date%": comment.createdAt | date('full_date' | trans)} ) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="new-comment">
+                    <textarea name="comment-content"></textarea>
+                    <button onclick="create_comment('{{ feedback.id }}', '{{ feedback.type }}');">{{ 'project.commentary.create' | trans }}</button>
                 </div>
             </div>
             <div class="actions">

@@ -25,3 +25,42 @@ const drop_handler = event => {
         console.log(response);
     });
 };
+
+const create_comment = (id, type) => {
+    var textArea = document.querySelector('textarea[name="comment-content"]');
+    var content = textArea.value;
+    if (content.length === 0) return false;
+    
+    fetch(`/feedbacks/${id}/commentaries`, {
+        method: 'POST', 
+        body: JSON.stringify({
+            type: type,
+            content: content
+        }),
+        credentials: 'include'
+    }).then(response => {
+        textArea.value = '';
+        if (response.ok) {
+            return response.json();
+        }
+        throw 'Erreur';
+    }).then(data => {
+        console.log(data);
+        
+        var commentsBox = document.querySelector('.comments');
+        var comment = document.createElement('div');
+        comment.classList.add('comment'); 
+        
+        var contentElement = document.createElement('div');
+        contentElement.classList.add('content');
+        contentElement.innerHTML = data.feedback.content;
+        comment.appendChild(contentElement);
+        
+        var authorElement = document.createElement('div');
+        authorElement.classList.add('author');
+        authorElement.innerHTML = `${data.feedback.author}, ${data.created_at_string}`;
+        comment.appendChild(authorElement);
+        
+        commentsBox.appendChild(comment);
+    }).catch(error => console.log(error));
+};
