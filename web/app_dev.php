@@ -8,11 +8,18 @@ use Symfony\Component\HttpFoundation\Request;
 // for more information
 //umask(0000);
 
+function getLocalNetworkGateway()
+{
+    $data = explode('.', $_SERVER['SERVER_ADDR']);
+    $data[3] = '1';
+    return implode('.', $data);
+}
+
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
 // Feel free to remove this, extend it, or make something more sophisticated.
 if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
-    || !(in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1', '192.168.32.1'], true) || PHP_SAPI === 'cli-server')
+    || !(in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1', getLocalNetworkGateway()], true) || PHP_SAPI === 'cli-server')
 ) {
     header('HTTP/1.0 403 Forbidden');
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
