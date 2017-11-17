@@ -1,4 +1,121 @@
-galactic-portal
+Kalaxia Portal
 ===============
 
-A Symfony project created on November 12, 2017, 12:58 am.
+This repository is a Symfony project for the Kalaxia open-source community portal website.
+
+Anyone following the contributing rules are welcome to contribute to the project.
+
+Setup
+--------
+
+This project uses Docker to setup the environment.
+
+This environment consists in the following technologies:
+
+* PHP 7.x
+* MySQL
+* PHPMyAdmin
+* Nginx
+* MongoDB
+* Citadel Technologies Feedback Manager
+
+So you need Docker on your machine to make it work.
+
+If you prefer to have the whole environment without Docker, you can skip the Docker setup tutorial
+
+### Docker
+
+First, install both Docker and Docker Compose
+
+* [Docker for Windows](https://docs.docker.com/toolbox/toolbox_install_windows/)
+* [Docker for Mac and Linux](https://docs.docker.com/engine/installation/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
+
+Once it's done, install the local copy of the project on your computer.
+
+```
+git clone git@github.com:Kalaxia/portal.git kalaxia-portal
+```
+
+Then go to the created folder, and copy the containers configuration file.
+
+You do not need to edit the default values of this file.
+
+You can finally launch the Docker Compose setup:
+
+```
+cd kalaxia-portal
+cp portal.dist.env portal.env
+docker-compose up -d
+```
+
+At the end of the install, you can check that the containers are running using ```docker-compose ps```.
+
+The output shall be similar to :
+
+```
+         Name                        Command               State                    Ports                  
+-----------------------------------------------------------------------------------------------------------
+portal_feedback_manager   go-wrapper run                   Up      80/tcp                                  
+portal_mongodb            docker-entrypoint.sh mongod      Up      27017/tcp                               
+portal_mysql              docker-entrypoint.sh mysqld      Up      3306/tcp                                
+portal_nginx              /entrypoint.sh nginx -g da ...   Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
+portal_phpfpm             docker-php-entrypoint php-fpm    Up      9000/tcp                                
+portal_phpmyadmin         /home/entrypoint.sh              Up      0.0.0.0:8082->80/tcp  
+```
+
+Now, you have to log in the application container.
+
+```
+docker exec -it portal_phpfpm /bin/bash
+```
+
+### Application setup
+
+Here, you can install the project dependencies and setup the files permissions.
+
+When setting up the dependencies with composer install, you will be prompted some config parameter values.
+
+Please leave the default values, they are related to the containers configuration.
+
+```
+composer install
+chown -R www-data:www-data var/cache
+chown -R www-data:www-data var/logs
+chown -R www-data:www-data var/sessions
+```
+
+You have now to edit the /etc/hosts file to setup the application web address.
+
+In Windows, this file is located in C:\Windows\System32\drivers\etc\hosts.
+
+In both cases, the file must be edited in administrator mode.
+
+You have to add the following line:
+
+```
+127.0.0.1 local.portal.com
+```
+
+In your web browser, you can go to http://local.portal.com.
+
+Usage
+-----
+
+To stop the containers, use ```docker-compose stop```
+
+To set them up again, use ```docker-compose up -d```
+
+If you want to clear the cache, get into the container and then type the following commands:
+
+```
+php bin/console cache:clear
+chown -R www-data:www-data var/cache
+```
+
+If you want to give roles to an user, use FOS User built-in command:
+
+```
+php bin/console fos:user:promote
+```
+
