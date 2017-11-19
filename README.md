@@ -78,11 +78,14 @@ When setting up the dependencies with composer install, you will be prompted som
 
 Please leave the default values, they are related to the containers configuration.
 
+The last line is a setup of the project database tables schema. It will create all the needed tables.
+
 ```
 composer install
 chown -R www-data:www-data var/cache
 chown -R www-data:www-data var/logs
 chown -R www-data:www-data var/sessions
+php bin/console doctrine:migrations:migrate
 ```
 
 You have now to edit the /etc/hosts file to setup the application web address.
@@ -118,4 +121,36 @@ If you want to give roles to an user, use FOS User built-in command:
 ```
 php bin/console fos:user:promote
 ```
+
+**Do not forget to keep your local copy updated !** To update your local branch with the last works of the team, run the foolowing commands:
+
+```
+git fetch
+git rebase origin/develop
+```
+
+```git fetch``` will retrieve the remote updates. If the output is empty, it means that nothing has been updated.
+
+If you see the ```develop``` branch has been updated, use ```rebase``` to retrieve the last commits and set your own in the Git history.
+
+This step is mandatory when you will want to merge your work with develop. Your branch must be updated.
+
+When updating, you can check if there are new database migrations to execute.
+
+To do so, you can run **in the portal container** (``docker exec -it portal_phpfpm /bin/bash``): 
+
+```
+php bin/console doctrine:migrations:status
+```
+
+It will tell you if there are new migrations scripts.
+
+To execute them until you are fully updated, type:
+
+```
+php bin/console doctrine:migrations:migrate
+```
+
+If you need to add tables or modify it, use Doctrine documentation to generate a new migration file (you can ask to Kern who will guide you safely on this adventurous path ;)).
+
 
