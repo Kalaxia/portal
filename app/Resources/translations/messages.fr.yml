@@ -17,6 +17,8 @@ project:
         report_bug: 'Reporter un bug'
         propose_evolution: 'Proposer une évolution'
         create: 'Valider'
+        edit: 'Editer'
+        update: 'Mettre à jour'
     status:
         to_specify: 'À spécifier'
         ready: 'Prêt'

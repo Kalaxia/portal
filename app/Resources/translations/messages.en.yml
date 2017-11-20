@@ -1,1 +1,31 @@
 full_date: 'F j, Y H:i'
+website_name: 'Kalaxia'
+registration: 'Sign up'
+connection: 'Sign in'
+
+project:
+    board: 'Project manager'
+    feedback:
+        title: 'Title'
+        description: 'Description'
+        status: 'Status'
+        author: 'Author'
+        created_at: 'Created on'
+        updated_at: 'Updated on'
+        
+        report_bug: 'Report bug'
+        propose_evolution: 'Suggest a change'
+        create: 'Submit'
+        edit: 'Edit'
+        update: 'Update'
+    status:
+        to_specify: 'To specify'
+        ready: 'Ready'
+        in_progress: 'In progress'
+        to_validate: 'To validate'
+        to_deploy: 'To deploy'
+        done: 'Finished'
+        
+    commentary:
+        create: 'Post my comment'
+        created_at: 'posted on %date%'
