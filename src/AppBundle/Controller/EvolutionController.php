@@ -68,8 +68,8 @@ class EvolutionController extends Controller
             throw new NotFoundHttpException('project.feedback.not_found');
         }
 
-        if (!$evolution->getAuthor()->hasRole('ROLE_DEVELOPER') &&
-            !($evolution->getAuthor()->getId() != $this->getUser()->getId())) {
+        if (!$this->getUser()->hasRole('ROLE_DEVELOPER') &&
+            $evolution->getAuthor()->getId() != $this->getUser()->getId()) {
             throw new AccessDeniedHttpException('project.feedback.access_denied');
         }
 
