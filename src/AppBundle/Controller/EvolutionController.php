@@ -53,7 +53,7 @@ class EvolutionController extends Controller
     
     
     /**
-     * @Security("has_role('ROLE_DEVELOPER')")
+     * @Security("has_role('ROLE_USER')")
      * @Route("/evolutions/{id}", name="update_evolution")
      * @Method({"PUT"})
      */
@@ -67,6 +67,12 @@ class EvolutionController extends Controller
         if (($evolution = $evolutionManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
+
+        if (!$evolution->getAuthor()->hasRole('ROLE_DEVELOPER') &&
+            !($evolution->getAuthor()->getId() != $this->getUser()->getId())) {
+            throw new AccessDeniedHttpException('project.feedback.access_denied');
+        }
+
         if (!empty($data['status'])) {
             $evolution->setStatus($data['status']);
         }
