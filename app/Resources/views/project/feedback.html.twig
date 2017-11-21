@@ -63,19 +63,18 @@
                     <button onclick="create_comment('{{ feedback.id }}', '{{ feedback.type }}');">{{ 'project.commentary.create' | trans }}</button>
                 </div>
             </div>
-            <div class="actions">
+            <div>
+                    <button id="home-button" class="action-button" onclick="window.location= '{{path('project_board')}}';">
+                        {{ 'project.feedback.home' | trans }}
+                    </button>
                 {% if app.user.username is defined and feedback.author.username == app.user.username %}
-                    <button id="edit-description-button" onclick="edit_description('{{ feedback.id }}', '{{ feedback.type }}');">
+                    <button id="edit-description-button" class="action-button" onclick="edit_description('{{ feedback.id }}', '{{ feedback.type }}');">
                         {{ 'project.feedback.edit' | trans }}
                     </button>
-                    <button id="update-description-button" onclick="update_description('{{ feedback.id }}', '{{ feedback.type }}');">
+                    <button id="update-description-button" class="action-button" onclick="update_description('{{ feedback.id }}', '{{ feedback.type }}');">
                         {{ 'project.feedback.update' | trans }}
                     </button>
                 {% endif %}
-                    <br/><br/>
-                  <div id="home-button">
-                     <a href="{{ path('project_board') }}">{{ 'project.commentary.home' | trans }}</a>
-                  </div>
             </div>
         </section>
     </div>
