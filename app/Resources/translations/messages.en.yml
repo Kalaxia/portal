@@ -29,3 +29,4 @@ project:
     commentary:
         create: 'Post my comment'
         created_at: 'posted on %date%'
+        home: 'Back'
