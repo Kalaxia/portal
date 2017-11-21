@@ -12,6 +12,7 @@ project:
         author: 'Author'
         created_at: 'Created on'
         updated_at: 'Updated on'
+        home: 'Back'
         
         report_bug: 'Report bug'
         propose_evolution: 'Suggest a change'
@@ -29,3 +30,4 @@ project:
     commentary:
         create: 'Post my comment'
         created_at: 'posted on %date%'
+        

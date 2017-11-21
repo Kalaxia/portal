@@ -40,6 +40,7 @@ const edit_description = (id, type) => {
     descriptionElement.innerHTML = textArea.outerHTML;
     
     document.querySelector('#update-description-button').style.display = 'block';
+    document.querySelector('#edit-description-button').style.display = 'none';
 };
 
 const update_description = (id, type) => {
@@ -57,6 +58,7 @@ const update_description = (id, type) => {
     }).then(data => {
         document.querySelector('#feedback .description').innerHTML = data.description;
         document.querySelector('#update-description-button').style.display = 'none';
+        document.querySelector('#edit-description-button').style.display = 'block';
     }).catch(error => console.log(error));
 };
 
