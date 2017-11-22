@@ -51,7 +51,7 @@ class BugController extends Controller
     }
     
     /**
-     * @Security("has_role('ROLE_DEVELOPER')")
+     * @Security("has_role('ROLE_USER')")
      * @Route("/bugs/{id}", name="update_bug")
      * @Method({"PUT"})
      */
@@ -65,10 +65,17 @@ class BugController extends Controller
         if (($bug = $bugManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
+
         if (!empty($data['status'])) {
+            if(!$this->getUser()->hasRole('ROLE_DEVELOPER')) {
+                throw new AccessDeniedHttpException('project.feedback.not_developer');
+            }
             $bug->setStatus($data['status']);
         }
         if (!empty($description = trim($data['description']))) {
+            if(!$evolution->getAuthor()->getId() != $this->getUser()->getId()) {
+                throw new AccessDeniedHttpException('project.feedback.not_author');
+            }
             $bug->setDescription($this->get(Parser::class)->parse($description));
         }
         return new JsonResponse($bugManager->update($bug, $this->getUser()));
