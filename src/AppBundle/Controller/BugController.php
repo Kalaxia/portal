@@ -10,8 +10,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Utils\Parser;
 
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\{
+    AccessDeniedHttpException,
+    BadRequestHttpException,
+    NotFoundHttpException
+};
 
 use AppBundle\Manager\Project\BugManager;
 
@@ -67,7 +70,7 @@ class BugController extends Controller
         }
 
         if (!empty($data['status'])) {
-            if(!$this->getUser()->hasRole('ROLE_DEVELOPER')) {
+            if(!$this->isGranted('ROLE_DEVELOPER')) {
                 throw new AccessDeniedHttpException('project.feedback.not_developer');
             }
             $bug->setStatus($data['status']);
