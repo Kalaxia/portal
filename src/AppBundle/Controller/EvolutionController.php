@@ -68,15 +68,16 @@ class EvolutionController extends Controller
             throw new NotFoundHttpException('project.feedback.not_found');
         }
 
-        if (!$this->getUser()->hasRole('ROLE_DEVELOPER') &&
-            $evolution->getAuthor()->getId() != $this->getUser()->getId()) {
-            throw new AccessDeniedHttpException('project.feedback.access_denied');
-        }
-
         if (!empty($data['status'])) {
+            if(!$this->getUser()->hasRole('ROLE_DEVELOPER')) {
+                throw new AccessDeniedHttpException('project.feedback.not_developer');
+            }
             $evolution->setStatus($data['status']);
         }
         if (!empty($description = trim($data['description']))) {
+            if(!$evolution->getAuthor()->getId() != $this->getUser()->getId()) {
+                throw new AccessDeniedHttpException('project.feedback.not_author');
+            }
             $evolution->setDescription($this->get(Parser::class)->parse($description));
         }
         return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
