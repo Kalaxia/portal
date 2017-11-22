@@ -51,7 +51,7 @@ class BugController extends Controller
     }
     
     /**
-     * @Security("has_role('ROLE_DEVELOPER')")
+     * @Security("has_role('ROLE_USER')")
      * @Route("/bugs/{id}", name="update_bug")
      * @Method({"PUT"})
      */
