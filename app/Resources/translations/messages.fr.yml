@@ -4,6 +4,12 @@ website_name: 'Kalaxia'
 registration: 'Inscription'
 connection: 'Connexion'
 
+admin:
+    dashboard: "Administration"
+    
+user:
+    dashboard: "Mon espace"
+
 project:
     board: 'Gestionnaire de projet'
     feedback:

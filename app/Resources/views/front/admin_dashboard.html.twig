@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <div id="servers">
+            <header>
+                <h3>{{ 'game.available_servers' | trans }}</h3>
+                <div class="toolbar">
+                    <a href="#">
+                        {{ 'game.server.create' | trans }}
+                    </a>
+                </div>
+            </header>
+        </div>
+    </div>
+{% endblock %}
