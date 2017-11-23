@@ -33,4 +33,15 @@ class FrontController extends Controller
             'servers' => $this->get(ServerManager::class)->getOpenedServers()
         ]);
     }
+    
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/dashboard", name="admin_dashboard")
+     */
+    public function adminDashboardAction(Request $request)
+    {
+        return $this->render('front/admin_dashboard.html.twig', [
+            'servers' => $this->get(ServerManager::class)->getOpenedServers()
+        ]);
+    }
 }
