@@ -49,10 +49,22 @@
     font-weight: bold;
 }
 
+.type-image {
+    margin-left:10px;
+    margin-right:20px;
+}
+
+.type-image img {
+    width:48px;
+    height:48px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius:25px;
+    border: 1px solid #EFEFEF;
+}
+
 #feedback {
     width: 90%;
     margin: auto;
-    margin-top:40px;
 }
 
 #feedback > header > h2 {
@@ -68,18 +80,18 @@
     flex-grow: 1;
 }
 
-#feedback > section > .feedback-content {
+#feedback > section > .content {
     flex-grow: 4;
 }
 
-#feedback > section > .feedback-content > .description {
+#feedback > section > .content > .description {
     margin: auto;
     width:80%;
     padding:20px;
     background: rgba(0,0,0,0.6);
 }
 
-#feedback > section > .feedback-content > .description > textarea {
+#feedback > section > .content > .description > textarea {
     width:100%;
     resize: none;
     padding: 5px;
