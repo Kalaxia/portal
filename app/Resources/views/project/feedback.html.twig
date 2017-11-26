@@ -11,16 +11,13 @@
     <script type="text/javascript" src="{{ asset('js/project.js') }}"></script>
 {% endblock %}
 
+{% block page_title %}
+    <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
+    {{ feedback.title }}
+{% endblock %}
+
 {% block body %}
     <div id="feedback">
-        <header>
-            <h2>
-                <div class="type-image">
-                    <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
-                </div>
-                {{ feedback.title }}
-            </h2>
-        </header>
         <section>
             <div class="infos">
                 <div class="info-card">
@@ -42,7 +39,7 @@
                 </div>
                 {% endif %}
             </div>
-            <div class="content">
+            <div class="feedback-content">
                 <div class="description">
                     {{ feedback.description | raw }}
                 </div>
@@ -50,7 +47,7 @@
                 <div class="comments">
                     {% for comment in feedback.commentaries %}
                         <div class="comment">
-                            <div class="content">
+                            <div class="feedback-content">
                                 {{ comment.content | raw }}
                             </div>
                             <div class="author">

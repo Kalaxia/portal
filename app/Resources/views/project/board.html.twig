@@ -11,54 +11,55 @@
     <script type="text/javascript" src="{{ asset('js/project.js') }}"></script>
 {% endblock %}
 
+{% block page_title %}{{ 'project.board' | trans }}{% endblock %}
+
 {% block body %}
-    <div id="board-header">
-        <h2>{{ 'project.board' | trans }}</h2>
-        <div id="board-tools">
-            <a href="{{ path('report_bug') }}">
+    <div id="board">
+        <header>
+            <a class="button" href="{{ path('report_bug') }}">
                 {{ 'project.feedback.report_bug' | trans }}
             </a>
-            <a href="{{ path('propose_evolution') }}">
+            <a class="button" href="{{ path('propose_evolution') }}">
                 {{ 'project.feedback.propose_evolution' | trans }}
             </a>
-        </div>
-    </div>
-    <div id="board">
-    {% for status in statuses %}
-        <div class="board-column">
-            <h3>{{ ("project.status." ~ status) | trans }}</h3>
-            <section {% if is_granted('ROLE_DEVELOPER') %}
-                data-status="{{ status }}"
-                ondrop="drop_handler(event);"
-                ondragover="dragover_handler(event);"
-                {% endif %}>
-                {% if feedbacks[status] is defined %}
-                    {% for feedback in feedbacks[status] %}
-                        <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}"
-                           id="feedback-{{ feedback.id }}}"
-                           class="board-card"
-                           {% if is_granted('ROLE_DEVELOPER') %}
-                               data-id="{{ feedback.id }}"
-                               data-type="{{ feedback.type }}"
-                               draggable="true"
-                               ondragstart="dragstart_handler(event);"
-                           {% endif %}>
-                            <div class="type-image">
-                                <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
-                            </div>
-                            <div class="infos">
-                                <div class="title">
-                                    {{ feedback.title }}
+        </header>
+        <section>
+        {% for status in statuses %}
+            <div class="board-column">
+                <h3>{{ ("project.status." ~ status) | trans }}</h3>
+                <section {% if is_granted('ROLE_DEVELOPER') %}
+                    data-status="{{ status }}"
+                    ondrop="drop_handler(event);"
+                    ondragover="dragover_handler(event);"
+                    {% endif %}>
+                    {% if feedbacks[status] is defined %}
+                        {% for feedback in feedbacks[status] %}
+                            <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}"
+                               id="feedback-{{ feedback.id }}}"
+                               class="board-card"
+                               {% if is_granted('ROLE_DEVELOPER') %}
+                                   data-id="{{ feedback.id }}"
+                                   data-type="{{ feedback.type }}"
+                                   draggable="true"
+                                   ondragstart="dragstart_handler(event);"
+                               {% endif %}>
+                                <div class="type-image">
+                                    <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
                                 </div>
-                                <div class="author">
-                                    {{ feedback.author }}
+                                <div class="infos">
+                                    <div class="title">
+                                        {{ feedback.title }}
+                                    </div>
+                                    <div class="author">
+                                        {{ feedback.author }}
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    {% endfor %}
-                {% endif %}
-            </section>
-        </div>
-    {% endfor %}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </section>
+            </div>
+        {% endfor %}
+        </section>
     </div>
 {% endblock %}
