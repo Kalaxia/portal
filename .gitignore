@@ -18,3 +18,5 @@
 /nbproject
 portal.env
 /volumes
+rsa_vault/*
+!rsa_vault/.gitkeep

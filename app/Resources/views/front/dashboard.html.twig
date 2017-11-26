@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dashboard.css') }}" />
+{% endblock %}
+
+{% block page_title %}{{ 'user.dashboard' | trans }}{% endblock %}
+
+{% block body %}
+    <div id="servers">
+        <div>
+            <button>{{ 'game.tutorial.launch' | trans }}</button>
+        </div>
+        <div>
+            <h3>{{ 'game.my_servers' | trans }}</h3>
+            
+            <section class="servers-list">
+                {% for server in app.user.servers %}
+                    <div class="server">
+                        <strong>
+                            {{ server.name }}
+                        </strong>
+                        <em>
+                            {{ server.startedAt | date('full_date' | trans) }}
+                        </em>
+                    </div>
+                {% endfor %}
+            </section>
+        
+            <h3>{{ 'game.available_servers' | trans }}</h3>
+            
+            <section class="servers-list">
+                {% for server in opened_servers %}
+                    <div class="server">
+                        <div class="actions">
+                            <button>{{ 'game.server.join' | trans }}</button>
+                        </div>
+                        <div class="info">
+                            <strong>
+                                {{ server.name }}
+                            </strong>
+                            <em>
+                                {{ server.startedAt | date('full_date' | trans) }}
+                            </em>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+            
+            <h3>{{ 'game.next_servers' | trans }}</h3>
+            
+            <section class="servers-list">
+                {% for server in next_servers %}
+                    <div class="server">
+                        <div class="actions">
+                            <button>{{ 'game.server.join' | trans }}</button>
+                        </div>
+                        <div class="info">
+                            <strong>
+                                {{ server.name }}
+                            </strong>
+                            <em>
+                                {{ server.startedAt | date('full_date' | trans) }}
+                            </em>
+                        </div>
+                            
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+{% endblock %}

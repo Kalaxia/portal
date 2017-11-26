@@ -1,8 +1,15 @@
 ---
 full_date: 'd/m/Y \à H:i'
 website_name: 'Kalaxia'
+homepage: 'Accueil'
 registration: 'Inscription'
 connection: 'Connexion'
+
+admin:
+    dashboard: 'Administration'
+    
+user:
+    dashboard: 'Mon espace'
 
 project:
     board: 'Gestionnaire de projet'
@@ -32,3 +39,20 @@ project:
         create: 'Poster mon commentaire'
         created_at: 'posté le %date%'
         
+        
+game:
+    available_servers: 'Serveurs en cours'
+    next_servers: 'Serveurs à venir'
+    my_servers: 'Mes serveurs'
+    server:
+        create: 'Créer un nouveau serveur'
+        join: "S'inscrire"
+        name: 'Nom'
+        description: 'Description'
+        banner: 'Bannière'
+        started_at: 'Date de lancement'
+        public_key: 'Clé publique RSA'
+        validate: 'Valider'
+
+    tutorial:
+        launch: 'Lancer le tutoriel'

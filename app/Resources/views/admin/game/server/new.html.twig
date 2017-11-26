@@ -1,0 +1,39 @@
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_game.css') }}" />
+{% endblock %}
+
+{% block page_title %}{{ 'game.server.create' | trans }}{% endblock %}
+
+{% block body %}
+    <div id="server-form" class="form">
+        <form method="post" action="{{ path('create_game_server') }}">
+            <div class="form-group">
+                <label for="title">{{ 'game.server.name' | trans }}</label>
+                <input type="text" name="name" placeholder="{{ 'game.server.name' | trans }}" />
+            </div>
+            <div class="form-group">
+                <label for="banner">{{ 'game.server.banner' | trans }}</label>
+                <input type="file" name="banner" placeholder="{{ 'game.server.banner' | trans }}" />
+            </div>
+            <div class="form-group">
+                <label for="started_at">{{ 'game.server.started_at' | trans }}</label>
+                <input type="date" name="started_at" />
+            </div>
+            <div class="form-group">
+                <label for="description">{{ 'game.server.description' | trans }}</label>
+                <textarea name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="public_key">{{ 'game.server.public_key' | trans }}</label>
+                <textarea name="public_key"></textarea>
+            </div>
+            <button type="submit">{{ 'game.server.validate' | trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+

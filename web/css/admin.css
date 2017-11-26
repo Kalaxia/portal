@@ -1,0 +1,10 @@
+#servers {
+    width: 90%;
+    margin:auto;
+}
+
+#servers > header {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}

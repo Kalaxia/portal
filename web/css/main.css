@@ -8,27 +8,15 @@ body {
     margin:0px;
 }
 
-body > header {
-    padding-left:20px;
-    padding-right:10px;
-    background-color: #222;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 2px solid #EFEFEF;
+#page-title h1 {
+    margin:0px;
+    padding-top: 30px;
+    padding-left: 100px;
 }
 
-body > header a {
-    color: #08C;
-    padding-left:10px;
-    padding-right:10px;
-    font-size:1.2em;
-    text-decoration:none;
-}
-
-#toolbar {
-    display: flex;
-    align-items: center;
+#logo {
+    text-align:center;
+    padding-top:10%;
 }
 
 .info-card {
@@ -45,4 +33,66 @@ body > header a {
 .info-card strong {
     display:block;
     font-size: 1.2em;
+}
+
+.button {
+    background-color: #EFEFEF;
+    color: #222;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.form {
+    margin:auto;
+    text-align:center;
+}
+
+.form input,
+.form textarea {
+    width: 250px;
+    margin-top:10px;
+    background:none;
+    border: none;
+    border-bottom: 1px solid #EFEFEF;
+    color: #EFEFEF;
+}
+
+.form input:focus,
+.form textarea {
+    border-bottom: 1px solid #F5871F;
+    color: #F5871F;
+}
+
+.form input {
+    text-align:center;
+}
+
+.form-group {
+    padding-top:20px;
+}
+
+.form .form-group > label {
+    display:block;
+}
+
+.form button {
+    margin-top: 20px;
+}
+
+.servers-list {
+    display:flex;
+}
+
+.server {
+    padding:10px 20px;
+    background: rgba(0,0,0,0.6);
+    
+}
+
+.server strong {
+    display:block;
+}
+
+.server em {
+    display:block;
 }

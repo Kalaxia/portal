@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}" />
+{% endblock %}
+
+{% block page_title %}{{ 'admin.dashboard' | trans }}{% endblock %}
+
+{% block body %}
+    <div id="servers">
+        <header>
+            <h3>{{ 'game.available_servers' | trans }}</h3>
+            <div class="toolbar">
+                <a href="{{ path('new_game_server') }}" class="button">
+                    {{ 'game.server.create' | trans }}
+                </a>
+            </div>
+        </header>
+        <section class="servers-list">
+            {% for server in opened_servers %}
+                <div class="server">
+                    <strong>
+                        {{ server.name }}
+                    </strong>
+                    <em>
+                        {{ server.startedAt | date('full_date' | trans) }}
+                    </em>
+                </div>
+            {% endfor %}
+        </section>
+        <header>
+            <h3>{{ 'game.next_servers' | trans }}</h3>
+        </header>
+        <section class="servers-list">
+            {% for server in next_servers %}
+                <div class="server">
+                    <strong>
+                        {{ server.name }}
+                    </strong>
+                    <em>
+                        {{ server.startedAt | date('full_date' | trans) }}
+                    </em>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}
