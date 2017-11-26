@@ -1,7 +1,14 @@
 full_date: 'F j, Y H:i'
 website_name: 'Kalaxia'
+homepage: 'Home'
 registration: 'Sign up'
 connection: 'Sign in'
+
+admin:
+    dashboard: 'Administration'
+    
+user:
+    dashboard: 'Dashboard'
 
 project:
     board: 'Project manager'

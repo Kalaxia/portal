@@ -64,6 +64,6 @@ class User extends UserModel
      */
     public function getServers()
     {
-        return $this->server;
+        return $this->servers;
     }
 }

@@ -21,4 +21,19 @@ class ServerRepository extends EntityRepository
             ->getResult()
         ;
     }
+    /**
+     * @return array
+     */
+    public function getNextServers()
+    {
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('s')
+            ->from($this->getEntityName(), 's')
+            ->where('s.startedAt > CURRENT_TIMESTAMP()')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

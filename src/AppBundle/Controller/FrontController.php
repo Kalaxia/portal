@@ -29,8 +29,10 @@ class FrontController extends Controller
      */
     public function dashboardAction(Request $request)
     {
+        $serverManager = $this->get(ServerManager::class);
         return $this->render('front/dashboard.html.twig', [
-            'servers' => $this->get(ServerManager::class)->getOpenedServers()
+            'opened_servers' => $serverManager->getOpenedServers(),
+            'next_servers' => $serverManager->getNextServers()
         ]);
     }
     
@@ -40,8 +42,10 @@ class FrontController extends Controller
      */
     public function adminDashboardAction(Request $request)
     {
+        $serverManager = $this->get(ServerManager::class);
         return $this->render('front/admin_dashboard.html.twig', [
-            'servers' => $this->get(ServerManager::class)->getOpenedServers()
+            'opened_servers' => $serverManager->getOpenedServers(),
+            'next_servers' => $serverManager->getNextServers()
         ]);
     }
 }
