@@ -4,6 +4,8 @@ namespace AppBundle\Entity\Game;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use AppBundle\Entity\User;
+
 /**
  * @ORM\Entity()
  * @ORM\Table(name="game__tutorial_servers")
