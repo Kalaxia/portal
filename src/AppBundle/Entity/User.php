@@ -23,6 +23,10 @@ class User extends UserModel
      */
     protected $id;
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Notification", mappedBy="user")
+     */
+    protected $notifications;
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game\Server")
      * @ORM\JoinTable(
      *  name="game__players",
@@ -34,6 +38,7 @@ class User extends UserModel
     public function __construct()
     {
         parent::__construct();
+        $this->notifications = new ArrayCollection();
         $this->servers = new ArrayCollection();
     }
     
@@ -65,5 +70,46 @@ class User extends UserModel
     public function getServers()
     {
         return $this->servers;
+    }
+    
+    /**
+     * @param \AppBundle\Entity\Notification $notification
+     * @return $this
+     */
+    public function addNotification(Notification $notification)
+    {
+        $this->notifications->add($notification);
+        
+        return $this;
+    }
+    
+    /**
+     * @param \AppBundle\Entity\Notification $notification
+     * @return $this
+     */
+    public function removeNotification(Notification $notification)
+    {
+        $this->notifications->removeElement($notification);
+        
+        return $this;
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+    
+    public function getUnreadNotifications()
+    {
+        $data = new ArrayCollection();
+        foreach ($this->notifications as $notification) {
+            if (!$notification->getIsRead()) {
+                $data->add($notification);
+            }
+        }
+        return $data;
     }
 }

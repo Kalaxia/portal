@@ -30,6 +30,58 @@ body {
     padding-top:10%;
 }
 
+#notifications-dropdown {
+    position:absolute;
+    width: 300px;
+    padding-top: 20px;
+    background-color: #222222;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+    top: 60px;
+    left: -400px;
+    z-index: 1100;
+    transition: left 0.4s ease-out;
+}
+
+#notifications-dropdown.active {
+    left: 300px;
+}
+
+#notifications-dropdown > footer {
+    width: 100%;
+    border-top: 1px solid #404040;
+}
+
+#notifications-dropdown > footer > a {
+    display: block;
+    text-align:center;
+    color: #EFEFEF;
+    background-color: #101010;
+    padding: 5px 10px;
+    border-top: 1px solid #565656;
+    text-decoration: none;
+}
+
+.notification > header {
+    text-align:center;
+    border-top: 1px solid #404040;
+    border-bottom: 1px solid #404040;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.notification > section {
+    text-align: justify;
+    background: black;
+    height: 0px;
+    overflow: hidden;
+    transition: padding 0.4s ease-out;
+}
+
+.notification > section.active {
+    height: auto;
+    padding: 10px;
+}
+
 .info-card {
     max-width: 320px;
     background: rgba(0,0,0,0.6);

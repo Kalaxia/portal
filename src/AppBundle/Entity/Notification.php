@@ -19,7 +19,7 @@ class Notification extends NotificationModel
      */
     protected $id;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User") 
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="notifications") 
      */
     protected $user;
     /**

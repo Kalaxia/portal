@@ -38,6 +38,7 @@
 	function toggleMenu() {
 		if( isOpen ) {
 			bodyEl.classList.remove('show-menu');
+            document.querySelector('.menu-dropdown').classList.remove('active');
 		}
 		else {
 			bodyEl.classList.add('show-menu');
