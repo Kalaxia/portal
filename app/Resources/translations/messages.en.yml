@@ -38,3 +38,10 @@ project:
         create: 'Post my comment'
         created_at: 'posted on %date%'
         
+security:
+    login:
+        welcome:    'Log in to your account'
+        username:   'Username'
+        password:   'Password'
+        submit:     'Log in'
+        remember_me:    'Remember me'

@@ -56,3 +56,11 @@ game:
 
     tutorial:
         launch: 'Lancer le tutoriel'
+        
+security:
+    login:
+        welcome:    'Connexion à votre compte'
+        username:   'Identifiant'
+        password:   'Mot de passe'
+        submit:     'Connexion'
+        remember_me:    'Se souvenir de moi'
