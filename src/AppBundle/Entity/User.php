@@ -14,7 +14,7 @@ use AppBundle\Entity\Game\Server;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends UserModel
+class User extends UserModel implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -111,5 +111,12 @@ class User extends UserModel
             }
         }
         return $data;
+    }
+    
+    public function jsonSerialize()
+    {
+        return [
+            'username' => $this->username
+        ];
     }
 }
