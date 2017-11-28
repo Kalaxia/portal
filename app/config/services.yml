@@ -44,6 +44,14 @@ services:
         arguments:
             - "%project.feedback.api_url%"
             
+    AppBundle\Gateway\ServerGateway:
+        public: true
+        
+    AppBundle\Security\RsaEncryptionManager:
+        public: true
+        arguments:
+            - "%kernel.project_dir%"
+            
     AppBundle\Subscriber\RegistrationSubscriber:
         tags:
             - { name: kernel.event_subscriber }
