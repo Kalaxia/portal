@@ -11,17 +11,31 @@ use AppBundle\Entity\Game\{
     TutorialServer
 };
 
+use AppBundle\Utils\Slugger;
+
 class ServerManager
 {
     /** @var EntityManagerInterface **/
     protected $entityManager;
+    /** @var Slugger **/
+    protected $slugger;
     
     /**
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, Slugger $slugger)
     {
         $this->entityManager = $entityManager;
+        $this->slugger = $slugger;
+    }
+    
+    /**
+     * @param int $id
+     * @return Server
+     */
+    public function get($id)
+    {
+        return $this->entityManager->getRepository(Server::class)->find($id);
     }
     
     /**
@@ -42,13 +56,14 @@ class ServerManager
     
     /**
      * @param string $name
+     * @param string $host
      * @param string $description
      * @param string $banner
      * @param string $startedAt
      * @param string $publicKey
      * @param string $type
      */
-    public function create($name, $description, $banner, $startedAt, $publicKey, $type)
+    public function create($name, $host, $description, $banner, $startedAt, $publicKey, $type)
     {
         $serverClass = [
             Server::TYPE_MULTIPLAYER => MultiplayerServer::class,
@@ -58,6 +73,8 @@ class ServerManager
         $server =
             (new $serverClass())
             ->setName($name)
+            ->setSlug($this->slugger->slugify($name))
+            ->setHost($host)
             ->setDescription($description)
             ->setBanner($banner)
             ->setStartedAt(new \DateTime($startedAt))
