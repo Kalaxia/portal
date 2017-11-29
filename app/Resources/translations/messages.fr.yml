@@ -64,3 +64,7 @@ security:
         password:   'Mot de passe'
         submit:     'Connexion'
         remember_me:    'Se souvenir de moi'
+        
+    registration:
+        welcome: 'Créer votre compte'
+        submit: 'Valider'
