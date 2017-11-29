@@ -45,3 +45,7 @@ security:
         password:   'Password'
         submit:     'Log in'
         remember_me:    'Remember me'
+        
+    registration:
+        welcome:    'Create your account'
+        submit: 'Validate'
