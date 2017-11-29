@@ -78,6 +78,10 @@ body {
     text-align:center;
 }
 
+.form input[type=checkbox] {
+    width: auto;
+}
+
 .form-group {
     padding-top:20px;
 }
