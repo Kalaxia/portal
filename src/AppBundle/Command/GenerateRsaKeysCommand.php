@@ -44,7 +44,7 @@ class GenerateRsaKeysCommand extends ContainerAwareCommand
         // Extract the public key from $res to $pubKey
         $publicKeyData = openssl_pkey_get_details($res);
 
-        file_put_contents("{$projectDir}/rsa_vault/portal_rsa", $publicKeyData['key']);
+        file_put_contents("{$projectDir}/rsa_vault/portal_rsa.pub", $publicKeyData['key']);
         
         $output->writeln('<info>RSA keys are correctly generated.</info>');
     }
