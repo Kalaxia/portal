@@ -2,6 +2,8 @@
 
 namespace AppBundle\Security;
 
+use AppBundle\Entity\Game\Server;
+
 class RsaEncryptionManager
 {
     /** @var string **/
@@ -16,16 +18,23 @@ class RsaEncryptionManager
     }
 
     /**
+     * @param Server $server
      * @param string $data
      * @return string
      */
-    public function encrypt($data)
+    public function encrypt(Server $server, $data)
     {
-        openssl_private_encrypt(
-            $data,
-            $crypted,
-            openssl_get_privatekey(file_get_contents("{$this->projectDir}/rsa_vault/portal_rsa"))
-        );
+        openssl_public_encrypt($data, $crypted, $server->getPublicKey());
         return $crypted;
+    }
+    
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function decrypt($data)
+    {
+        openssl_private_decrypt($data, $decrypted, file_get_contents("{$this->projectDir}/rsa_vault/portal_rsa"));
+        return $decrypted;
     }
 }
