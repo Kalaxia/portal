@@ -34,7 +34,7 @@
                 {% for server in opened_servers %}
                     <div class="server">
                         <div class="actions">
-                            <button>{{ 'game.server.join' | trans }}</button>
+                            <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button">{{ 'game.server.join' | trans }}</a>
                         </div>
                         <div class="info">
                             <strong>

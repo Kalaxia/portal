@@ -80,18 +80,18 @@
     flex-grow: 1;
 }
 
-#feedback > section > .content {
+#feedback > section > .feedback-content {
     flex-grow: 4;
 }
 
-#feedback > section > .content > .description {
+#feedback > section > .feedback-content > .description {
     margin: auto;
     width:80%;
     padding:20px;
     background: rgba(0,0,0,0.6);
 }
 
-#feedback > section > .content > .description > textarea {
+#feedback > section > .feedback-content > .description > textarea {
     width:100%;
     resize: none;
     padding: 5px;

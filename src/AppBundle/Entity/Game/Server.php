@@ -31,6 +31,14 @@ abstract class Server extends ServerModel
      */
     protected $name;
     /**
+     * @ORM\Column(type="string", length=80)
+     */
+    protected $slug;
+    /**
+     * @ORM\Column(type="string", length=80)
+     */
+    protected $host;
+    /**
      * @ORM\Column(type="text")
      */
     protected $description;

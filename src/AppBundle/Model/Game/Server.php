@@ -9,6 +9,10 @@ class Server
     /** @var string **/
     protected $name;
     /** @var string **/
+    protected $slug;
+    /** @var string **/
+    protected $host;
+    /** @var string **/
     protected $description;
     /** @var string **/
     protected $banner;
@@ -57,6 +61,44 @@ class Server
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * @param string $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    
+    /**
+     * @param string $host
+     * @return $this
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
     }
     
     /**

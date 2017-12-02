@@ -11,10 +11,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\{
+    BadRequestHttpException,
+    NotFoundHttpException
+};
 
 use AppBundle\Manager\Game\ServerManager;
 use AppBundle\Entity\Game\Server;
+
+use AppBundle\Gateway\ServerGateway;
 
 class ServerController extends Controller
 {
@@ -37,6 +42,9 @@ class ServerController extends Controller
         if (empty($name = $request->request->get('name'))) {
             throw new BadRequestHttpException('game.server.missing_name');
         }
+        if (empty($host = $request->request->get('host'))) {
+            throw new BadRequestHttpException('game.server.missing_host');
+        }
         if (empty($description = $request->request->get('description'))) {
             throw new BadRequestHttpException('game.server.missing_description');
         }
@@ -48,6 +56,7 @@ class ServerController extends Controller
         }
         $this->get(ServerManager::class)->create(
             $name,
+            $host,
             $description,
             $request->request->get('banner', 'default.png'),
             $startedAt,
@@ -64,6 +73,16 @@ class ServerController extends Controller
      */
     public function joinServerAction(Request $request)
     {
-        return new Response('ok');
+        if (empty($serverId = $request->attributes->get('server_id'))) {
+            throw new BadRequestHttpException('game.server.missing_server_id');
+        }
+        if (($server = $this->get(ServerManager::class)->get($serverId)) === null) {
+            throw new NotFoundHttpException('game.server.not_found');
+        }
+        $response = $this->get(ServerGateway::class)->connectPlayer($server, $this->getUser());
+        $jwt = $this->get(\AppBundle\Security\RsaEncryptionManager::class)->decrypt($response->getBody()->getContents());
+        return new Response('', Response::HTTP_OK, [
+            'Location' => "{$server->getHost()}?jwt=$jwt",
+        ]);
     }
 }

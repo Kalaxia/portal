@@ -40,6 +40,9 @@ project:
         created_at: 'posté le %date%'
         
         
+notifications:
+    all: 'Toutes les notifications'
+        
 game:
     available_servers: 'Serveurs en cours'
     next_servers: 'Serveurs à venir'
@@ -48,6 +51,7 @@ game:
         create: 'Créer un nouveau serveur'
         join: "S'inscrire"
         name: 'Nom'
+        host: 'Adresse'
         description: 'Description'
         banner: 'Bannière'
         started_at: 'Date de lancement'

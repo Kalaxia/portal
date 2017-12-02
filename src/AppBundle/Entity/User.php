@@ -14,7 +14,7 @@ use AppBundle\Entity\Game\Server;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends UserModel
+class User extends UserModel implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -22,6 +22,10 @@ class User extends UserModel
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Notification", mappedBy="user")
+     */
+    protected $notifications;
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game\Server")
      * @ORM\JoinTable(
@@ -34,6 +38,7 @@ class User extends UserModel
     public function __construct()
     {
         parent::__construct();
+        $this->notifications = new ArrayCollection();
         $this->servers = new ArrayCollection();
     }
     
@@ -65,5 +70,53 @@ class User extends UserModel
     public function getServers()
     {
         return $this->servers;
+    }
+    
+    /**
+     * @param \AppBundle\Entity\Notification $notification
+     * @return $this
+     */
+    public function addNotification(Notification $notification)
+    {
+        $this->notifications->add($notification);
+        
+        return $this;
+    }
+    
+    /**
+     * @param \AppBundle\Entity\Notification $notification
+     * @return $this
+     */
+    public function removeNotification(Notification $notification)
+    {
+        $this->notifications->removeElement($notification);
+        
+        return $this;
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+    
+    public function getUnreadNotifications()
+    {
+        $data = new ArrayCollection();
+        foreach ($this->notifications as $notification) {
+            if (!$notification->getIsRead()) {
+                $data->add($notification);
+            }
+        }
+        return $data;
+    }
+    
+    public function jsonSerialize()
+    {
+        return [
+            'username' => $this->username
+        ];
     }
 }

@@ -92,7 +92,7 @@ body,
 }
 
 .menu-top {
-	line-height: 58px;
+    display: flex;
 }
 
 .menu-top .profile {
@@ -112,13 +112,30 @@ body,
 }
 
 .icon-list {
-	display: inline-block;
+	display: flex;
+    align-items: center;
 	font-size: 1.25em;
 }
 
 .icon-list a {
-	margin: 0 1em 0 0;
 	padding: 0;
+}
+
+.icon-list img {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-list .badge {
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 20px;
+    position: relative;
+    left: -20px;
+    background-color: #c94e50;
+    border-radius: 40px;
+    color: #EFEFEF;
+    font-size: 0.8em;
 }
 
 @media screen and (max-width: 32em) {
