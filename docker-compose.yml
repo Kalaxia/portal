@@ -5,6 +5,8 @@ networks:
         driver: bridge
     mongo:
         driver: bridge
+    kalaxia_game:
+        external: true
         
 services:
     phpfpm:
@@ -15,6 +17,7 @@ services:
             - portal.env
         networks:
             - portal
+            - kalaxia_game
         volumes:
             - "./:/srv/app"
             
