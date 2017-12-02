@@ -33,11 +33,11 @@ class ServerGateway
      */
     public function connectPlayer(Server $server, User $player)
     {
-        return $this->client->post("{$server->getHost()}/auth", [
+        return $this->client->post("{$server->getHost()}/api/auth", [
             'headers' => [
                 'Content-Type' => 'text/plain'
             ],
-            'body' => $this->rsaEncryptionManager->encrypt(json_encode($player))
+            'body' => $this->rsaEncryptionManager->encrypt($server, json_encode($player))
         ]);
     }
 }
