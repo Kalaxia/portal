@@ -79,8 +79,7 @@ class ServerController extends Controller
         if (($server = $this->get(ServerManager::class)->get($serverId)) === null) {
             throw new NotFoundHttpException('game.server.not_found');
         }
-        $response = $this->get(ServerGateway::class)->connectPlayer($server, $this->getUser());
-        $jwt = $this->get(\AppBundle\Security\RsaEncryptionManager::class)->decrypt($response->getBody()->getContents());
+        $jwt = $this->get(ServerManager::class)->joinServer($server, $this->getUser());
         return new Response('', Response::HTTP_OK, [
             'Location' => "{$server->getHost()}?jwt=$jwt",
         ]);

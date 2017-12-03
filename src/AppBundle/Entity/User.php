@@ -55,6 +55,15 @@ class User extends UserModel implements \JsonSerializable
     
     /**
      * @param Server $server
+     * @return bool
+     */
+    public function hasServer(Server $server)
+    {
+        return $this->servers->contains($server);
+    }
+    
+    /**
+     * @param Server $server
      * @return $this
      */
     public function removeServer(Server $server)

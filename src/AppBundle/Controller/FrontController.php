@@ -31,7 +31,7 @@ class FrontController extends Controller
     {
         $serverManager = $this->get(ServerManager::class);
         return $this->render('front/dashboard.html.twig', [
-            'opened_servers' => $serverManager->getOpenedServers(),
+            'available_servers' => $serverManager->getAvailableServers($this->getUser()),
             'next_servers' => $serverManager->getNextServers()
         ]);
     }

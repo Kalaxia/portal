@@ -8,36 +8,28 @@ use GuzzleHttp\Psr7\Response;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Game\Server;
 
-use AppBundle\Security\RsaEncryptionManager;
-
 class ServerGateway
 {
     /** @var Client **/
     protected $client;
-    /** @var RsaEncryptionManager **/
-    protected $rsaEncryptionManager;
     
-    /**
-     * @param RsaEncryptionManager $rsaEncryptionManager
-     */
-    public function __construct(RsaEncryptionManager $rsaEncryptionManager)
+    public function __construct()
     {
         $this->client = new Client();
-        $this->rsaEncryptionManager = $rsaEncryptionManager;
     }
     
     /**
-     * @param Server $server
-     * @param User $player
+     * @param string $host
+     * @param string $content
      * @return Response
      */
-    public function connectPlayer(Server $server, User $player)
+    public function connectPlayer($host, $content)
     {
-        return $this->client->post("{$server->getHost()}/api/auth", [
+        return $this->client->post("$host/api/auth", [
             'headers' => [
                 'Content-Type' => 'text/plain'
             ],
-            'body' => $this->rsaEncryptionManager->encrypt($server, json_encode($player))
+            'body' => $content
         ]);
     }
 }

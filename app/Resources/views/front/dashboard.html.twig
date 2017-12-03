@@ -10,32 +10,14 @@
 {% block body %}
     <div id="servers">
         <div>
-            <button>{{ 'game.tutorial.launch' | trans }}</button>
+            <button class="button">{{ 'game.tutorial.launch' | trans }}</button>
         </div>
         <div>
+            {% if app.user.servers | length > 0 %}
             <h3>{{ 'game.my_servers' | trans }}</h3>
-            
             <section class="servers-list">
                 {% for server in app.user.servers %}
                     <div class="server">
-                        <strong>
-                            {{ server.name }}
-                        </strong>
-                        <em>
-                            {{ server.startedAt | date('full_date' | trans) }}
-                        </em>
-                    </div>
-                {% endfor %}
-            </section>
-        
-            <h3>{{ 'game.available_servers' | trans }}</h3>
-            
-            <section class="servers-list">
-                {% for server in opened_servers %}
-                    <div class="server">
-                        <div class="actions">
-                            <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button">{{ 'game.server.join' | trans }}</a>
-                        </div>
                         <div class="info">
                             <strong>
                                 {{ server.name }}
@@ -44,12 +26,38 @@
                                 {{ server.startedAt | date('full_date' | trans) }}
                             </em>
                         </div>
+                        <div class="actions">
+                            <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button success">{{ 'game.server.play' | trans }}</a>
+                        </div>
                     </div>
                 {% endfor %}
             </section>
+            {% endif %}
+        
+            {% if available_servers | length > 0 %}
+            <h3>{{ 'game.available_servers' | trans }}</h3>
+            <section class="servers-list">
+                {% for server in available_servers %}
+                    <div class="server">
+                        <div class="info">
+                            <strong>
+                                {{ server.name }}
+                            </strong>
+                            <em>
+                                {{ server.startedAt | date('full_date' | trans) }}
+                            </em>
+                        </div>
+                        <div class="actions">
+                            <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button warning">{{ 'game.server.join' | trans }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+            {% endif %}
             
+            
+            {% if next_servers | length > 0 %}
             <h3>{{ 'game.next_servers' | trans }}</h3>
-            
             <section class="servers-list">
                 {% for server in next_servers %}
                     <div class="server">
@@ -68,6 +76,7 @@
                     </div>
                 {% endfor %}
             </section>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -51,6 +51,7 @@ game:
     server:
         create: 'Créer un nouveau serveur'
         join: "S'inscrire"
+        play: 'Jouer'
         name: 'Nom'
         host: 'Adresse'
         description: 'Description'

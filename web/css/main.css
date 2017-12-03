@@ -109,6 +109,16 @@ body {
     text-decoration: none;
 }
 
+.button.warning {
+    color: #EFEFEF;
+    background-color: #F5871F;
+}
+
+.button.success {
+    color: #EFEFEF;
+    background-color: #3a3;
+}
+
 .form {
     margin:auto;
     text-align:center;
@@ -155,9 +165,15 @@ body {
 }
 
 .server {
+    display: flex;
+    align-items: center;
     padding:10px 20px;
+    margin-right: 10px;
     background: rgba(0,0,0,0.6);
-    
+}
+
+.server > .actions {
+    margin-left: 10px;
 }
 
 .server strong {
