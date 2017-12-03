@@ -40,6 +40,6 @@ class RegistrationSubscriber implements EventSubscriberInterface
      */
     public function onRegistrationSuccess(FormEvent $event)
     {
-        $event->setResponse(new RedirectResponse($this->router->generate('homepage')));
+        $event->setResponse(new RedirectResponse($this->router->generate('dashboard')));
     }
 }
