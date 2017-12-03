@@ -148,3 +148,19 @@
     padding: 10px 15px;
     cursor: pointer;
 }
+
+#project-description {
+    margin: 40px;
+}
+
+#project-description > section > h3 {
+    color: #F5871F;
+    text-align:center;
+}
+
+#project-description > section > p {
+    width: 50%;
+    padding-top:5px;
+    margin:auto;
+    text-align: justify;
+}

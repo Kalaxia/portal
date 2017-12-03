@@ -23,4 +23,12 @@ class ProjectController extends Controller
             'feedbacks' => $this->get(FeedbackManager::class)->getBoardFeedbacks()
         ]);
     }
+    
+    /**
+     * @Route("/project/description", name="project_description")
+     */
+    public function descriptionAction()
+    {
+        return $this->render('project/description.html.twig');
+    }
 }

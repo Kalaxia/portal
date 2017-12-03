@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}" />
+{% endblock %}
+
+{% block page_title %}{{ 'project.description.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div id="project-description">
+        <section>
+            <h3>{{ 'project.description.introduction.title' | trans }}</h3>
+            {{ 'project.description.introduction.body' | trans | raw }}
+        </section>
+        <section>
+            <h3>{{ 'project.description.decisions.title' | trans }}</h3>
+            {{ 'project.description.decisions.body' | trans | raw }}
+        </section>
+        <section>
+            <h3>{{ 'project.description.agility.title' | trans }}</h3>
+            {{ 'project.description.agility.body' | trans | raw }}
+        </section>
+        <section>
+            <h3>{{ 'project.description.groups.title' | trans }}</h3>
+            {{ 'project.description.groups.body' | trans | raw }}
+        </section>
+    </div>
+{% endblock %}

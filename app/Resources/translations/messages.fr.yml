@@ -21,6 +21,43 @@ user:
 
 project:
     board: 'Gestionnaire de projet'
+    description:
+        title: 'Fonctionnement de la communauté'
+        introduction:
+            title: 'Introduction'
+            body: >
+                <p>Le projet du jeu Kalaxia a été créé par la communauté d'Asylamba, un autre jeu de stratégie spatiale.</p>
+                <p>Désireux de lancer une nouvelle aventure opensource, les membres ont lancé la conception d'un tout nouveau jeu, voulu innovant avec un gameplay riche.</p>
+                <p>Voici les grandes lignes du fonctionnement de la communauté Kalaxia</p>
+        decisions:
+            title: 'Prise de décision'
+            body: >
+                <p>La prise de décisions au sein de la communauté est collégiale. Chaque membre peut proposer une fonctionnalité, qui sera débattue puis votée par l'ensemble de la communauté.</p>
+                <p>Aucun membre, quel que soit son rôle dans la communauté, n'a une voix plus importante qu'un autre dans ce modèle de prise de décisions.</p>
+                
+                <p>Le cycle de vie d'une fonctionnalité est le suivant: un membre souhaitant proposer une idée crée une carte dans le gestionnaire de projet.</p>
+                <p>Les autres membres, via le système de commentaires, vont pouvoir discuter l'idée proposée, débattre et proposer des adaptations.</p>
+                <p>L'auteur peut dès lors éditer sa proposition d'origine, et, lorsqu'il le souhaite, la soumettre au vote.</p>
+                <p>En cas d'approbation par la communauté, la carte devient "prête" et les développements peuvent être lancés.</p>
+                <p>En cas de rejet, la carte reste "à spécifier", et l'auteur pourra apporter les évolutions nécessaires avant de tenter un nouveau vote !</p>
+        agility:
+            title: 'Agilité'
+            body: >
+                <p>La philosophie Agile est au coeur de la vie de la communauté. Pour garantir un grand pouvoir d'adaptation, chaque fonctionnalité peut être sujette à des remaniements, des évolutions.</p>
+                <p>L'expérimentation ne doit pas être crainte, c'est ce qui permet de tester plusieurs possibilités avant d'arriver à une solution pérenne.</p>
+                <p>Nous fonctionnons par MVP (Minimum Viable Product). Ce concept consiste à développer en priorité le coeur des fonctionnalités, ce qui fait sa valeur, avant de passer à leurs finitions.</p>
+                <p>Le but de cette approche est de pouvoir garantir des livraisons régulières et ainsi conserver une dynamique forte au sein de la communauté, qui pourra donc faire des retours (feedbacks) sur les différents éléments livrés.</p>
+                <p>Ces retours sont le carburant d'un projet Agile, car ils permettent d'adapter le jeu jusqu'à obtenir un gameplay riche, adapté aux joueurs et solidement éprouvé !</p>
+        groups:
+            title: 'Groupes de travail'
+            body: >
+                <p>Différents groupes de travail coexistent au sein de la communauté: les graphistes, les rédacteurs du Background/Lore du jeu, les développeurs...</p>
+                <p>Un coach est élu par son groupe pour coordonner les actions du groupe de travail.</p>
+                <p>Ce coach a un rôle de conseil qui consiste à faciliter les activités du groupe, pour en améliorer l'efficacité et fluidifier les échanges.</p>
+                <p>Régulièrement, un nouveau coach est élu à la place du précédent, ce afin de créer un cercle vertueux de responsabilisation et d'auto-gestion.</p>
+                <p>Il peut arriver dans un groupe que personne n'ait suffisament la maîtrise du domaine associé pour pouvoir remplacer le coach, auquel cas il conserve son rôle.</p>
+                <p>Un Product Owner est présent dans la communauté, et a pour rôle de prioriser les différentes tâches et de valider que les travaux réalisés correspondent aux fonctionnalités votées par la communauté.</p>
+                <p>Il mesure également l'impact des différentes fonctionnalités sur le gameplay et tient compte des retours (feedbacks) des utilisateurs pour pouvoir suggérer des adaptations.</p>
     feedback:
         title: 'Intitulé'
         description: 'Description'
