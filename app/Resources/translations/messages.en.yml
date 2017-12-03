@@ -1,8 +1,10 @@
+---
 full_date: 'F j, Y H:i'
 website_name: 'Kalaxia'
 homepage: 'Home'
 registration: 'Sign up'
 connection: 'Sign in'
+anonymous: 'Anonymous'
 
 admin:
     dashboard: 'Administration'
@@ -37,6 +39,27 @@ project:
     commentary:
         create: 'Post my comment'
         created_at: 'posted on %date%'
+        
+notifications:
+    all: 'See all'
+        
+game:
+    available_servers: 'Available servers'
+    next_servers: 'Incoming servers'
+    my_servers: 'My servers'
+    server:
+        create: 'Create a new server'
+        join: "Register"
+        name: 'Name'
+        host: 'Host'
+        description: 'Description'
+        banner: 'Banner'
+        started_at: 'Start date'
+        public_key: 'RSA public key'
+        validate: 'Validate'
+
+    tutorial:
+        launch: 'Start tutorial'
         
 security:
     login:

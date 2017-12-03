@@ -4,6 +4,7 @@ website_name: 'Kalaxia'
 homepage: 'Accueil'
 registration: 'Inscription'
 connection: 'Connexion'
+anonymous: 'Visiteur'
 
 admin:
     dashboard: 'Administration'
