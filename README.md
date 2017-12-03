@@ -74,11 +74,13 @@ docker exec -it portal_phpfpm /bin/bash
 
 Here, you can install the project dependencies and setup the files permissions.
 
-When setting up the dependencies with composer install, you will be prompted some config parameter values.
+When setting up the dependencies with composer install, **you will be prompted some config parameter values**.
 
 Please leave the default values, they are related to the containers configuration.
 
-The last line is a setup of the project database tables schema. It will create all the needed tables.
+The Doctrine command line is a setup of the project database tables schema. It will create all the needed tables.
+
+The security command line generates the RSA keypair, used to establish a communication with the game servers.
 
 ```
 composer install
@@ -86,6 +88,7 @@ chown -R www-data:www-data var/cache
 chown -R www-data:www-data var/logs
 chown -R www-data:www-data var/sessions
 php bin/console doctrine:migrations:migrate
+php bin/console security:rsa:generate
 ```
 
 You have now to edit the /etc/hosts file to setup the application web address.
