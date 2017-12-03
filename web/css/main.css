@@ -69,6 +69,10 @@ body {
     cursor: pointer;
 }
 
+.notification.unread > header {
+    border-top: 5px solid #F5871F;
+}
+
 .notification > section {
     text-align: justify;
     background: black;
