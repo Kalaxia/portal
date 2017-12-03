@@ -1,0 +1,15 @@
+#logo {
+    text-align:center;
+    padding-top:8%;
+}
+
+#description {
+    margin-top:50px;
+    text-align:center;
+}
+
+#description > .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

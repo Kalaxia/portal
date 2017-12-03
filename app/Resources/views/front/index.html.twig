@@ -1,7 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/homepage.css') }}" />
+{% endblock %}
+
 {% block body %}
     <div id="logo">
         <img src="{{ asset('images/logo_typo_white.png') }}">
+    </div>
+    <div id="description">
+        <h2>{{ 'homepage.description.title' | trans }}</h2>
+        <div class="actions">
+            <a href="https://discord.gg/mDTms5c" class="button warning">{{ 'homepage.description.join_discord' | trans }}</a>
+            <a href="{{ path('fos_user_registration_register') }}" class="button success">{{ 'homepage.description.play_game' | trans }}</a>
+            <a href="#" class="button warning">{{ 'homepage.description.read_info' | trans }}</a>
+        </div>
     </div>
 {% endblock %}

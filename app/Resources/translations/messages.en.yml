@@ -1,10 +1,17 @@
 ---
 full_date: 'F j, Y H:i'
 website_name: 'Kalaxia'
-homepage: 'Home'
 registration: 'Sign up'
 connection: 'Sign in'
 anonymous: 'Anonymous'
+
+homepage:
+    title: 'Home'
+    description:
+        title: 'Kalaxia is a 100% opensource, 100% free, 100% community-designed multiplayer spatial strategy game'
+        join_discord: 'Rejoindre la communauté sur Discord'
+        play_game: 'Jouer à Kalaxia'
+        read_info: 'Fonctionnement de la communauté'
 
 admin:
     dashboard: 'Administration'
