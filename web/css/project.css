@@ -158,9 +158,18 @@
     text-align:center;
 }
 
-#project-description > section > p {
+#project-description > section > ul,
+#project-description > section > p,
+#project-description > section > strong {
     width: 50%;
     padding-top:5px;
     margin:auto;
+}
+
+#project-description > section > p {
     text-align: justify;
+}
+
+#project-description > section > strong {
+    display: block;
 }

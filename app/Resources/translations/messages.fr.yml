@@ -56,8 +56,19 @@ project:
                 <p>Ce coach a un rôle de conseil qui consiste à faciliter les activités du groupe, pour en améliorer l'efficacité et fluidifier les échanges.</p>
                 <p>Régulièrement, un nouveau coach est élu à la place du précédent, ce afin de créer un cercle vertueux de responsabilisation et d'auto-gestion.</p>
                 <p>Il peut arriver dans un groupe que personne n'ait suffisament la maîtrise du domaine associé pour pouvoir remplacer le coach, auquel cas il conserve son rôle.</p>
+                <p>Le Coach de groupe:</p>
+                <ul>
+                    <li>aide les membres de son groupe à formaliser leurs idées</li>
+                    <li>résume les idées de manière général</li>
+                    <li>cherche le consensus pour son groupe</li>
+                    <li>s'assure de la bonne ambiance de travail de son groupe</li>
+                    <li>favorise les discussions, même les débats, mais modère les conflits!</li>
+                    <li>s'adresse aux Modérateurs de la communauté s'il n'arrive pas à gérer un conflit</li>
+                </ul>
+                <strong>Attention, le coach ne doit pas pousser ces idées personnelles, mais favoriser l'émergence des idées des contributeurs de son groupe. Le Coach n'est pas un Manager, ni le chef de son groupe, c'est un facilitateur !</strong>
                 <p>Un Product Owner est présent dans la communauté, et a pour rôle de prioriser les différentes tâches et de valider que les travaux réalisés correspondent aux fonctionnalités votées par la communauté.</p>
                 <p>Il mesure également l'impact des différentes fonctionnalités sur le gameplay et tient compte des retours (feedbacks) des utilisateurs pour pouvoir suggérer des adaptations.</p>
+    
     feedback:
         title: 'Intitulé'
         description: 'Description'

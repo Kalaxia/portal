@@ -9,9 +9,9 @@ homepage:
     title: 'Home'
     description:
         title: 'Kalaxia is a 100% opensource, 100% free, 100% community-designed multiplayer spatial strategy game'
-        join_discord: 'Rejoindre la communauté sur Discord'
-        play_game: 'Jouer à Kalaxia'
-        read_info: 'Fonctionnement de la communauté'
+        join_discord: 'Join the community on Discord'
+        play_game: 'Play Kalaxia'
+        read_info: 'Community rules'
 
 admin:
     dashboard: 'Administration'
@@ -21,6 +21,54 @@ user:
 
 project:
     board: 'Project manager'
+    description:
+        title: 'Community rules'
+        introduction:
+            title: 'Introduction'
+            body: >
+                <p>Kalaxia project was created by the community of Asylamba, another spatial strategy game</p>
+                <p>Eager to launch a new opensource adventure, the members wanted it to be innovative, with a deep gameplay.</p>
+                <p>Here is a quick explaination of the community ways</p>
+        decisions:
+            title: 'Decisions making'
+            body: >
+                <p>Decisions are taken by the whole community. Each member is able to propose a feature, which will be debated and then voted by all.</p>
+                <p>No one, no matter his role in the community, has a more important voice than the others.</p>
+                
+                <p>Here is the feature lifecycle: a member wishing to propose a feature creates a card on the project board.</p>
+                <p>The community, using comments, can discuss the idea, debate and propose evolutions.</p>
+                <p>Then the author can edit his original proposition, and submit it to vote when he feels it's ready.</p>
+                <p>If the community approves the feature, the card is "ready" and the developements can start.</p>
+                <p>Else, the card is still "to specify", and the author shall be able to edit again his proposition to improve it before a new vote !</p>
+        agility:
+            title: 'Agility'
+            body: >
+                <p>Agility philosophy is the community life's heart. Each feature can be modified and evolve, to ensure a great possibility of adaptation.</p>
+                <p>Experiments must not be feared, that is what allow us to test different possibilities before reaching a long-term solution.</p>
+                <p>We work the MVP (Minimum Viable Product) way. That way consists to develop first the heart of features, which makes their value, before the polishing.</p>
+                <p>This approach aims to guarantee regular shipments to keep a strong dynamic inside the community, which will be able to make feedbacks about the shipped elements.</p>
+                <p>These feedbacks are the fuel of Agile project, for they allow us to make the game evolve with strong mechanics, tested and adapted to players !</p>
+        groups:
+            title: 'Work groups'
+            body: >
+                <p>Several work groups exist amongst the community: graphic artists, lore writers, developers...</p>
+                <p>A coach is elected by his group to coordinate its activities.</p>
+                <p>This coach has a council role to facilitate the group work, to improve its efficiency and ease the discussions.</p>
+                <p>A new coach is regularly elected to replace the previous one, to create a positive atmosphere of accountability and self management.</p>
+                <p>It may happen that no one in the group is able to replace the current coach, in which case he keeps his role.</p>
+                <p>The group Coach:</p>
+                <ul>
+                    <li>helps his group members to formalize their ideas</li>
+                    <li>summarizes ideas</li>
+                    <li>looks for consensus in his group</li>
+                    <li>ensures a good work ambience for its team</li>
+                    <li>enpowers discussions and debates but handles conflicts</li>
+                    <li>talk to the moderators if he cannot resolve a conflict</li>
+                </ul>
+                <strong>Beware, the coach must not put forward his own ideas, but promote all ideas in his group. A Coach is not a Manager, nor a chieftain, he is a facilitator !</strong>
+                <p>A Product Owner is present amongst the community, and has to priorize the tasks and ensure the resulting work is compliant to the voted features.</p>
+                <p>He watch the impact of the gameplay features and take account of the feedbacks to propose ways to improve the game !</p>
+    
     feedback:
         title: 'Title'
         description: 'Description'
