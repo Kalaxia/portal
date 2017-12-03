@@ -13,7 +13,7 @@
         <h2>{{ 'homepage.description.title' | trans }}</h2>
         <div class="actions">
             <a href="https://discord.gg/mDTms5c" class="button warning">{{ 'homepage.description.join_discord' | trans }}</a>
-            <a href="{{ path('fos_user_registration_register') }}" class="button success">{{ 'homepage.description.play_game' | trans }}</a>
+            <a href="{{ (is_granted('ROLE_USER')) ? path('dashboard') : path('fos_user_registration_register') }}" class="button success">{{ 'homepage.description.play_game' | trans }}</a>
             <a href="{{ path('project_description') }}" class="button warning">{{ 'homepage.description.read_info' | trans }}</a>
         </div>
     </div>
