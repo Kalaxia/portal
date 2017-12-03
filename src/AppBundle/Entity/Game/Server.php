@@ -47,6 +47,10 @@ abstract class Server extends ServerModel
      */
     protected $banner;
     /**
+     * @ORM\Column(type="string", length=85) 
+     */
+    protected $signature;
+    /**
      * @ORM\Column(type="text")
      */
     protected $publicKey;

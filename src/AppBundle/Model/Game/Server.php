@@ -17,6 +17,8 @@ class Server
     /** @var string **/
     protected $banner;
     /** @var string **/
+    protected $signature;
+    /** @var string **/
     protected $publicKey;
     /** @var \DateTime **/
     protected $createdAt;
@@ -137,6 +139,25 @@ class Server
     public function getBanner()
     {
         return $this->banner;
+    }
+    
+    /**
+     * @param string $signature
+     * @return string
+     */
+    public function setSignature($signature)
+    {
+        $this->signature = $signature;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSignature()
+    {
+        return $this->signature;
     }
     
     /**
