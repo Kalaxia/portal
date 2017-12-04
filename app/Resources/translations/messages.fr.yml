@@ -126,6 +126,7 @@ security:
         submit:     'Connexion'
         remember_me:    'Se souvenir de moi'
         already_logged_in: 'Vous êtes déjà connecté !'
+        forgotten_password: 'Réinitialiser le mot de passe.'
 
     registration:
         welcome: 'Créer votre compte'

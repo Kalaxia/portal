@@ -125,6 +125,7 @@ security:
         submit:     'Log in'
         remember_me:    'Remember me'
         already_logged_in: 'You are already logged in !'
+        forgotten_password: 'Reset your password.'
 
     registration:
         welcome:    'Create your account'

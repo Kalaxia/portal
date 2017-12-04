@@ -3,7 +3,7 @@
 
 {% block body %}
 
-  {% if app.user.username is defined %}
+  {% if is_granted('ROLE_USER') %}
 
     <p>{{ security.login.already_logged_in }}</p>
 
@@ -12,6 +12,7 @@
     <div id="login-form" class="form">
 
       <form action="{{ path("fos_user_security_check") }}" method="post">
+
         {% if csrf_token %}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         {% endif %}
@@ -32,6 +33,10 @@
         </div>
         <input type="hidden" name="_target_path" value="/dashboard" />
         <button type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
+
+        <div>
+          <a href={{ path('resetting_request') class="button warning" }}>{{ security.login.forgotten_password }}</a>
+        </div>
 
       </form>
 
