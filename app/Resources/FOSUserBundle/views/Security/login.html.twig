@@ -1,41 +1,45 @@
 
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
 
+  {% if app.user.username is defined %}
 
-  <div id="login-form" class="form">
+    <p>{{ security.login.already_logged_in }}</p>
 
-      
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    {% endif %}
+  {% else %}
 
+    <div id="login-form" class="form">
+
+      <form action="{{ path("fos_user_security_check") }}" method="post">
+        {% if csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% endif %}
 
         <h1>{{ 'security.login.welcome'|trans }}</h1>
         <div class="form-group">
-        <label for="username">{{ 'security.login.username'|trans }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+          <label for="username">{{ 'security.login.username'|trans }}</label>
+          <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
         </div>
-         
+
         <div class="form-group">
-        <label for="password">{{ 'security.login.password'|trans }}</label>
-        <input type="password" id="password" name="_password" required="required" />
+          <label for="password">{{ 'security.login.password'|trans }}</label>
+          <input type="password" id="password" name="_password" required="required" />
         </div>
         <div>
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+          <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+          <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
         </div>
         <input type="hidden" name="_target_path" value="/dashboard" />
         <button type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
 
-</form>
-        
-{% if error %}
-    <div class="form-group">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-  </div>
+      </form>
+
+      {% if error %}
+        <div class="form-group">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
+
+    </div>
+
+  {% endif %}
 {% endblock %}

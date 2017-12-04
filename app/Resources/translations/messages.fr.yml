@@ -15,7 +15,7 @@ homepage:
 
 admin:
     dashboard: 'Administration'
-    
+
 user:
     dashboard: 'Mon espace'
 
@@ -34,7 +34,7 @@ project:
             body: >
                 <p>La prise de décisions au sein de la communauté est collégiale. Chaque membre peut proposer une fonctionnalité, qui sera débattue puis votée par l'ensemble de la communauté.</p>
                 <p>Aucun membre, quel que soit son rôle dans la communauté, n'a une voix plus importante qu'un autre dans ce modèle de prise de décisions.</p>
-                
+
                 <p>Le cycle de vie d'une fonctionnalité est le suivant: un membre souhaitant proposer une idée crée une carte dans le gestionnaire de projet.</p>
                 <p>Les autres membres, via le système de commentaires, vont pouvoir discuter l'idée proposée, débattre et proposer des adaptations.</p>
                 <p>L'auteur peut dès lors éditer sa proposition d'origine, et, lorsqu'il le souhaite, la soumettre au vote.</p>
@@ -65,10 +65,10 @@ project:
                     <li>favorise les discussions, même les débats, mais modère les conflits!</li>
                     <li>s'adresse aux Modérateurs de la communauté s'il n'arrive pas à gérer un conflit</li>
                 </ul>
-                <strong>Attention, le coach ne doit pas pousser ces idées personnelles, mais favoriser l'émergence des idées des contributeurs de son groupe. Le Coach n'est pas un Manager, ni le chef de son groupe, c'est un facilitateur !</strong>
+                <p><strong>Attention, le coach ne doit pas pousser ces idées personnelles, mais favoriser l'émergence des idées des contributeurs de son groupe. Le Coach n'est pas un Manager, ni le chef de son groupe, c'est un facilitateur !</strong></p>
                 <p>Un Product Owner est présent dans la communauté, et a pour rôle de prioriser les différentes tâches et de valider que les travaux réalisés correspondent aux fonctionnalités votées par la communauté.</p>
                 <p>Il mesure également l'impact des différentes fonctionnalités sur le gameplay et tient compte des retours (feedbacks) des utilisateurs pour pouvoir suggérer des adaptations.</p>
-    
+
     feedback:
         title: 'Intitulé'
         description: 'Description'
@@ -77,7 +77,7 @@ project:
         created_at: 'Créé le'
         updated_at: 'Mis à jour le'
         home: 'Retour'
-        
+
         report_bug: 'Reporter un bug'
         propose_evolution: 'Proposer une évolution'
         create: 'Valider'
@@ -90,15 +90,15 @@ project:
         to_validate: 'À valider'
         to_deploy: 'À déployer'
         done: 'Terminé'
-        
+
     commentary:
         create: 'Poster mon commentaire'
         created_at: 'posté le %date%'
-        
-        
+
+
 notifications:
     all: 'Toutes les notifications'
-        
+
 game:
     available_servers: 'Serveurs en cours'
     next_servers: 'Serveurs à venir'
@@ -117,7 +117,7 @@ game:
 
     tutorial:
         launch: 'Lancer le tutoriel'
-        
+
 security:
     login:
         welcome:    'Connexion à votre compte'
@@ -125,7 +125,8 @@ security:
         password:   'Mot de passe'
         submit:     'Connexion'
         remember_me:    'Se souvenir de moi'
-        
+        already_logged_in: 'Vous êtes déjà connecté !'
+
     registration:
         welcome: 'Créer votre compte'
         submit: 'Valider'

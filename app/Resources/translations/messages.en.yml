@@ -15,7 +15,7 @@ homepage:
 
 admin:
     dashboard: 'Administration'
-    
+
 user:
     dashboard: 'Dashboard'
 
@@ -34,7 +34,7 @@ project:
             body: >
                 <p>Decisions are taken by the whole community. Each member is able to propose a feature, which will be debated and then voted by all.</p>
                 <p>No one, no matter his role in the community, has a more important voice than the others.</p>
-                
+
                 <p>Here is the feature lifecycle: a member wishing to propose a feature creates a card on the project board.</p>
                 <p>The community, using comments, can discuss the idea, debate and propose evolutions.</p>
                 <p>Then the author can edit his original proposition, and submit it to vote when he feels it's ready.</p>
@@ -65,10 +65,10 @@ project:
                     <li>enpowers discussions and debates but handles conflicts</li>
                     <li>talk to the moderators if he cannot resolve a conflict</li>
                 </ul>
-                <strong>Beware, the coach must not put forward his own ideas, but promote all ideas in his group. A Coach is not a Manager, nor a chieftain, he is a facilitator !</strong>
+                <p><strong>Beware, the coach must not put forward his own ideas, but promote all ideas in his group. A Coach is not a Manager, nor a chieftain, he is a facilitator !</strong></p>
                 <p>A Product Owner is present amongst the community, and has to priorize the tasks and ensure the resulting work is compliant to the voted features.</p>
                 <p>He watch the impact of the gameplay features and take account of the feedbacks to propose ways to improve the game !</p>
-    
+
     feedback:
         title: 'Title'
         description: 'Description'
@@ -77,7 +77,7 @@ project:
         created_at: 'Created on'
         updated_at: 'Updated on'
         home: 'Back'
-        
+
         report_bug: 'Report bug'
         propose_evolution: 'Suggest a change'
         create: 'Submit'
@@ -90,14 +90,14 @@ project:
         to_validate: 'To validate'
         to_deploy: 'To deploy'
         done: 'Finished'
-        
+
     commentary:
         create: 'Post my comment'
         created_at: 'posted on %date%'
-        
+
 notifications:
     all: 'See all'
-        
+
 game:
     available_servers: 'Available servers'
     next_servers: 'Incoming servers'
@@ -116,7 +116,7 @@ game:
 
     tutorial:
         launch: 'Start tutorial'
-        
+
 security:
     login:
         welcome:    'Log in to your account'
@@ -124,7 +124,8 @@ security:
         password:   'Password'
         submit:     'Log in'
         remember_me:    'Remember me'
-        
+        already_logged_in: 'You are already logged in !'
+
     registration:
         welcome:    'Create your account'
         submit: 'Validate'
