@@ -81,18 +81,18 @@ project:
         report_bug: 'Report bug'
         propose_evolution: 'Suggest a change'
         create: 'Submit'
-        edit: 'Edit'
+        edit:   'Edit'
         update: 'Update'
     status:
-        to_specify: 'To specify'
-        ready: 'Ready'
-        in_progress: 'In progress'
-        to_validate: 'To validate'
-        to_deploy: 'To deploy'
-        done: 'Finished'
+        to_specify:   'To specify'
+        ready:        'Ready'
+        in_progress:  'In progress'
+        to_validate:  'To validate'
+        to_deploy:  'To deploy'
+        done:       'Finished'
 
     commentary:
-        create: 'Post my comment'
+        create:     'Post my comment'
         created_at: 'posted on %date%'
 
 notifications:
@@ -108,11 +108,11 @@ game:
         play: 'Play'
         name: 'Name'
         host: 'Host'
-        description: 'Description'
-        banner: 'Banner'
+        description:  'Description'
+        banner:     'Banner'
         started_at: 'Start date'
         public_key: 'RSA public key'
-        validate: 'Validate'
+        validate:   'Validate'
 
     tutorial:
         launch: 'Start tutorial'
@@ -123,10 +123,14 @@ security:
         username:   'Username'
         password:   'Password'
         submit:     'Log in'
-        remember_me:    'Remember me'
-        already_logged_in: 'You are already logged in !'
+        remember_me:        'Remember me'
+        already_logged_in:  'You are already logged in !'
         forgotten_password: 'Reset your password.'
 
     registration:
-        welcome:    'Create your account'
-        submit: 'Validate'
+        welcome:  'Create your account'
+        submit:   'Validate'
+
+    resetting:
+        username: 'Username'
+        submit:   'Reset password'

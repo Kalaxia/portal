@@ -3,19 +3,19 @@
 
 {% block body %}
 
-  {% if is_granted('ROLE_USER') %}
-
-    <p>{{ security.login.already_logged_in }}</p>
-
-  {% else %}
-
     <div id="login-form" class="form">
+
+    {% if is_granted('ROLE_USER') %}
+
+      <p>{{ 'security.login.already_logged_in'|trans }}</p>
+
+    {% else %}
 
       <form action="{{ path("fos_user_security_check") }}" method="post">
 
-        {% if csrf_token %}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        {% endif %}
+      {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+      {% endif %}
 
         <h1>{{ 'security.login.welcome'|trans }}</h1>
         <div class="form-group">
@@ -34,8 +34,8 @@
         <input type="hidden" name="_target_path" value="/dashboard" />
         <button type="submit" id="_submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
 
-        <div>
-          <a href={{ path('resetting_request') class="button warning" }}>{{ security.login.forgotten_password }}</a>
+        <div class="form-group">
+          <a href={{ path('fos_user_resetting_request') }}>{{ 'security.login.forgotten_password'|trans }}</a>
         </div>
 
       </form>
@@ -44,7 +44,8 @@
         <div class="form-group">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
       {% endif %}
 
+    {% endif %}
+
     </div>
 
-  {% endif %}
 {% endblock %}

@@ -131,3 +131,7 @@ security:
     registration:
         welcome: 'Créer votre compte'
         submit: 'Valider'
+
+    resetting:
+        username: 'Identifiant'
+        submit:   'Réinitialiser le mot de passe'
