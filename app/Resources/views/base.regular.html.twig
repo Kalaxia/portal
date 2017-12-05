@@ -1,0 +1,86 @@
+{% set notifications = (is_granted('ROLE_USER')) ? app.user.unreadNotifications : [] %}
+{% set nbNotifications = (is_granted('ROLE_USER')) ? notifications.count() : 0 %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{{ 'website_name' | trans }}{% if nbNotifications > 0 %} ({{ nbNotifications }}){% endif %}{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/menu.css') }}" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        
+		<div class="container">
+			<div class="menu-wrap">
+				<nav class="menu-top">
+					<div class="profile">
+                        <span>
+                            {% if is_granted('ROLE_USER') %}
+                                {{ app.user.username }}
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    <img src="{{ asset('images/icons/logout.png') }}" />
+                                </a>
+                            {% else %}
+                                {{ 'anonymous' | trans }}
+                            {% endif %}
+                        </span>
+                    </div>
+					<div class="icon-list">
+                        {% if is_granted('ROLE_USER') == false %}
+                            <a href="{{ path('fos_user_registration_register') }}">
+                                {{ 'registration' | trans }}
+                            </a>
+                            <a href="{{ path('fos_user_security_login') }}">
+                                {{ 'connection' | trans }}
+                            </a>
+                        {% else %}
+                            <a href="#" onclick="toggleNotifications();" id="notifications">
+                                <img src="{{ asset('images/icons/notification.png') }}" />
+                                {% if nbNotifications > 0 %}
+                                    <span class="badge">{{ nbNotifications }}</span>
+                                {% endif %}
+                            </a>
+                        {% endif %}
+					</div>
+				</nav>
+				<nav class="menu-side">
+					{% if app.request.attributes.get('_route') != 'homepage' %}<a href="{{ path('homepage') }}">{{ 'homepage.title' | trans }}</a>{% endif %}
+                    {% if is_granted('ROLE_ADMIN') and app.request.attributes.get('_route') != 'admin_dashboard' %}<a href="{{ path('admin_dashboard') }}">{{ 'admin.dashboard' | trans }}</a>{% endif %}
+                    {% if is_granted('ROLE_USER') and app.request.attributes.get('_route') != 'dashboard' %}<a href="{{ path('dashboard') }}">{{ 'user.dashboard' | trans }}</a>{% endif %}
+					{% if app.request.attributes.get('_route') != 'project_board' %}<a href="{{ path('project_board') }}">{{ 'project.board' | trans }}</a>{% endif %}
+				</nav>
+			</div>
+			<button class="menu-button" id="open-button">Open Menu</button>
+			<div class="content-wrap">
+				<div class="content">
+                    <div id="page-title"><h1>{% block page_title %}{% endblock %}</h1></div>
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div id="notifications-dropdown" class="menu-dropdown">
+            {% for notification in notifications %}
+                <div class="notification {{ notification.isRead ? '' : 'unread' }}" data-id="{{ notification.id }}">
+                    <header onclick="toggleNotification(event);">
+                        {{ notification.title }}
+                    </header>
+                    <section>
+                        {{ notification.content | raw }}
+                    </section>
+                </div>
+            {% endfor %}
+            <footer>
+                <a href="#">
+                    {{ 'notifications.all' | trans }}
+                </a>
+            </footer>
+        </div>
+        {% block javascripts %}
+            <script type="text/javascript" src="{{ asset('js/menu.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/notifications.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

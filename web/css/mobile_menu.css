@@ -1,0 +1,123 @@
+#menupanel {
+    background-color: white ;
+    display : none ;
+    position: fixed;
+    display: none;
+    width: 80%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3 ;
+    
+}
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.profile {
+    background:  url('../images/backgrounds/wallpaper.jpg') no-repeat;
+    padding: 5px;    
+    color: black ;
+}
+
+.profile > span > img {
+    width : 48px ;
+    height : 48px ;
+    display: block ;
+    padding: 5px;
+}
+
+.logout {
+    width : 20px ;
+    height : 20px ; 
+    float : right ;    
+}
+
+
+.content-wrap,#page-title {
+    background: #373a47 ;
+    text-shadow: none ;
+    color: white ;
+}
+
+#menu_button {
+    padding: 15px ;
+    margin: 5px;    
+}
+
+#home {    
+    background: #373a47 ;
+}
+
+.ui-icon-registration:after {
+    background-image: url("../images/icons/registration.png");
+    /* Make your icon fit */
+    background-size: 18px 18px;
+}
+
+
+.menulist
+{
+    display: block ;
+    padding: 10px ;
+    margin-top: 10px;
+}
+
+.menuelement
+{
+    display: block ;
+    cursor: pointer ;
+    border-width: 1px ;
+    border-style: solid ;
+    border-color: black ;
+    height: 30px ;
+    padding: 20px 15px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.menuelement:hover
+{
+    background-color: lightgrey ;
+}
+
+.menuelement > img {
+    width: 24px ;
+    height: 24px ;  
+    float: left ;
+    padding: 5px;
+}
+
+.menuelement > span {
+    color: black ;
+    padding-left: 15px ;
+    padding-top:10px ;
+    vertical-align: middle ;
+    font-weight: bold ;  
+}
+
+.left_arrow{
+    font-size:small ;
+    float:left;
+    margin:4px;    
+}
+
+.right_arrow{
+    float:right;
+    margin:4px;  
+   font-size:small ;
+}
