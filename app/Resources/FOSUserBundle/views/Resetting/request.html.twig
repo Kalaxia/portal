@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div id="request-form" class="form">
+  <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+      <div class="form-group">
+          <label for="username">{{ 'security.resetting.username'|trans }}</label>
+          <input type="text" id="username" name="username" required="required" />
+      </div>
+      <div>
+          <button type="submit" class="button">{{ 'security.resetting.submit'|trans }}</button>
+      </div>
+  </form>
+</div>
+
+{% endblock %}
