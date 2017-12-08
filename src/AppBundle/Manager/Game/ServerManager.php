@@ -96,6 +96,7 @@ class ServerManager
             Server::TYPE_SOLO => SoloServer::class,
             Server::TYPE_TUTORIAL => TutorialServer::class
         ][$type];
+        $signature = md5($name . uniqid(true));
         $server =
             (new $serverClass())
             ->setName($name)
@@ -103,9 +104,18 @@ class ServerManager
             ->setHost($host)
             ->setDescription($description)
             ->setBanner($banner)
+            ->setSignature($signature)
             ->setStartedAt(new \DateTime($startedAt))
             ->setPublicKey($publicKey)
         ;
+        $response = $this->serverGateway->bindServer($host, $this->rsaEncryptionManager->encrypt($server, json_encode([
+            'name' => $name,
+            'type' => $type,
+            'signature' => $signature
+        ])));
+        if ($response->getStatusCode() !== 201) {
+            throw new \ErrorException($response->getBody()->getContent());
+        }
         $this->entityManager->persist($server);
         $this->entityManager->flush($server);
     }
@@ -119,7 +129,10 @@ class ServerManager
     {
         $response = $this->serverGateway->connectPlayer(
             $server->getHost(),
-            $this->rsaEncryptionManager->encrypt($server, json_encode($user))
+            $this->rsaEncryptionManager->encrypt($server, json_encode([
+                'username' => $user->getUsername(),
+                'signature' => $server->getSignature()
+            ]))
         );
         
         $jwt = $this->rsaEncryptionManager->decrypt($response->getBody()->getContents());
