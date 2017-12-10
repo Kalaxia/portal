@@ -28,30 +28,34 @@ services:
         resource: '../../src/AppBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
-        
+
     AppBundle\Manager\:
         resource: '../../src/AppBundle/Manager'
+        public: true
+
+    AppBundle\RSS\:
+        resource: '../../src/AppBundle/RSS'
         public: true
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-    
+
 
     AppBundle\Gateway\FeedbackGateway:
         public: true
         arguments:
             - "%project.feedback.api_url%"
-            
+
     AppBundle\Gateway\ServerGateway:
         public: true
-        
+
     AppBundle\Security\RsaEncryptionManager:
         public: true
         arguments:
             - "%kernel.project_dir%"
-            
+
     AppBundle\Subscriber\RegistrationSubscriber:
         tags:
             - { name: kernel.event_subscriber }
