@@ -34,6 +34,7 @@ services:
             # applications
             - "./:/srv/app"
             # nginx
+            - "./volumes/ssl:/etc/ssl"
             - "./volumes/html:/usr/share/nginx/html"
             - "./volumes/logs/nginx:/var/log/nginx"
         networks:
