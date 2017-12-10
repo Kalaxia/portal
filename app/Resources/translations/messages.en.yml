@@ -91,7 +91,7 @@ project:
         to_deploy:  'To deploy'
         done:       'Finished'
 
-    commentary:
+    comment:
         create:     'Post my comment'
         created_at: 'posted on %date%'
 

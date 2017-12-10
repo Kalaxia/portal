@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model\Project;
 
-class Commentary implements \JsonSerializable
+class Comment implements \JsonSerializable
 {
     /** @var string **/
     protected $id;

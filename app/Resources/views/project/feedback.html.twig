@@ -45,20 +45,20 @@
                 </div>
                 <hr>
                 <div class="comments">
-                    {% for comment in feedback.commentaries %}
+                    {% for comment in feedback.comments %}
                         <div class="comment">
                             <div class="feedback-content">
                                 {{ comment.content | raw }}
                             </div>
                             <div class="author">
-                                {{ comment.author.username }}, {{ 'project.commentary.created_at' | trans({"%date%": comment.createdAt | date('full_date' | trans)} ) }}
+                                {{ comment.author.username }}, {{ 'project.comment.created_at' | trans({"%date%": comment.createdAt | date('full_date' | trans)} ) }}
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div id="new-comment">
                     <textarea name="comment-content"></textarea>
-                    <button onclick="create_comment('{{ feedback.id }}', '{{ feedback.type }}');">{{ 'project.commentary.create' | trans }}</button>
+                    <button onclick="create_comment('{{ feedback.id }}', '{{ feedback.type }}');">{{ 'project.comment.create' | trans }}</button>
                 </div>
             </div>
             <div>

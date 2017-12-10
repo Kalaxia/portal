@@ -67,7 +67,7 @@ const create_comment = (id, type) => {
     var content = textArea.value;
     if (content.length === 0) return false;
     
-    fetch(`/feedbacks/${id}/commentaries`, {
+    fetch(`/feedbacks/${id}/comments`, {
         method: 'POST', 
         body: JSON.stringify({
             type: type,

@@ -154,7 +154,7 @@ class FeedbackGateway
         return $this->client->get('/bugs');
     }
     
-    public function createCommentary($feedbackId, $feedbackType, $content, $authorName, $authorEmail)
+    public function createComment($feedbackId, $feedbackType, $content, $authorName, $authorEmail)
     {
         $endpoint = ($feedbackType === Feedback::TYPE_BUG) ? 'bugs' : 'evolutions';
         return $this->client->post("/$endpoint/$feedbackId/comments", [

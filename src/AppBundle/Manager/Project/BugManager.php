@@ -17,8 +17,8 @@ class BugManager
 {
     /** @var FeedbackGateway **/
     protected $gateway;
-    /** @var CommentaryManager **/
-    protected $commentaryManager;
+    /** @var CommentManager **/
+    protected $commentManager;
     /** @var NotificationManager **/
     protected $notificationManager;
     /** @var UserManager **/
@@ -28,21 +28,21 @@ class BugManager
     
     /**
      * @param FeedbackGateway $gateway
-     * @param CommentaryManager $commentaryManager
+     * @param CommentManager $commentManager
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
      * @param Parser $parser
      */
     public function __construct(
         FeedbackGateway $gateway,
-        CommentaryManager $commentaryManager,
+        CommentManager $commentManager,
         NotificationManager $notificationManager,
         UserManager $userManager,
         Parser $parser
     )
     {
         $this->gateway = $gateway;
-        $this->commentaryManager = $commentaryManager;
+        $this->commentManager = $commentManager;
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
         $this->parser = $parser;
@@ -82,7 +82,7 @@ class BugManager
             $players[] = $bug->getAuthor()->getId();
             $this->notificationManager->add($bug->getAuthor(), $title, $content);
         }
-        foreach ($bug->getCommentaries() as $comment) {
+        foreach ($bug->getComments() as $comment) {
             $commentAuthor = $comment->getAuthor();
             
             if (in_array($commentAuthor->getId(), $players) || $commentAuthor->getId() === 0) {
@@ -132,9 +132,9 @@ class BugManager
             ->setCreatedAt(new \DateTime($data['created_at']))
             ->setUpdatedAt(new \DateTime($data['updated_at']))
         ;
-        if (!empty($data['commentaries'])) {
-            foreach ($data['commentaries'] as $commentary) {
-                $bug->addCommentary($this->commentaryManager->format($commentary, true));
+        if (!empty($data['comments'])) {
+            foreach ($data['comments'] as $comment) {
+                $bug->addComment($this->commentManager->format($comment, true));
             }
         }
         return $bug;

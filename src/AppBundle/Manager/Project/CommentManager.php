@@ -9,11 +9,11 @@ use FOS\UserBundle\Doctrine\UserManager;
 
 use AppBundle\Manager\NotificationManager;
 
-use AppBundle\Model\Project\{Commentary, Feedback};
+use AppBundle\Model\Project\{Comment, Feedback};
 
 use AppBundle\Utils\Parser;
 
-class CommentaryManager
+class CommentManager
 {
     /** @var FeedbackGateway **/
     protected $feedbackGateway;
@@ -52,9 +52,9 @@ class CommentaryManager
      */
     public function create(Feedback $feedback, $content, User $author)
     {
-        $commentary = $this->format(json_decode($this
+        $comment = $this->format(json_decode($this
             ->feedbackGateway
-            ->createCommentary(
+            ->createComment(
                 $feedback->getId(),
                 $feedback->getType(),
                 $this->parser->parse($content),
@@ -76,7 +76,7 @@ class CommentaryManager
             $players[] = $feedback->getAuthor()->getId();
             $this->notificationManager->create($feedback->getAuthor(), $title, $content);
         }
-        foreach ($feedback->getCommentaries() as $comment) {
+        foreach ($feedback->getComments() as $comment) {
             $commentAuthor = $comment->getAuthor();
             
             if (in_array($commentAuthor->getId(), $players) || $commentAuthor->getId() === 0) {
@@ -85,7 +85,7 @@ class CommentaryManager
             $players[] = $commentAuthor->getId();
             $this->notificationManager->create($commentAuthor, $title, $content);
         }
-        return $commentary;
+        return $comment;
     }
     
     /**
@@ -96,7 +96,7 @@ class CommentaryManager
     public function format($data, $getAuthor = false)
     {
         return
-            (new Commentary())
+            (new Comment())
             ->setId($data['id'])
             ->setContent($data['content'])
             ->setAuthor($this->getAuthor($data['author']['username'], $getAuthor))

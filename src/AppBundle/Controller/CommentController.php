@@ -19,18 +19,18 @@ use Symfony\Component\HttpFoundation\{
     JsonResponse
 };
 use AppBundle\Manager\Project\{
-    CommentaryManager,
+    CommentManager,
     FeedbackManager
 };
 
-class CommentaryController extends Controller
+class CommentController extends Controller
 {
     /**
-     * @Route("/feedbacks/{id}/commentaries", name="create commentary")
+     * @Route("/feedbacks/{id}/comments", name="create comment")
      * @Method({"POST"})
      * @Security("has_role('ROLE_USER')")
      */
-    public function createCommentary(Request $request)
+    public function createComment(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         if (empty($data['type'])) {
@@ -40,13 +40,13 @@ class CommentaryController extends Controller
             throw new NotFoundHttpException('project.feedback.not_found');
         }
         if (empty($content = trim($data['content']))) {
-            throw new BadRequestHttpException('project.commentary.missing_content');
+            throw new BadRequestHttpException('project.comment.missing_content');
         }
-        $comment = $this->get(CommentaryManager::class)->create($feedback, $content, $this->getUser());
+        $comment = $this->get(CommentManager::class)->create($feedback, $content, $this->getUser());
         $translator = $this->get('translator');
         return new JsonResponse([
             'feedback' => $comment,
-            'created_at_string' => $translator->trans('project.commentary.created_at', ['%date%' => $comment->getCreatedAt()->format($translator->trans('full_date'))]), 
+            'created_at_string' => $translator->trans('project.comment.created_at', ['%date%' => $comment->getCreatedAt()->format($translator->trans('full_date'))]), 
         ]);
     }
 }
