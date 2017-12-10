@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\RSS\Parser;
 use AppBundle\RSS\Template;
-use AppBundle\RSS\DTemplate;
+use AppBundle\RSS\DefaultTemplate;
 
 class FrontController extends Controller
 {
@@ -22,7 +22,7 @@ class FrontController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        $parser = new Parser(new DTemplate);
+        $parser = $this->get(Parser::class);
         $parser->feed("https://kalaxia.org/?feed=rss2");
 
         return $this->render('front/index.html.twig', [
