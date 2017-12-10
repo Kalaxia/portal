@@ -11,8 +11,8 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    ssl_certificate /etc/letsencrypt/live/www.kalaxia.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/preprod.asylamba.com/privkey.pem;
+    ssl_certificate /etc/ssl/live/www.kalaxia.com/fullchain.pem;
+    ssl_certificate_key /etc/ssl/live/www.kalaxia.com/privkey.pem;
 
     server_name www.kalaxia.com;
 
