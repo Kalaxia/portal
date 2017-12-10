@@ -18,6 +18,8 @@ admin:
 
 user:
     dashboard: 'Mon espace'
+    account: 'Mon compte'
+    connect: 'Identifiez-vous'
 
 project:
     board: 'Gestionnaire de projet'
