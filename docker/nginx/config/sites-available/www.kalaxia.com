@@ -2,7 +2,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name www.kalaxia.com;
+  server_name www.kalaxia.com kalaxia.com;
 
   return 302 https://$server_name$request_uri;
 }
@@ -14,7 +14,7 @@ server {
     ssl_certificate /etc/ssl/live/www.kalaxia.com/fullchain.pem;
     ssl_certificate_key /etc/ssl/live/www.kalaxia.com/privkey.pem;
 
-    server_name www.kalaxia.com;
+    server_name www.kalaxia.com kalaxia.com;
 
     access_log /var/log/nginx/https.access.log;
     error_log /var/log/nginx/portal.error.log;
@@ -25,7 +25,7 @@ server {
 
     location / {
         # try to serve file directly, fallback to app.php
-        try_files $uri /app_dev.php$is_args$args;
+        try_files $uri /app.php$is_args$args;
     }
 
     location ~ ^/(app_dev|config)\.php(/|$) {
