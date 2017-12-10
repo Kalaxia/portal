@@ -23,7 +23,7 @@
           * Magic method __construct
           * @param Template $template: rss template to use
           */
-        public function __construct(Template $template) {
+        public function __construct(DefaultTemplate $template) {
             $this->template = $template;
             $this->items = array();
         }
