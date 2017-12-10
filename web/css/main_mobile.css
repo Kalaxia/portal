@@ -1,0 +1,178 @@
+html {
+    background: none ;
+    background-color : #373a47 ;
+}
+
+img {
+    max-width: 90% ;
+}
+
+header {
+    display : flex ;
+}
+
+#page-title {
+    z-index: 4 ;
+}
+
+#page-title h1 {
+    display: flex;
+    align-items: center;
+    margin:0px;
+    padding-top: 10px;
+    padding-left: 70px;
+    font-size:150% ;
+}
+
+.content-wrap {
+    background: #373a47 ;
+    color: white ;
+}
+
+.type-image > img {
+    min-width: 50px;  
+}
+
+.left_arrow{
+    font-size:small ;
+    float:left;
+    margin:4px;    
+}
+
+.right_arrow{
+    float:right;
+    margin:4px;  
+    font-size:small ;
+}
+
+/* Menu Panel */
+#menupanel {
+    background-color: white ;
+    display : none ;
+    position: fixed;
+    display: none;
+    width: 80%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3 ;    
+}
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+#menu_button {
+    padding: 15px ;
+    margin: 5px;    
+}
+
+#home {    
+    background: #373a47 ;
+}
+
+.menulist
+{
+    display: block ;
+    border-bottom: solid ;
+}
+
+.menuelement
+{
+    display: flex ;
+    cursor: pointer ;
+    height: 30px ;
+    padding: 15px 15px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+    align-items: center ;
+}
+
+.menuelement:hover
+{
+    background-color: lightgrey ;
+}
+
+.menuelement > img {
+    width: 24px ;
+    height: 24px ;  
+    float: left ;
+
+}
+
+.menuelement > span {
+    color: black ;
+    padding-left: 15px ;
+    vertical-align: middle ;    
+}
+
+.active {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.profile {
+    background: #373a47 ;
+    padding: 5px;    
+    color: white ;
+    height:110px;
+}
+
+.profile > img {
+    width : 48px ;
+    height : 48px ;
+    display: block ;
+    padding: 5px;
+    margin: 5px ;
+}
+
+.anonymous {
+    text-align: center ;   
+    margin-top: 50px ;
+    font-weight: bold ;  
+}
+
+.logout {
+    width : 40px ;
+    height : 40px ; 
+    float : right ;    
+}
+/*************************/
+
+/* Menu Button */
+.menu-button {
+	position: fixed;
+	z-index: 1000;
+	margin: 1em;
+	padding: 0;
+	width: 2.5em;
+	height: 2.25em;
+	border: none;
+	text-indent: 2.5em;
+	font-size: 1.2em;
+	color: transparent;
+	background: transparent;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.menu-button::before {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	bottom: 0.5em;
+	left: 0.5em;
+	background: linear-gradient(#EFEFEF 20%, transparent 20%, transparent 40%, #EFEFEF 40%, #EFEFEF 60%, transparent 60%, transparent 80%, #EFEFEF 80%);
+	content: '';
+}

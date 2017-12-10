@@ -6,7 +6,7 @@
         <title>{% block title %}{{ 'website_name' | trans }}{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
-            <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile_menu.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/main_mobile.css') }}" />
 
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -17,35 +17,41 @@
     </head>
     <body>
           
-        
+
         <div id="home">
             <div id="overlay" onclick="hideMenu()"> </div>
-            <div  class="menupanel" id="menupanel" onclick="hideMenu()">
+            <div  class="menupanel" id="menupanel"  onclick="hideMenu()" >
                <div class="profile">
-                        <span>
+                       
                             {% if is_granted('ROLE_USER') %}
                                   <img src="{{ asset('images/icons/profile.png') }}" />
                                   <div >
-                                  {{ app.user.username }}                                                                
+                                  {{ app.user.username }}                                                                  
                                      <a href="{{ path('fos_user_security_logout') }}">                                   
                                         <img src="{{ asset('images/icons/logout.png') }}"  class="logout"/>
                                      </a>
-                           
                                 </div>
+                                 <div>
+                                    {{ app.user.email }}  
+                                 </div>
                             {% else %}
-                                <div>
-                                {{ 'anonymous' | trans }}
-                                 <a href="{{ path('fos_user_security_login') }}">
-                                    <img src="{{ asset('images/icons/login.png') }}" class="logout"/>
-                                 </a>
+                                <div class="anonymous">
+                                    {{ 'anonymous' | trans }}  
                                 </div>
-                            {% endif %}
-                        </span>
+                            {% endif %}                        
                 </div>
                         
                 {% if not is_granted('ROLE_USER') %}
-                 <div class="menulist">                     
-                       <div class="menuelement" onclick='move("{{ path('fos_user_registration_register') }}");'>
+                 <div class="menulist">   
+                      <div class="menuelement {% if app.request.attributes.get('_route') == 'fos_user_security_login' %}
+                           active " {% else %}
+                           " onclick='move("{{ path('fos_user_security_login') }}");' {%endif%}>
+                         <img src="{{ asset('images/icons/login.png') }}"/>
+                         <span> {{ 'user.connect' | trans }}</span>
+                     </div>
+                       <div class="menuelement {% if app.request.attributes.get('_route') == 'fos_user_registration_register' %}
+                           active " {% else %}
+                            " onclick='move("{{ path('fos_user_registration_register') }}");' {%endif%}>
                          <img src="{{ asset('images/icons/registration.png') }}"/>
                          <span> {{ 'registration' | trans }}</span>
                      </div>
@@ -53,47 +59,58 @@
                  {% endif %}
                  
                 <div class="menulist">
-                     <div class="menuelement" onclick='move("{{ path('homepage') }}");'>
+                     <div class="menuelement {% if app.request.attributes.get('_route') == 'homepage' %}
+                          active " {% else %}
+                          " onclick='move("{{ path('homepage') }}");' {%endif%}>
                          <img src="{{ asset('images/icons/home.png') }}"/>
-                         <span> {{ 'homepage' | trans }}</span>
+                         <span> {{ 'homepage.title' | trans }}</span>
                      </div>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <div class="menuelement" onclick='move("{{ path('admin_dashboard') }}");'>
+                    <div class="menuelement {% if app.request.attributes.get('_route') == 'admin_dashboard' %}
+                         active " {% else %}
+                         " onclick='move("{{ path('admin_dashboard') }}");' {%endif%}>
                          <img src="{{ asset('images/icons/adminspace.png') }}"/>
                          <span> {{ 'admin.dashboard' | trans }}</span> 
                     </div>
                     {% endif %} 
                     {% if is_granted('ROLE_USER') %} 
-                         <div class="menuelement" onclick='move("{{ path('dashboard') }}");'>
+                         <div class="menuelement {% if app.request.attributes.get('_route') == 'dashboard' %}
+                               active " {% else %}
+                              " onclick='move("{{ path('dashboard') }}");' {%endif%}>
                              <img src="{{ asset('images/icons/myspace.png') }}"/>
                              <span> {{ 'user.dashboard' | trans }}</span>
                          </div>
                     {% endif %}
                     {% if is_granted('ROLE_USER') %}
-                          <div class="menuelement" onclick='move("{{ path('homepage') }}");'>
+                          <div class="menuelement {% if app.request.attributes.get('_route') == 'notifications' %}
+                               active " {% else %}
+                               " onclick='move("{{ path('homepage') }}");' {%endif%}>
                               <img src="{{ asset('images/icons/notification.png') }}"/>
-                              <span> {{ 'notifcation.all' | trans }}</span> 
+                              <span> {{ 'notifications.all' | trans }}</span> 
                           </div>
                     {% endif %}
-                    <div class="menuelement" onclick='move("{{ path('project_board') }}");'>
+                    <div class="menuelement {% if app.request.attributes.get('_route') == 'project_board' %}
+                         active " {% else %}
+                         " onclick='move("{{ path('project_board') }}");' {%endif%}>
                         <img src="{{ asset('images/icons/project.png') }}" />
                         <span>{{ 'project.board' | trans }}</span>
                     </div>
                 </div>
-                 <div class="menulist">
-                      {% if is_granted('ROLE_USER') %}
-                        <div class="menuelement" onclick='move("{{ path('homepage') }}");'>
-                            <img src="{{ asset('images/icons/myaccount.png') }}" />
-                            <span>{{ 'user.account' | trans }}</span>
-                        </div>
-                    {% endif %}
-                         
-                 </div>
+                {% if is_granted('ROLE_USER') %}
+                <div class="menulist">   
+                    <div class="menuelement {% if app.request.attributes.get('_route') == 'account' %}
+                         active " {% else %}
+                         " onclick='move("{{ path('homepage') }}");' {%endif%}>
+                        <img src="{{ asset('images/icons/myaccount.png') }}" />
+                        <span>{{ 'user.account' | trans }}</span>
+                    </div>
+                {% endif %}  
+                </div>
                 
             </div>  
 
             <div id="page-title"  >
-                   <button id="menu_button" onclick="showMenu()">Menu</button>
+                   <button id="menu_button" onclick="showMenu()" class="menu-button">Menu</button>
                 <h1>{% block page_title %}{% endblock %}</h1>
             </div>
         
