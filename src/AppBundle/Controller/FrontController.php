@@ -10,6 +10,10 @@ use AppBundle\Manager\Game\ServerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use AppBundle\RSS\Parser;
+use AppBundle\RSS\Template;
+use AppBundle\RSS\DTemplate;
+
 class FrontController extends Controller
 {
     /**
@@ -18,11 +22,15 @@ class FrontController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
+        $parser = new Parser(new DTemplate);
+        $parser->feed("https://kalaxia.org/?feed=rss2");
+
         return $this->render('front/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'tickets' => $parser->items,
         ]);
     }
-    
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/dashboard", name="dashboard")
@@ -35,7 +43,7 @@ class FrontController extends Controller
             'next_servers' => $serverManager->getNextServers()
         ]);
     }
-    
+
     /**
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/admin/dashboard", name="admin_dashboard")

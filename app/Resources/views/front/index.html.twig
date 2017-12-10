@@ -17,4 +17,14 @@
             <a href="{{ path('project_description') }}" class="button warning">{{ 'homepage.description.read_info' | trans }}</a>
         </div>
     </div>
+
+    <div id="rss">
+        <h2> Dernières nouvelles de Kalaxia :) </h2>
+        {% for ticket in tickets %}
+            <div class="ticket">
+                <p> <a href="{{ ticket.link }}"> {{ ticket.title }} </a> ( {{ ticket.date|date('full_date'|trans) }} ) </p>
+                <p> {{ ticket.description|raw }} </p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
