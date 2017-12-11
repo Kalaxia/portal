@@ -18,3 +18,21 @@
 #description > .actions > a {
     margin-bottom: 8px;
 }
+
+#rss h2 {
+    text-align: center;
+}
+
+#rss a {
+    color: #F5871F;
+}
+
+.ticket {
+    border: 2px solid #EFEFEF;
+    color: #EFEFEF;
+
+    padding: 5px;
+    margin-left: 7%;
+    margin-right: 7%;
+    margin-top: 2%;
+}
