@@ -98,11 +98,11 @@
                 </div>
                 {% if is_granted('ROLE_USER') %}
                 <div class="menulist">   
-                    <div class="menuelement {% if app.request.attributes.get('_route') == 'account' %}
+                    <div class="menuelement {% if app.request.attributes.get('_route') == 'profile' %}
                          active " {% else %}
-                         " onclick='move("{{ path('homepage') }}");' {%endif%}>
+                         " onclick='move("{{ path('profile') }}");' {%endif%}>
                         <img src="{{ asset('images/icons/myaccount.png') }}" />
-                        <span>{{ 'user.account' | trans }}</span>
+                        <span>{{ 'profile.dashboard' | trans }}</span>
                     </div>
                 {% endif %}  
                 </div>
