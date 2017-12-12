@@ -20,3 +20,5 @@ portal.env
 /volumes
 rsa_vault/*
 !rsa_vault/.gitkeep
+*.DS_Store
+*.sublime-workspace
