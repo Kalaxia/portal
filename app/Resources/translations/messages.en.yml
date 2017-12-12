@@ -95,7 +95,7 @@ project:
         create:     'Post my comment'
         created_at: 'posted on %date%'
 
-profil:
+profile:
     dashboard: 'My Profile'
     title: 'Profile of'
     entries:

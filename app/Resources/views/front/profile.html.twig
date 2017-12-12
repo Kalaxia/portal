@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css') }}" />
+{% endblock %}
+
+{% block body %}
+<h3 id="profile-title"> {{ 'profile.title'|trans }} {{ app.user.username }} </h3>
+<div id="profile-window">
+    <p> <b> {{ 'profile.entries.username'|trans }} : </b> {{ app.user.username }} </p>
+    <p> <b> {{ 'profile.entries.email'|trans }} : </b> {{ app.user.email }} </p>
+    <p> <b> {{ 'profile.entries.last_login'|trans }} : </b> {{ app.user.lastLogin|date('full_date'|trans) }} </p>
+    <p> <b> {{ 'profile.entries.role'|trans }} : </b>
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ 'profile.roles.admin'|trans }}
+        {% elseif is_granted('ROLE_USER') %}
+            {{ 'profile.roles.user'|trans }}
+        {% else %}
+            {{ 'profile.roles.guest'|trans }}
+        {% endif %}
+    </p>
+</div>
+{% endblock %}
