@@ -95,6 +95,19 @@ project:
         create:     'Post my comment'
         created_at: 'posted on %date%'
 
+profile:
+    dashboard: 'My Profile'
+    title: 'Profile of'
+    entries:
+        username: 'Username'
+        email: 'E-Mail address'
+        last_login: 'Last login date'
+        role: 'Role'
+    roles:
+        user: 'Member'
+        admin: 'Administrator'
+        guest: 'Guest'
+
 notifications:
     all: 'See all'
 

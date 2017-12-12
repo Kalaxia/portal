@@ -97,7 +97,19 @@ project:
         create: 'Poster mon commentaire'
         created_at: 'posté le %date%'
 
-
+profile:
+    dashboard: 'Mon Profil'
+    title: 'Profil de'
+    entries:
+        username: "Nom d'utilisateur"
+        email: 'Adresse E-Mail'
+        last_login: 'Date de dernière connection'
+        role: 'Role'
+    roles:
+        user: 'Membre'
+        admin: 'Administrateur'
+        guest: 'Invité'
+        
 notifications:
     all: 'Toutes les notifications'
 

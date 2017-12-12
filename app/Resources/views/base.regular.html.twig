@@ -50,6 +50,7 @@
 					{% if app.request.attributes.get('_route') != 'homepage' %}<a href="{{ path('homepage') }}">{{ 'homepage.title' | trans }}</a>{% endif %}
                     {% if is_granted('ROLE_ADMIN') and app.request.attributes.get('_route') != 'admin_dashboard' %}<a href="{{ path('admin_dashboard') }}">{{ 'admin.dashboard' | trans }}</a>{% endif %}
                     {% if is_granted('ROLE_USER') and app.request.attributes.get('_route') != 'dashboard' %}<a href="{{ path('dashboard') }}">{{ 'user.dashboard' | trans }}</a>{% endif %}
+                    {% if is_granted('ROLE_USER') and app.request.attributes.get('_route') != 'profile' %}<a href="{{ path('profile') }}">{{ 'profile.dashboard' | trans }}</a>{% endif %}
 					{% if app.request.attributes.get('_route') != 'project_board' %}<a href="{{ path('project_board') }}">{{ 'project.board' | trans }}</a>{% endif %}
 				</nav>
 			</div>
