@@ -149,6 +149,10 @@ body {
     width: auto;
 }
 
+.form input[type=color] {
+    border-bottom: none;
+}
+
 .form-group {
     padding-top:20px;
 }

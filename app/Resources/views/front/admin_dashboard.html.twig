@@ -45,4 +45,27 @@
             {% endfor %}
         </section>
     </div>
+    <div id="labels">
+        <header>
+            <h3>{{ 'project.labels.title' | trans }}</h3>
+        </header>
+        <section>
+            <ul>
+                {% for label in feedback_labels %}
+                    <li>
+                        {{ label.name }}
+                        <div style="background-color: {{ label.color }}"></div>
+                        <button onclick="remove_label('{{ label.id }}');">X</button>
+                    </li>
+                {% endfor %}
+                <li class="form">
+                    <form action="{{ path('create_label') }}" method="POST">
+                        <input type="text" name="name" placeholder="{{ 'project.labels.name' | trans }}"/>
+                        <input type="color" name="color" />
+                        <button type="submit" class="button success">{{ 'project.labels.create' | trans }}</button>
+                    </form>
+                </li>
+            <ul>
+        </section>
+    </div>
 {% endblock %}

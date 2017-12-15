@@ -170,4 +170,30 @@ class FeedbackGateway
             ])
         ]);
     }
+    
+    /**
+     * @return Response
+     */
+    public function getLabels()
+    {
+        return $this->client->get('/labels');
+    }
+    
+    /**
+     * @param string $name
+     * @param string $color
+     * @return Response
+     */
+    public function createLabel($name, $color)
+    {
+        return $this->client->post("/labels", [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode([
+                'name' => $name,
+                'color' => $color
+            ])
+        ]);
+    }
 }
