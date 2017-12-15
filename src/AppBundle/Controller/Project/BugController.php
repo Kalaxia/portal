@@ -1,10 +1,9 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Project;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,28 +16,28 @@ use Symfony\Component\HttpKernel\Exception\{
     NotFoundHttpException
 };
 
-use AppBundle\Manager\Project\EvolutionManager;
+use AppBundle\Manager\Project\BugManager;
 
-class EvolutionController extends Controller
+class BugController extends Controller
 {
     /**
-     * @Route("/evolutions/new", name="propose_evolution")
+     * @Route("/bugs/new", name="report_bug")
      * @Method({"GET"})
      */
-    public function newEvolutionAction()
+    public function newBugAction()
     {
         // replace this example code with whatever you need
-        return $this->render('project/new_evolution.html.twig', [
+        return $this->render('project/new_bug.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
         ]);
     }
     
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/evolutions", name="create_evolution")
+     * @Route("/bugs", name="create_bug")
      * @Method({"POST"})
      */
-    public function createEvolutionAction(Request $request)
+    public function createBugAction(Request $request)
     {
         if (empty($title = trim($request->request->get('title')))) {
             throw new BadRequestHttpException('project.feedback.missing_title');
@@ -46,28 +45,27 @@ class EvolutionController extends Controller
         if (empty($description = trim($request->request->get('description')))) {
             throw new BadRequestHttpException('project.feedback.missing_description');
         }
-        return $this->redirectToRoute('get_evolution', [
+        return $this->redirectToRoute('get_bug', [
             'id' => $this
-                ->get(EvolutionManager::class)
+                ->get(BugManager::class)
                 ->create($title, $description, $this->getUser())
                 ->getId()
         ]);
     }
     
-    
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/evolutions/{id}", name="update_evolution")
+     * @Route("/bugs/{id}", name="update_bug")
      * @Method({"PUT"})
      */
-    public function updateEvolutionAction(Request $request)
+    public function updateBugAction(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         if (empty($id = $request->attributes->get('id'))) {
             throw new BadRequestHttpException('project.feedback.missing_id');
         }
-        $evolutionManager = $this->get(EvolutionManager::class);
-        if (($evolution = $evolutionManager->get($id)) === null) {
+        $bugManager = $this->get(BugManager::class);
+        if (($bug = $bugManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
 
@@ -75,27 +73,28 @@ class EvolutionController extends Controller
             if(!$this->isGranted('ROLE_DEVELOPER')) {
                 throw new AccessDeniedHttpException('project.feedback.not_developer');
             }
-            $evolution->setStatus($data['status']);
+            $bug->setStatus($data['status']);
         }
         if (!empty($description = $data['description'])) {
-            if($evolution->getAuthor()->getId() != $this->getUser()->getId()) {
+            if($bug->getAuthor()->getId() != $this->getUser()->getId()) {
                 throw new AccessDeniedHttpException('project.feedback.not_author');
             }
-            $evolution->setDescription($this->get(Parser::class)->parse($description));
+            $bug->setDescription($this->get(Parser::class)->parse($description));
         }
-        return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
+        return new JsonResponse($bugManager->update($bug, $this->getUser()));
     }
     
     /**
-     * @Route("/evolutions/{id}", name="get_evolution")
+     * @Route("/bugs/{id}", name="get_bug")
+     * @Method({"GET"})
      */
     public function getAction($id)
     {
-        if (($evolution = $this->get(EvolutionManager::class)->get($id)) === null) {
+        if (($bug = $this->get(BugManager::class)->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
         return $this->render('project/feedback.html.twig', [
-            'feedback' => $evolution
+            'feedback' => $bug
         ]);
     }
 }
