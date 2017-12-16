@@ -10,6 +10,6 @@ class Parser
      */
     public function parse($content)
     {
-        return str_replace("\n", '<br>', $content);
+        return str_replace("\n", '<br>', trim($content));
     }
 }

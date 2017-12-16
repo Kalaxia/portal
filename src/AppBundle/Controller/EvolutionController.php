@@ -77,7 +77,7 @@ class EvolutionController extends Controller
             }
             $evolution->setStatus($data['status']);
         }
-        if (!empty($description = trim($data['description']))) {
+        if (!empty($description = $data['description'])) {
             if($evolution->getAuthor()->getId() != $this->getUser()->getId()) {
                 throw new AccessDeniedHttpException('project.feedback.not_author');
             }
