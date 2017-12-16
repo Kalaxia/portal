@@ -132,9 +132,10 @@ body {
 }
 
 .form input:focus,
-.form textarea {
-    border-bottom: 1px solid #F5871F;
-    color: #F5871F;
+.form textarea:focus {
+    border-bottom: 1px solid #8BF;
+    color: #8BF;
+    background-color: rgba(0,0,0,0.2);
 }
 
 .form input {
