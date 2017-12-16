@@ -17,8 +17,6 @@
 
 .board-column {
     width: 300px;
-    background-color: rgba(0,0,0,0.8);
-    border: 1px solid #EFEFEF;
 }
 
 .board-column h3 {
@@ -26,45 +24,56 @@
     padding-top: 20px;
     padding-bottom: 20px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid #EFEFEF;
 }
 
 .board-column > section {
-    height: 600px;
-    overflow-y: auto;
+    min-height: 600px;
 }
 
 .board-card {
     display:flex;
-    align-items: center;
+    flex-direction: column;
     margin:5px;
-    border: 1px solid #565656;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-repeat: no-repeat;
+    background-position: right 15px;
     color: #EFEFEF;
     text-decoration: none;
 }
 
-.board-card .title {
-    font-weight: bold;
+
+.board-card[data-type=bug] {
+    background-image: url('../images/icons/bug.png');
 }
 
-.type-image {
-    margin-left:10px;
-    margin-right:20px;
+.board-card[data-type=evo] {
+    background-image: url('../images/icons/evolution.png');
 }
 
-.type-image img {
-    width:48px;
-    height:48px;
-    background-color: rgba(0,0,0,0.6);
-    border-radius:25px;
-    border: 1px solid #EFEFEF;
+.board-card > header {
+    height: 40px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.board-card > header > h5 {
+    width: 80%;
+    margin: 0px;
+}
+
+.board-card > section {
+    background: rgba(0,0,0,0.7);
+    padding: 15px;
+}
+
+.board-card > section > p {
+    margin: 0px;
+    font-size:0.9em;
 }
 
 #feedback {
     width: 90%;
     margin: auto;
+    margin-top: 40px;
 }
 
 #feedback > header > h2 {
@@ -97,22 +106,14 @@
     padding: 5px;
 }
 
-.action-button {
+#action-buttons > .button {
     display:block;
-    min-width:150px;
-    width:100%;
-    cursor: pointer;
-    background-color: rgba(0,0,0,0.8);
-    padding:15px 30px;
-    color: #A0A0A0;
-    border: 1px solid #A0A0A0;
-    border-radius:40px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    min-width: 150px;
 }
 
-
 #update-description-button {
-    display: none;
+    display: none !important;
 }
 
 .comment {
@@ -154,7 +155,7 @@
 }
 
 #project-description > section > h3 {
-    color: #F5871F;
+    color: #8BF;
     text-align:center;
 }
 

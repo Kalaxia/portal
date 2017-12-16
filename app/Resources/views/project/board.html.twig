@@ -48,23 +48,25 @@
                             <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}"
                                id="feedback-{{ feedback.id }}}"
                                class="board-card"
+                               data-type="{{ feedback.type }}"
                                {% if is_granted('ROLE_DEVELOPER') %}
                                    data-id="{{ feedback.id }}"
-                                   data-type="{{ feedback.type }}"
                                    draggable="true"
                                    ondragstart="dragstart_handler(event);"
                                {% endif %}>
-                                <div class="type-image">
-                                    <img src="{{ asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png')) }}" />
-                                </div>
-                                <div class="infos">
-                                    <div class="title">
-                                        {{ feedback.title }}
-                                    </div>
-                                    <div class="author">
-                                        {{ feedback.author }}
-                                    </div>
-                                </div>
+                                <header>
+                                    <h5>{{ feedback.title }}</h5>
+                                </header>
+                                <section>
+                                    <p class="author">{{ feedback.author }}</p>
+                                    <p class="date">
+                                        {% if feedback.createdAt == feedback.updatedAt %}
+                                            {{ 'project.feedback.created_at' | trans }} {{ feedback.createdAt | date('full_date' | trans) }}
+                                        {% else %}
+                                            {{ 'project.feedback.updated_at' | trans }} {{ feedback.updatedAt | date('full_date' | trans) }}
+                                        {% endif %}
+                                    </p>
+                                </section>
                             </a>
                         {% endfor %}
                     {% endif %}

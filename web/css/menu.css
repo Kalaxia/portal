@@ -8,7 +8,7 @@ body,
 }
 
 .container {
-	background: #000;
+	background: rgba(0,0,0,0.8);
 }
 
 .menu-wrap a {
@@ -26,7 +26,7 @@ body,
 	-webkit-overflow-scrolling: touch;
 	-webkit-transition: -webkit-transform 0.3s;
 	transition: transform 0.3s;
-	background: #373a47;
+    background-color: #606090;
 }
 
 .content {
@@ -135,7 +135,7 @@ body,
     height: 20px;
     position: relative;
     left: -20px;
-    background-color: #c94e50;
+    background-color: #26A;
     border-radius: 40px;
     color: #EFEFEF;
     font-size: 0.8em;

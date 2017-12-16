@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Electrolize');
+
 html {
-    background: url('../images/backgrounds/wallpaper.jpg') no-repeat;
-    background-size: cover;
     color: #EFEFEF;
+    font-family: 'Electrolize', sans-serif;
+    background-color: #606090;
 }
 
 body {
@@ -65,7 +67,7 @@ body {
 }
 
 .notification.unread > header {
-    border-top: 5px solid #F5871F;
+    border-top: 5px solid #48C;
 }
 
 .notification > section {
@@ -106,13 +108,12 @@ body {
 }
 
 .button.warning {
-    color: #EFEFEF;
-    background-color: #F5871F;
+    color: #04C;
 }
 
 .button.success {
     color: #EFEFEF;
-    background-color: #3a3;
+    background-color: #48C;
 }
 
 .form {
