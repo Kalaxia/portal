@@ -85,6 +85,8 @@ project:
         create: 'Valider'
         edit: 'Editer'
         update: 'Mettre à jour'
+        confirm_cancel: 'Attention toutes les modifications apportées seront perdues. Voulez-continuer ?'
+        
     status:
         to_specify: 'À spécifier'
         ready: 'Prêt'
@@ -95,7 +97,7 @@ project:
 
     comment:
         create: 'Poster mon commentaire'
-        created_at: 'posté le %date%'
+        created_at: 'le %date%'
 
 profile:
     dashboard: 'Mon Profil'

@@ -71,9 +71,9 @@
 }
 
 #feedback {
-    width: 90%;
-    margin: auto;
     margin-top: 40px;
+    margin-right: 10px ;
+    margin-left: 10px ;
 }
 
 #feedback > header > h2 {
@@ -85,8 +85,12 @@
     display:flex;
 }
 
-#feedback > section > .infos {
+#feedback > section > .feedback-content > .infos {
     flex-grow: 1;
+    display: flex ;
+    justify-content: center ;
+    margin-top: 5px ;
+    flex-wrap: wrap ;
 }
 
 #feedback > section > .feedback-content {
@@ -95,15 +99,26 @@
 
 #feedback > section > .feedback-content > .description {
     margin: auto;
-    width:80%;
-    padding:20px;
+    width: 100%;
     background: rgba(0,0,0,0.6);
 }
 
-#feedback > section > .feedback-content > .description > textarea {
-    width:100%;
+#feedback > section > .feedback-content > .description > .description-content {
+    padding: 20px 2px;
+    display: flex;
+    margin-left: 5px;
+}
+
+#feedback > section > .feedback-content > .description > .description-content > textarea {
+    width: 100%;
     resize: none;
     padding: 5px;
+    margin: 5px;
+}
+
+#home-button {
+    display: float ;
+    float : right ;
 }
 
 #action-buttons > .button {
@@ -116,16 +131,27 @@
     display: none !important;
 }
 
+#confirm-description-changes {
+    display: none ;
+}
+
 .comment {
-    margin:10px 10%;
+    margin:10px 20px;
     background-color: rgba(0,0,0,0.8);
     color: #EFEFEF;
-    padding: 20px;
+    padding: 10px;
 }
 
 .comment > .author {
-    text-align: right;
+    display: flex ;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-left: 5px;
+}
+
+.comment > .author > .comment-date {
     font-style: italic;
+    margin-left: 5px ;
 }
 
 #new-comment {
@@ -173,4 +199,65 @@
 
 #project-description > section > strong {
     display: block;
+}
+ 
+.speech-bubble { 
+   position: relative;
+   background: #262639;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px; 
+} 
+
+.speech-bubble:after { 
+    content: ''; 
+    position: absolute; 
+    left: -25px; 
+    top: 10px; 
+    width: 0; 
+    height: 0; 
+    border: 28px solid transparent; 
+    border-right-color: #262639; 
+    border-left: 0; 
+    border-top: 0; 
+}
+
+.speech-bubble-author { 
+    position: relative;
+    background: #39395f;  
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;  
+}
+
+.speech-bubble-author:after { 
+    content: ''; 
+    position: absolute; 
+    right: -25px;  
+    top: 10px; 
+    width: 0; 
+    height: 0; 
+    border: 28px solid transparent; 
+    border-left-color: #39395f; 
+    border-right: 0;
+    border-top: 0; 
+}
+
+#title-button > a > img {
+    width : 30px ;
+    margin-left: 15px;
+}
+
+.description-action {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.description-action-img {
+    width: 30px ;
+    cursor: pointer ;
+}
+
+#description-old {
+    display:none ;
 }
