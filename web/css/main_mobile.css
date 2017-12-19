@@ -1,8 +1,3 @@
-html {
-    background: none ;
-    background-color : #373a47 ;
-}
-
 img {
     max-width: 90% ;
 }
@@ -25,7 +20,6 @@ header {
 }
 
 .content-wrap {
-    background: #373a47 ;
     color: white ;
 }
 
@@ -78,10 +72,6 @@ header {
     margin: 5px;    
 }
 
-#home {    
-    background: #373a47 ;
-}
-
 .menulist
 {
     display: block ;
@@ -100,16 +90,15 @@ header {
     align-items: center ;
 }
 
-.menuelement:hover
+.menuelement:hover > span
 {
-    background-color: lightgrey ;
+    color: #c94e50 ;
 }
 
 .menuelement > img {
     width: 24px ;
     height: 24px ;  
     float: left ;
-
 }
 
 .menuelement > span {
@@ -118,12 +107,12 @@ header {
     vertical-align: middle ;    
 }
 
-.active {
-    background-color: rgba(0,0,0,0.1);
+.active > span {
+    color: #c94e50 ;
 }
 
 .profile {
-    background: #373a47 ;
+    background: #606090 ;
     padding: 5px;    
     color: white ;
     height:110px;
@@ -152,27 +141,27 @@ header {
 
 /* Menu Button */
 .menu-button {
-	position: fixed;
-	z-index: 1000;
-	margin: 1em;
-	padding: 0;
-	width: 2.5em;
-	height: 2.25em;
-	border: none;
-	text-indent: 2.5em;
-	font-size: 1.2em;
-	color: transparent;
-	background: transparent;
-	-webkit-transition: -webkit-transform 0.3s;
-	transition: transform 0.3s;
+    position: fixed;
+    z-index: 1000;
+    margin: 1em;
+    padding: 0;
+    width: 2.5em;
+    height: 2.25em;
+    border: none;
+    text-indent: 2.5em;
+    font-size: 1.2em;
+    color: transparent;
+    background: transparent;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
 }
 
 .menu-button::before {
-	position: absolute;
-	top: 0.5em;
-	right: 0.5em;
-	bottom: 0.5em;
-	left: 0.5em;
-	background: linear-gradient(#EFEFEF 20%, transparent 20%, transparent 40%, #EFEFEF 40%, #EFEFEF 60%, transparent 60%, transparent 80%, #EFEFEF 80%);
-	content: '';
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    bottom: 0.5em;
+    left: 0.5em;
+    background: linear-gradient(#EFEFEF 20%, transparent 20%, transparent 40%, #EFEFEF 40%, #EFEFEF 60%, transparent 60%, transparent 80%, #EFEFEF 80%);
+    content: '';
 }
