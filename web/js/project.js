@@ -27,7 +27,7 @@ const drop_handler = event => {
 };
 
 const edit_description = (id, type) => {
-    var descriptionElement = document.querySelector('#feedback .description');
+    var descriptionElement = document.querySelector('#feedback .description-content');
     
     if (descriptionElement.firstChild.tagName === 'textarea') {
         return;
@@ -39,7 +39,8 @@ const edit_description = (id, type) => {
     textArea.style.height = descriptionElement.style.height;
     descriptionElement.innerHTML = textArea.outerHTML;
     
-    document.querySelector('#update-description-button').style.display = 'block';
+    document.querySelector('#description-old').innerHTML = textArea.innerText ;
+    document.querySelector('#confirm-description-changes').style.display = 'block';
     document.querySelector('#edit-description-button').style.display = 'none';
 };
 
@@ -47,7 +48,7 @@ const update_description = (id, type) => {
     fetch('/' + ((type === 'bug') ? 'bugs' : 'evolutions') + '/' + id, {
         method: 'PUT', 
         body: JSON.stringify({
-            description: document.querySelector('#feedback .description > textarea').value
+            description: document.querySelector('#feedback .description-content > textarea').value
         }),
         credentials: 'include'
     }).then(response => {
@@ -56,10 +57,20 @@ const update_description = (id, type) => {
         }
         throw 'Error';
     }).then(data => {
-        document.querySelector('#feedback .description').innerHTML = data.description;
-        document.querySelector('#update-description-button').style.display = 'none';
-        document.querySelector('#edit-description-button').style.display = 'block';
+        document.querySelector('#feedback .description-content').innerHTML = data.description;
+        document.querySelector('#confirm-description-changes').style.display = 'none';
+        document.querySelector('#edit-description-button').style.display = 'inline';
     }).catch(error => console.log(error));
+};
+
+const cancel_update_description = (alert_text) => {
+  var result = confirm(alert_text) ;
+  if(result)
+  {
+      document.querySelector('#feedback .description-content').innerHTML = document.querySelector('#description-old').innerHTML;
+      document.querySelector('#confirm-description-changes').style.display = 'none';
+      document.querySelector('#edit-description-button').style.display = 'inline';
+  }   
 };
 
 const create_comment = (id, type) => {
@@ -86,16 +97,17 @@ const create_comment = (id, type) => {
         var commentsBox = document.querySelector('.comments');
         var comment = document.createElement('div');
         comment.classList.add('comment'); 
-        
-        var contentElement = document.createElement('div');
-        contentElement.classList.add('content');
-        contentElement.innerHTML = data.feedback.content;
-        comment.appendChild(contentElement);
+        comment.classList.add('speech-bubble');
         
         var authorElement = document.createElement('div');
         authorElement.classList.add('author');
         authorElement.innerHTML = `${data.feedback.author}, ${data.created_at_string}`;
         comment.appendChild(authorElement);
+        
+        var contentElement = document.createElement('div');
+        contentElement.classList.add('content');
+        contentElement.innerHTML = data.feedback.content;
+        comment.appendChild(contentElement);
         
         commentsBox.appendChild(comment);
     }).catch(error => console.log(error));
