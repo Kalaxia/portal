@@ -50,6 +50,7 @@
 }
 
 .board-card > header {
+    display:flex;
     height: 40px;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.3);
@@ -58,6 +59,12 @@
 .board-card > header > h5 {
     width: 80%;
     margin: 0px;
+}
+
+.board-card > header > .labels > div {
+    width: 12px;
+    height: 24px;
+    border: 1px solid rgba(0,0,0,0.7);
 }
 
 .board-card > section {
@@ -91,6 +98,29 @@
     justify-content: center ;
     margin-top: 5px ;
     flex-wrap: wrap ;
+}
+
+#feedback > section > .feedback-content > .infos .labels {
+    display: flex;
+    align-items: center;
+}
+
+#feedback > section > .feedback-content > .infos .labels div {
+    width: 36px;
+    height: 36px;
+    margin-left:5px;
+    margin-right: 5px;
+    border: 1px solid #EFEFEF;
+}
+
+#feedback > section > .feedback-content > .infos .labels:not(.editable) div:not(.active) {
+    display: none;
+}
+
+#feedback > section > .feedback-content > .infos .labels.editable div.active {
+    width: 30px;
+    height: 30px;
+    border: 4px solid #EFEFEF;
 }
 
 #feedback > section > .feedback-content {

@@ -112,3 +112,13 @@ const create_comment = (id, type) => {
         commentsBox.appendChild(comment);
     }).catch(error => console.log(error));
 };
+
+const toggle_label = (event, feedbackId, feedbackType) => {
+    var label = event.currentTarget;
+    fetch('/' + ((feedbackType === 'bug') ? 'bugs' : 'evolutions') + '/' + feedbackId + '/labels/' + label.getAttribute('data-id'), {
+        method: label.classList.contains('active') ? 'DELETE' : 'POST',
+        credentials: 'include'
+    }).then(response => {
+        label.classList.toggle('active');
+    });
+};

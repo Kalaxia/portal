@@ -56,6 +56,15 @@
                                {% endif %}>
                                 <header>
                                     <h5>{{ feedback.title }}</h5>
+                                    <div class="labels">
+                                        {% for label in feedback.labels %}
+                                            <div class="tooltip" style="background-color: {{ label.color }}">
+                                                <span class="tooltip-text">
+                                                    {{ label.name }}
+                                                </span>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
                                 </header>
                                 <section>
                                     <p class="author">{{ feedback.author }}</p>
