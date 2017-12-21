@@ -16,6 +16,8 @@ abstract class Feedback implements \JsonSerializable
     protected $status;
     /** @var array **/
     protected $comments = [];
+    /** @var array **/
+    protected $labels = [];
     /** @var DateTime **/
     protected $createdAt;
     /** @var DateTime **/
@@ -131,10 +133,10 @@ abstract class Feedback implements \JsonSerializable
     }
     
     /**
-     * @param mixed $comment
+     * @param Comment $comment
      * @return $this
      */
-    public function addComment($comment)
+    public function addComment(Comment $comment)
     {
         $this->comments[] = $comment;
         
@@ -147,6 +149,34 @@ abstract class Feedback implements \JsonSerializable
     public function getComments()
     {
         return $this->comments;
+    }
+    
+    /**
+     * @param Label $label
+     * @return $this
+     */
+    public function addLabel(Label $label)
+    {
+        $this->labels[] = $label;
+        
+        return $this;
+    }
+    
+    /**
+     * @param Label $label
+     * @return boolean
+     */
+    public function hasLabel(Label $label)
+    {
+        return in_array($label, $this->labels);
+    }
+    
+    /**
+     * @return array
+     */
+    public function getLabels()
+    {
+        return $this->labels;
     }
     
     /**

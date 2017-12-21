@@ -196,4 +196,44 @@ class FeedbackGateway
             ])
         ]);
     }
+    
+    /**
+     * @param Bug $bug
+     * @param string $labelId
+     * @return Response
+     */
+    public function addLabelToBug(Bug $bug, $labelId)
+    {
+        return $this->client->post("/bugs/{$bug->getId()}/labels/$labelId");
+    }
+    
+    /**
+     * @param Bug $bug
+     * @param string $labelId
+     * @return Response
+     */
+    public function removeLabelFromBug(Bug $bug, $labelId)
+    {
+        return $this->client->delete("/bugs/{$bug->getId()}/labels/$labelId");
+    }
+    
+    /**
+     * @param Evolution $evolution
+     * @param string $labelId
+     * @return Response
+     */
+    public function addLabelToEvolution(Evolution $evolution, $labelId)
+    {
+        return $this->client->post("/evolutions/{$evolution->getId()}/labels/$labelId");
+    }
+    
+    /**
+     * @param Evolution $evolution
+     * @param string $labelId
+     * @return Response
+     */
+    public function removeLabelFromEvolution(Evolution $evolution, $labelId)
+    {
+        return $this->client->delete("/evolutions/{$evolution->getId()}/labels/$labelId");
+    }
 }

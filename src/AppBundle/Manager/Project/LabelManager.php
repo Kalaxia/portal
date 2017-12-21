@@ -50,7 +50,7 @@ class LabelManager
      * @param array $data
      * @return Label
      */
-    protected function format($data)
+    public function format($data)
     {
         return
             (new Label())

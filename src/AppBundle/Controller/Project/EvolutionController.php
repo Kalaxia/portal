@@ -1,13 +1,18 @@
 <?php
 namespace AppBundle\Controller\Project;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
+    Method,
+    Route,
+    Security
+};
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\{
+    JsonResponse,
+    Request,
+    Response
+};
 
 use AppBundle\Utils\Parser;
 
@@ -17,7 +22,10 @@ use Symfony\Component\HttpKernel\Exception\{
     NotFoundHttpException
 };
 
-use AppBundle\Manager\Project\EvolutionManager;
+use AppBundle\Manager\Project\{
+    EvolutionManager,
+    LabelManager
+};
 
 class EvolutionController extends Controller
 {
@@ -86,6 +94,55 @@ class EvolutionController extends Controller
         return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
     }
     
+    
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/evolutions/{id}/labels/{label_id}", name="add_label_to_evolution")
+     * @Method({"POST"})
+     */
+    public function addLabelToEvolutionAction(Request $request)
+    {
+        $evolutionManager = $this->get(EvolutionManager::class);
+        if (empty($id = $request->attributes->get('id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_id');
+        }
+        if (empty($labelId = $request->attributes->get('label_id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_label_id');
+        }
+        if (($evolution = $evolutionManager->get($id)) === null) {
+            throw new NotFoundHttpException('project.feedback.not_found');
+        }
+        if ($this->getUser()->getId() !== $evolution->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('project.feedback.access_denied');
+        }
+        $evolutionManager->addLabelToEvolution($evolution, $labelId);
+        return new Response('', 204);
+    }
+    
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/evolutions/{id}/labels/{label_id}", name="remove_label_from_evolution")
+     * @Method({"DELETE"})
+     */
+    public function removeLabelFromEvolutionAction(Request $request)
+    {
+        $evolutionManager = $this->get(EvolutionManager::class);
+        if (empty($id = $request->attributes->get('id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_id');
+        }
+        if (empty($labelId = $request->attributes->get('label_id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_label_id');
+        }
+        if (($evolution = $evolutionManager->get($id)) === null) {
+            throw new NotFoundHttpException('project.feedback.not_found');
+        }
+        if ($this->getUser()->getId() !== $evolution->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('project.feedback.access_denied');
+        }
+        $evolutionManager->removeLabelFromEvolution($evolution, $labelId);
+        return new Response('', 204);
+    }
+    
     /**
      * @Route("/evolutions/{id}", name="get_evolution")
      */
@@ -95,7 +152,8 @@ class EvolutionController extends Controller
             throw new NotFoundHttpException('project.feedback.not_found');
         }
         return $this->render('project/feedback.html.twig', [
-            'feedback' => $evolution
+            'feedback' => $evolution,
+            'labels' => $this->get(LabelManager::class)->getAll()
         ]);
     }
 }
