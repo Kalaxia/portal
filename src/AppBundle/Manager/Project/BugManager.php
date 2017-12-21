@@ -19,6 +19,8 @@ class BugManager
     protected $gateway;
     /** @var CommentManager **/
     protected $commentManager;
+    /** @var LabelManager **/
+    protected $labelManager;
     /** @var NotificationManager **/
     protected $notificationManager;
     /** @var UserManager **/
@@ -29,6 +31,7 @@ class BugManager
     /**
      * @param FeedbackGateway $gateway
      * @param CommentManager $commentManager
+     * @param LabelManager $labelManager
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
      * @param Parser $parser
@@ -36,6 +39,7 @@ class BugManager
     public function __construct(
         FeedbackGateway $gateway,
         CommentManager $commentManager,
+        LabelManager $labelManager,
         NotificationManager $notificationManager,
         UserManager $userManager,
         Parser $parser
@@ -43,6 +47,7 @@ class BugManager
     {
         $this->gateway = $gateway;
         $this->commentManager = $commentManager;
+        $this->labelManager = $labelManager;
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
         $this->parser = $parser;
@@ -95,6 +100,24 @@ class BugManager
     }
     
     /**
+     * @param Bug $bug
+     * @param string $labelId
+     */
+    public function addLabelToBug(Bug $bug, $labelId)
+    {
+        $this->gateway->addLabelToBug($bug, $labelId);
+    }
+    
+    /**
+     * @param Bug $bug
+     * @param string $labelId
+     */
+    public function removeLabelFromBug(Bug $bug, $labelId)
+    {
+        $this->gateway->removeLabelFromBug($bug, $labelId);
+    }
+    
+    /**
      * @return array
      */
     public function getAll()
@@ -135,6 +158,11 @@ class BugManager
         if (!empty($data['comments'])) {
             foreach ($data['comments'] as $comment) {
                 $bug->addComment($this->commentManager->format($comment, true));
+            }
+        }
+        if (!empty($data['labels'])) {
+            foreach ($data['labels'] as $label) {
+                $bug->addLabel($this->labelManager->format($label));
             }
         }
         return $bug;

@@ -170,4 +170,70 @@ class FeedbackGateway
             ])
         ]);
     }
+    
+    /**
+     * @return Response
+     */
+    public function getLabels()
+    {
+        return $this->client->get('/labels');
+    }
+    
+    /**
+     * @param string $name
+     * @param string $color
+     * @return Response
+     */
+    public function createLabel($name, $color)
+    {
+        return $this->client->post("/labels", [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode([
+                'name' => $name,
+                'color' => $color
+            ])
+        ]);
+    }
+    
+    /**
+     * @param Bug $bug
+     * @param string $labelId
+     * @return Response
+     */
+    public function addLabelToBug(Bug $bug, $labelId)
+    {
+        return $this->client->post("/bugs/{$bug->getId()}/labels/$labelId");
+    }
+    
+    /**
+     * @param Bug $bug
+     * @param string $labelId
+     * @return Response
+     */
+    public function removeLabelFromBug(Bug $bug, $labelId)
+    {
+        return $this->client->delete("/bugs/{$bug->getId()}/labels/$labelId");
+    }
+    
+    /**
+     * @param Evolution $evolution
+     * @param string $labelId
+     * @return Response
+     */
+    public function addLabelToEvolution(Evolution $evolution, $labelId)
+    {
+        return $this->client->post("/evolutions/{$evolution->getId()}/labels/$labelId");
+    }
+    
+    /**
+     * @param Evolution $evolution
+     * @param string $labelId
+     * @return Response
+     */
+    public function removeLabelFromEvolution(Evolution $evolution, $labelId)
+    {
+        return $this->client->delete("/evolutions/{$evolution->getId()}/labels/$labelId");
+    }
 }

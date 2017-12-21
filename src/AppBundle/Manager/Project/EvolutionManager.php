@@ -19,6 +19,8 @@ class EvolutionManager
     protected $gateway;
     /** @var CommentManager **/
     protected $commentManager;
+    /** @var LabelManager **/
+    protected $labelManager;
     /** @var NotificationManager **/
     protected $notificationManager;
     /** @var UserManager **/
@@ -29,6 +31,7 @@ class EvolutionManager
     /**
      * @param FeedbackGateway $gateway
      * @param CommentManager $commentManager
+     * @param LabelManager $labelManager
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
      * @param Parser $parser
@@ -36,6 +39,7 @@ class EvolutionManager
     public function __construct(
         FeedbackGateway $gateway,
         CommentManager $commentManager,
+        LabelManager $labelManager,
         NotificationManager $notificationManager,
         UserManager $userManager,
         Parser $parser
@@ -43,6 +47,7 @@ class EvolutionManager
     {
         $this->gateway = $gateway;
         $this->commentManager = $commentManager;
+        $this->labelManager = $labelManager;
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
         $this->parser = $parser;
@@ -95,6 +100,24 @@ class EvolutionManager
     }
     
     /**
+     * @param Evolution $evolution
+     * @param string $labelId
+     */
+    public function addLabelToEvolution(Evolution $evolution, $labelId)
+    {
+        $this->gateway->addLabelToEvolution($evolution, $labelId);
+    }
+    
+    /**
+     * @param Evolution $evolution
+     * @param string $labelId
+     */
+    public function removeLabelFromEvolution(Evolution $evolution, $labelId)
+    {
+        $this->gateway->removeLabelFromEvolution($evolution, $labelId);
+    }
+    
+    /**
      * @return array
      */
     public function getAll()
@@ -135,6 +158,11 @@ class EvolutionManager
         if (!empty($data['comments'])) {
             foreach ($data['comments'] as $comment) {
                 $evolution->addComment($this->commentManager->format($comment, true));
+            }
+        }
+        if (!empty($data['labels'])) {
+            foreach ($data['labels'] as $label) {
+                $evolution->addLabel($this->labelManager->format($label));
             }
         }
         return $evolution;

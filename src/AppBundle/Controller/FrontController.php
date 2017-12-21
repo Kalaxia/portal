@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+use AppBundle\Manager\Project\LabelManager;
 use AppBundle\Manager\Game\ServerManager;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -50,10 +51,12 @@ class FrontController extends Controller
      */
     public function adminDashboardAction(Request $request)
     {
+        $labelManager = $this->get(LabelManager::class);
         $serverManager = $this->get(ServerManager::class);
         return $this->render('front/admin_dashboard.html.twig', [
             'opened_servers' => $serverManager->getOpenedServers(),
-            'next_servers' => $serverManager->getNextServers()
+            'next_servers' => $serverManager->getNextServers(),
+            'feedback_labels' => $labelManager->getAll()
         ]);
     }
 }

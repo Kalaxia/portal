@@ -97,7 +97,12 @@ project:
 
     comment:
         create: 'Poster mon commentaire'
-        created_at: 'le %date%'
+        created_at: 'posté le %date%'
+        
+    labels:
+        title: 'Étiquettes'
+        create: 'Ajouter'
+        name: 'Nom'
 
 profile:
     dashboard: 'Mon Profil'

@@ -1,5 +1,5 @@
-
 {% extends 'base.html.twig' %}
+{% set is_author = app.user.username is defined and feedback.author.username == app.user.username %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -30,7 +30,7 @@
                     <div class="description-content">
                     {{ feedback.description | raw }}
                     </div>
-                    {% if app.user.username is defined and feedback.author.username == app.user.username %}
+                    {% if is_author %}
                     <div class="description-action">
                         <img id="edit-description-button" class='description-action-img' src="{{ asset('images/icons/edit.png') }}" onclick="edit_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
                         <div id="confirm-description-changes">
@@ -51,6 +51,23 @@
                     <em>{{ 'project.feedback.status' | trans }}</em>
                     <strong>{{ ('project.status.' ~ feedback.status) | trans }}</strong>
                 </div>
+                
+                {% if feedback.labels | length > 0 or is_granted('ROLE_ADMIN') or is_author %}
+                <div class="info-card">
+                    <em>{{ 'project.labels.title' | trans }}</em>
+                    <div class="labels {% if is_granted('ROLE_ADMIN') or is_author %}editable{% endif %}">
+                    {% for label in labels %}
+                        <div style="background-color: {{ label.color }}"
+                             data-id="{{ label.id }}"
+                             class="tooltip{% if feedback.hasLabel(label) %} active{% endif %}"
+                             {% if is_granted('ROLE_ADMIN') or is_author %}onclick="toggle_label(event, '{{ feedback.id }}', '{{ feedback.type }}');"{% endif %}
+                             >
+                            <span class="tooltip-text">{{ label.name }}</span>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
                 <div class="info-card">
                     <em>{{ 'project.feedback.created_at' | trans }}</em>
                     <strong>{{ feedback.createdAt|date('full_date'| trans) }}</strong>

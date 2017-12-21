@@ -1,12 +1,18 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Project;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
+    Method,
+    Route,
+    Security
+};
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Component\HttpFoundation\{
+    JsonResponse,
+    Request,
+    Response
+};
 
 use AppBundle\Utils\Parser;
 
@@ -15,8 +21,10 @@ use Symfony\Component\HttpKernel\Exception\{
     BadRequestHttpException,
     NotFoundHttpException
 };
-
-use AppBundle\Manager\Project\BugManager;
+use AppBundle\Manager\Project\{
+    BugManager,
+    LabelManager
+};
 
 class BugController extends Controller
 {
@@ -85,6 +93,54 @@ class BugController extends Controller
     }
     
     /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/bugs/{id}/labels/{label_id}", name="add_label_to_bug")
+     * @Method({"POST"})
+     */
+    public function addLabelToBugAction(Request $request)
+    {
+        $bugManager = $this->get(BugManager::class);
+        if (empty($id = $request->attributes->get('id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_id');
+        }
+        if (empty($labelId = $request->attributes->get('label_id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_label_id');
+        }
+        if (($bug = $bugManager->get($id)) === null) {
+            throw new NotFoundHttpException('project.feedback.not_found');
+        }
+        if ($this->getUser()->getId() !== $bug->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('project.feedback.access_denied');
+        }
+        $bugManager->addLabelToBug($bug, $labelId);
+        return new Response('', 204);
+    }
+    
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/bugs/{id}/labels/{label_id}", name="remove_label_to_bug")
+     * @Method({"DELETE"})
+     */
+    public function removeLabelFromBugAction(Request $request)
+    {
+        $bugManager = $this->get(BugManager::class);
+        if (empty($id = $request->attributes->get('id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_id');
+        }
+        if (empty($labelId = $request->attributes->get('label_id'))) {
+            throw new BadRequestHttpException('project.feedback.missing_label_id');
+        }
+        if (($bug = $bugManager->get($id)) === null) {
+            throw new NotFoundHttpException('project.feedback.not_found');
+        }
+        if ($this->getUser()->getId() !== $bug->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('project.feedback.access_denied');
+        }
+        $bugManager->removeLabelFromBug($bug, $labelId);
+        return new Response('', 204);
+    }
+    
+    /**
      * @Route("/bugs/{id}", name="get_bug")
      * @Method({"GET"})
      */
@@ -94,7 +150,8 @@ class BugController extends Controller
             throw new NotFoundHttpException('project.feedback.not_found');
         }
         return $this->render('project/feedback.html.twig', [
-            'feedback' => $bug
+            'feedback' => $bug,
+            'labels' => $this->get(LabelManager::class)->getAll()
         ]);
     }
 }
