@@ -46,10 +46,16 @@ class FeedbackManager
         $results = [];
         
         foreach ($bugs as $bug) {
-            $results[$bug->getStatus()][] = $bug;
+            $results[$bug->getStatus()][-$bug->getUpdatedAt()->getTimestamp()] = $bug;
         }
         foreach ($evolutions as $evolution) {
-            $results[$evolution->getStatus()][] = $evolution;
+            $results[$evolution->getStatus()][-$evolution->getUpdatedAt()->getTimestamp()] = $evolution;
+        }
+        foreach (Feedback::getStatuses() as $status) {
+            if (!isset($results[$status])) {
+                continue;
+            }
+            ksort($results[$status]);
         }
         return $results;
     }
