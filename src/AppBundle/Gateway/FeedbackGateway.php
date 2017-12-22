@@ -63,11 +63,7 @@ class FeedbackGateway
             'body' => json_encode([
                 'title' => $evolution->getTitle(),
                 'description' => $evolution->getDescription(),
-                'status' => $evolution->getStatus(),
-                'author' => [
-                    'name' => $evolution->getAuthor()->getUsername(),
-                    'email' => $evolution->getAuthor()->getEmail()
-                ],
+                'status' => $evolution->getStatus()
             ])
         ]);
     }
@@ -128,11 +124,7 @@ class FeedbackGateway
             'body' => json_encode([
                 'title' => $bug->getTitle(),
                 'description' => $bug->getDescription(),
-                'status' => $bug->getStatus(),
-                'author' => [
-                    'name' => $bug->getAuthor()->getUsername(),
-                    'email' => $bug->getAuthor()->getEmail()
-                ],
+                'status' => $bug->getStatus()
             ])
         ]);
     }

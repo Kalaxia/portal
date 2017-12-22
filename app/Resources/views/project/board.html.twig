@@ -45,7 +45,7 @@
                     {% endif %}>
                     {% if feedbacks[status] is defined %}
                         {% for feedback in feedbacks[status] %}
-                            <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': feedback.id}) }}"
+                            <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': (feedback.slug | length > 0) ? feedback.slug : feedback.id}) }}"
                                id="feedback-{{ feedback.id }}}"
                                class="board-card"
                                data-type="{{ feedback.type }}"

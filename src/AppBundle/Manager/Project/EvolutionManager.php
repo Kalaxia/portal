@@ -149,6 +149,7 @@ class EvolutionManager
             (new Evolution())
             ->setId($data['id'])
             ->setTitle($data['title'])
+            ->setSlug($data['slug'])
             ->setDescription($data['description'])
             ->setStatus($data['status'])
             ->setAuthor($this->getAuthor($data['author']['username'], $getAuthor))

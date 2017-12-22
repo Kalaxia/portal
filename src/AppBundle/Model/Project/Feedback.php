@@ -9,6 +9,8 @@ abstract class Feedback implements \JsonSerializable
     /** @var string **/
     protected $title;
     /** @var string **/
+    protected $slug;
+    /** @var string **/
     protected $description;
     /** @var array **/
     protected $author;
@@ -74,6 +76,25 @@ abstract class Feedback implements \JsonSerializable
     public function getTitle()
     {
         return $this->title;
+    }
+    
+    /**
+     * @param string $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
     
     /**
