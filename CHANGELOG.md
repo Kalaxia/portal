@@ -1,0 +1,21 @@
+## [0.1.1] - 2017-12-23
+### Added
+- User profile
+- Game server connection
+- Game server registration
+- Game server creation
+- RSA crypted communications with game servers
+- Project labels creation
+- Project label assignment to feedbacks
+- Project feedback creation
+- Project feedback update
+- Project feedback comment creation
+- Project board
+- Unread notifications counter and list
+- RSS stream from blog
+- Project description
+- Discord invitation link
+- User registration
+- User connection
+- User logout
+- Forgotten password
