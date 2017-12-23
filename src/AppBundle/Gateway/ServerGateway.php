@@ -5,9 +5,6 @@ namespace AppBundle\Gateway;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 
-use AppBundle\Entity\User;
-use AppBundle\Entity\Game\Server;
-
 class ServerGateway
 {
     /** @var Client **/

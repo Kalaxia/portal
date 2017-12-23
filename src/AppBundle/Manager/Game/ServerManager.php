@@ -111,7 +111,8 @@ class ServerManager
         $response = $this->serverGateway->bindServer($host, $this->rsaEncryptionManager->encrypt($server, json_encode([
             'name' => $name,
             'type' => $type,
-            'signature' => $signature
+            'signature' => $signature,
+            'map_size' => 100,
         ])));
         if ($response->getStatusCode() !== 201) {
             throw new \ErrorException($response->getBody()->getContent());
