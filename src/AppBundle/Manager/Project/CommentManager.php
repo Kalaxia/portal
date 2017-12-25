@@ -76,8 +76,8 @@ class CommentManager
             $players[] = $feedback->getAuthor()->getId();
             $this->notificationManager->create($feedback->getAuthor(), $title, $content);
         }
-        foreach ($feedback->getComments() as $comment) {
-            $commentAuthor = $comment->getAuthor();
+        foreach ($feedback->getComments() as $c) {
+            $commentAuthor = $c->getAuthor();
             
             if (in_array($commentAuthor->getId(), $players) || $commentAuthor->getId() === 0) {
                 continue;
