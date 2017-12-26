@@ -73,8 +73,9 @@ class CommentManager
 
         $title = 'Nouveau commentaire';
         $isBug = $feedback->getType() === Feedback::TYPE_BUG;
-        // We get bug URL from the slug, who is necessarily not empty, because we just updated it.
-        $url = $this->router->generate($isBug ? 'get_bug' : 'get_evolution', ['id' => $feedback->getSlug()]);
+        // We get feedback URL from the slug, who is necessarily not empty, because we just updated it.
+        $id = empty($id = $feedback->getSlug()) ? $feedback->getId() : $id;
+        $url = $this->router->generate($isBug ? 'get_bug' : 'get_evolution', ['id' => $id]);
         $content =
             "{$author->getUsername()} a posté un commentaire sur <a href=\"$url\">".
              ($isBug ? 'le bug' : 'l\'évolution'). " \"{$feedback->getTitle()}\" </a>."

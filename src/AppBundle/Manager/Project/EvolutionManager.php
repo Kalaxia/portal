@@ -87,7 +87,7 @@ class EvolutionManager
         $updatedEvolution = $this->format(json_decode($this->gateway->updateEvolution($evolution)->getBody(), true));
 
         $title = 'Evolution mise à jour';
-        // We get bug URL from the slug, who is necessarily not empty, because we just updated it.
+        // We get evolution URL from the slug, who is necessarily not empty, because we just updated it.
         $url = $this->router->generate('get_evolution', ['id' => $updatedEvolution->getSlug()]);
         $content = "{$user->getUsername()} a mis à jour <a href=\"$url\"\">l'évolution \"{$evolution->getTitle()}\"</a>.";
         // We avoid sending notification to the updater, whether he is the feedback author or not
