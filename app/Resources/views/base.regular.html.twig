@@ -12,7 +12,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        
+
 		<div class="container">
 			<div class="menu-wrap">
 				<nav class="menu-top">
@@ -29,21 +29,29 @@
                         </span>
                     </div>
 					<div class="icon-list">
-                        {% if is_granted('ROLE_USER') == false %}
-                            <a href="{{ path('fos_user_registration_register') }}">
-                                {{ 'registration' | trans }}
-                            </a>
-                            <a href="{{ path('fos_user_security_login') }}">
-                                {{ 'connection' | trans }}
-                            </a>
-                        {% else %}
-                            <a href="#" onclick="toggleNotifications();" id="notifications">
-                                <img src="{{ asset('images/icons/notification_white.png') }}" />
-                                {% if nbNotifications > 0 %}
-                                    <span class="badge">{{ nbNotifications }}</span>
-                                {% endif %}
-                            </a>
-                        {% endif %}
+                        <div id="links-container">
+                            {% if is_granted('ROLE_USER') == false %}
+                                <a href="{{ path('fos_user_registration_register') }}">
+                                    {{ 'registration' | trans }}
+                                </a>
+                                <a href="{{ path('fos_user_security_login') }}">
+                                    {{ 'connection' | trans }}
+                                </a>
+                            {% else %}
+                                <a href="#" onclick="toggleNotifications();" id="notifications">
+                                    <img src="{{ asset('images/icons/notification_white.png') }}" />
+                                    {% if nbNotifications > 0 %}
+                                        <span class="badge">{{ nbNotifications }}</span>
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div id="icon-container">
+                            <a href="https://www.facebook.com/kalaxiagame/" class="icon"> <img src="http://www.freeiconspng.com/uploads/facebook-logo-png-white-facebook-logo-png-white-facebook-icon-png--32.png" width="32" height="32" alt="Facebook" /> </a>
+                            <a href="http://instagram.com/kalaxiagame/" class="icon"> <img src="https://straypet.net/wp-content/uploads/2014/11/instagram-icon-good.png" id="instagram-icon" /> </a>
+                            <a href="http://twitter.com/kalaxiagame " class="icon"> <img src="https://daks2k3a4ib2z.cloudfront.net/56c2fa79e7d136a016bbbb88/56c30bffe7d136a016bbdab3_twitter-icon.png" width="32" height="32" /> </a>
+                            <a href="https://www.linkedin.com/company/11369270/ " class="icon"> <img src="http://v.fastcdn.co/u/1570556-0-LinkedInwhite.png" width="32" height="32" /> </a>
+                        </div>
 					</div>
 				</nav>
 				<nav class="menu-side">
@@ -52,7 +60,7 @@
                     {% if is_granted('ROLE_USER') and app.request.attributes.get('_route') != 'dashboard' %}<a href="{{ path('dashboard') }}">{{ 'user.dashboard' | trans }}</a>{% endif %}
                     {% if is_granted('ROLE_USER') and app.request.attributes.get('_route') != 'profile' %}<a href="{{ path('profile') }}">{{ 'profile.dashboard' | trans }}</a>{% endif %}
 					{% if app.request.attributes.get('_route') != 'project_board' %}<a href="{{ path('project_board') }}">{{ 'project.board' | trans }}</a>{% endif %}
-				</nav>
+                </nav>
 			</div>
 			<button class="menu-button" id="open-button">Open Menu</button>
 			<div class="content-wrap">

@@ -1,6 +1,6 @@
-html, 
-body, 
-.container, 
+html,
+body,
+.container,
 .content-wrap {
 	overflow: hidden;
 	width: 100%;
@@ -89,6 +89,7 @@ body,
 	opacity: 0;
 	-webkit-transition: opacity 1s;
 	transition: opacity 1s;
+	width: 100%;
 }
 
 .menu-top {
@@ -103,7 +104,8 @@ body,
 
 .menu-top .profile,
 .menu-side {
-	width: 300px;
+	min-width: 300px;
+	max-width: 300px;
 }
 
 .menu-top .profile img {
@@ -115,8 +117,10 @@ body,
 
 .icon-list {
 	display: flex;
+	justify-content: space-between;
     align-items: center;
 	font-size: 1.25em;
+	width: 100%;
 }
 
 .icon-list a {
@@ -156,6 +160,20 @@ body,
 .menu-side a:first-child {
 	border-top: 1px solid rgba(0,0,0,0.1);
 }
+
+/* Social icons */
+#icon-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#icon-container #instagram-icon {
+    width: 27px;
+    height: 27px;
+}
+
 
 /* Shown menu */
 .show-menu .menu-wrap {
