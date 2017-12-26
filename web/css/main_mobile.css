@@ -24,19 +24,29 @@ header {
 }
 
 .type-image > img {
-    min-width: 50px;  
+    min-width: 50px;
 }
 
 .left_arrow{
     font-size:small ;
     float:left;
-    margin:4px;    
+    margin:4px;
 }
 
 .right_arrow{
     float:right;
-    margin:4px;  
+    margin:4px;
     font-size:small ;
+}
+
+/* Social buttons */
+#icon-container {
+    background-color: black;
+    text-align: center;
+}
+
+.icon {
+    margin-left: 15px;
 }
 
 /* Menu Panel */
@@ -51,7 +61,7 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 3 ;    
+    z-index: 3 ;
 }
 
 #overlay {
@@ -69,7 +79,7 @@ header {
 
 #menu_button {
     padding: 15px ;
-    margin: 5px;    
+    margin: 5px;
 }
 
 .menulist
@@ -97,14 +107,14 @@ header {
 
 .menuelement > img {
     width: 24px ;
-    height: 24px ;  
+    height: 24px ;
     float: left ;
 }
 
 .menuelement > span {
     color: black ;
     padding-left: 15px ;
-    vertical-align: middle ;    
+    vertical-align: middle ;
 }
 
 .active > span {
@@ -113,7 +123,7 @@ header {
 
 .profile {
     background: #606090 ;
-    padding: 5px;    
+    padding: 5px;
     color: white ;
     height:110px;
 }
@@ -127,15 +137,15 @@ header {
 }
 
 .anonymous {
-    text-align: center ;   
+    text-align: center ;
     margin-top: 50px ;
-    font-weight: bold ;  
+    font-weight: bold ;
 }
 
 .logout {
     width : 40px ;
-    height : 40px ; 
-    float : right ;    
+    height : 40px ;
+    float : right ;
 }
 /*************************/
 
