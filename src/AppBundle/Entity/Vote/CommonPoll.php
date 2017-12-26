@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="poll__common_polls")
+ * @ORM\Table(name="vote__common_polls")
  */
 class CommonPoll extends Poll
 {
