@@ -79,6 +79,11 @@ body {
     overflow: hidden;
     transition: padding 0.4s ease-out;
 }
+.notification > section > a {
+    color: #8AC;
+    text-decoration: none;
+    font-weight: bold;
+}
 
 .notification > section.active {
     height: auto;
