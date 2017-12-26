@@ -30,6 +30,7 @@ use AppBundle\Manager\Project\{
 class EvolutionController extends Controller
 {
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/evolutions/new", name="propose_evolution")
      * @Method({"GET"})
      */
@@ -40,7 +41,7 @@ class EvolutionController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
         ]);
     }
-    
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/evolutions", name="create_evolution")
@@ -61,8 +62,8 @@ class EvolutionController extends Controller
                 ->getId()
         ]);
     }
-    
-    
+
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/evolutions/{id}", name="update_evolution")
@@ -93,8 +94,8 @@ class EvolutionController extends Controller
         }
         return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
     }
-    
-    
+
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/evolutions/{id}/labels/{label_id}", name="add_label_to_evolution")
@@ -118,7 +119,7 @@ class EvolutionController extends Controller
         $evolutionManager->addLabelToEvolution($evolution, $labelId);
         return new Response('', 204);
     }
-    
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/evolutions/{id}/labels/{label_id}", name="remove_label_from_evolution")
@@ -142,7 +143,7 @@ class EvolutionController extends Controller
         $evolutionManager->removeLabelFromEvolution($evolution, $labelId);
         return new Response('', 204);
     }
-    
+
     /**
      * @Route("/evolutions/{id}", name="get_evolution")
      */

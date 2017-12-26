@@ -29,6 +29,7 @@ use AppBundle\Manager\Project\{
 class BugController extends Controller
 {
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/bugs/new", name="report_bug")
      * @Method({"GET"})
      */
@@ -39,7 +40,7 @@ class BugController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
         ]);
     }
-    
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/bugs", name="create_bug")
@@ -60,7 +61,7 @@ class BugController extends Controller
                 ->getId()
         ]);
     }
-    
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/bugs/{id}", name="update_bug")
@@ -91,7 +92,7 @@ class BugController extends Controller
         }
         return new JsonResponse($bugManager->update($bug, $this->getUser()));
     }
-    
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/bugs/{id}/labels/{label_id}", name="add_label_to_bug")
@@ -115,7 +116,7 @@ class BugController extends Controller
         $bugManager->addLabelToBug($bug, $labelId);
         return new Response('', 204);
     }
-    
+
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/bugs/{id}/labels/{label_id}", name="remove_label_to_bug")
@@ -139,7 +140,7 @@ class BugController extends Controller
         $bugManager->removeLabelFromBug($bug, $labelId);
         return new Response('', 204);
     }
-    
+
     /**
      * @Route("/bugs/{id}", name="get_bug")
      * @Method({"GET"})

@@ -8,7 +8,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('js/project.js') }}"></script>   
+    <script type="text/javascript" src="{{ asset('js/project.js') }}"></script>
 {% endblock %}
 
 {% block page_title %}{{ 'project.board' | trans }}{% endblock %}
@@ -16,28 +16,30 @@
 {% block body %}
     <div id="board" data-enhanced="false">
         <header>
-            <a class="button" href="{{ path('report_bug') }}">
-                {{ 'project.feedback.report_bug' | trans }}
-            </a>
-            <a class="button" href="{{ path('propose_evolution') }}">
-                {{ 'project.feedback.propose_evolution' | trans }}
-            </a>
+            {% if is_granted('ROLE_USER') %}
+                <a class="button" href="{{ path('report_bug') }}">
+                    {{ 'project.feedback.report_bug' | trans }}
+                </a>
+                <a class="button" href="{{ path('propose_evolution') }}">
+                    {{ 'project.feedback.propose_evolution' | trans }}
+                </a>
+            {% endif %}
         </header>
         <section>
         {% for status in statuses  %}
-            <div class="board-column" 
-                 {% if mobileTemplate %} 
+            <div class="board-column"
+                 {% if mobileTemplate %}
                     style="width:100%;"
-                    id="board_col_{{loop.index}}" 
+                    id="board_col_{{loop.index}}"
                  {% endif %} >
-                <h3>{{ ("project.status." ~ status) | trans }}  
+                <h3>{{ ("project.status." ~ status) | trans }}
                      {% if feedbacks[status] is defined %} ({{feedbacks[status] | length}}) {% endif %}
-                {% if mobileTemplate %} 
+                {% if mobileTemplate %}
                    {% if not loop.first %}  <div class="left_arrow" > <a class="button" href="#" onclick="displayNav({{loop.index}},'previous')"> < </a></div> {% endif %}
                    {% if not loop.last %}  <div class="right_arrow"> <a class="button" href="#" onclick="displayNav({{loop.index}},'next')">></a> </div> {% endif %}
                 {%endif%}
                 </h3>
-         
+
                 <section {% if is_granted('ROLE_DEVELOPER') %}
                     data-status="{{ status }}"
                     ondrop="drop_handler(event);"
@@ -82,12 +84,12 @@
                 </section>
             </div>
               <script>
-               {% if not loop.first %} 
+               {% if not loop.first %}
                    var x = document.getElementById('board_col_{{loop.index}}') ;
                    hide(x) ;
                {% endif %}
              </script>
         {% endfor %}
         </section>
-    </div>            
+    </div>
 {% endblock %}

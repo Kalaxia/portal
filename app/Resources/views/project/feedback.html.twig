@@ -24,7 +24,7 @@
 {% block body %}
     <div id="feedback">
         <section>
-           
+
             <div class="feedback-content">
                 <div class="description">
                     <div class="description-content">
@@ -37,11 +37,11 @@
                             <img class='description-action-img' src="{{ asset('images/icons/validate.png') }}" onclick="update_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
                             <img class='description-action-img' src="{{ asset('images/icons/cancel.png') }}" onclick="cancel_update_description('{{ 'project.feedback.confirm_cancel' | trans }}');" />
                         </div>
-                    </div> 
+                    </div>
                     <div id="description-old"></div>
                     {% endif %}
                 </div>
-                
+
                 <div class="infos">
                 <div class="info-card">
                     <em>{{ 'project.feedback.author' | trans }}</em>
@@ -51,7 +51,7 @@
                     <em>{{ 'project.feedback.status' | trans }}</em>
                     <strong>{{ ('project.status.' ~ feedback.status) | trans }}</strong>
                 </div>
-                
+
                 {% if feedback.labels | length > 0 or is_granted('ROLE_ADMIN') or is_author %}
                 <div class="info-card">
                     <em>{{ 'project.labels.title' | trans }}</em>
@@ -82,10 +82,10 @@
                 <hr>
                 <div class="comments">
                     {% for comment in feedback.comments %}
-                        <div class="comment {% if comment.author.username == feedback.author.username %} speech-bubble-author 
+                        <div class="comment {% if comment.author.username == feedback.author.username %} speech-bubble-author
                         {% else %} speech-bubble {% endif %}">
                             <div class="author">
-                                {{ comment.author.username }}  
+                                {{ comment.author.username }}
                                 <div class="comment-date">
                                      - {{ 'project.comment.created_at' | trans({"%date%": comment.createdAt | date('full_date' | trans)} ) }}
                                 </div>
@@ -96,10 +96,12 @@
                         </div>
                     {% endfor %}
                 </div>
+                {% if is_granted('ROLE_USER') %}
                 <div id="new-comment">
                     <textarea name="comment-content"></textarea>
                     <button onclick="create_comment('{{ feedback.id }}', '{{ feedback.type }}');">{{ 'project.comment.create' | trans }}</button>
                 </div>
+                {% endif %}
             </div>
         </section>
     </div>
