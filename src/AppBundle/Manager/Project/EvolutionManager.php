@@ -13,6 +13,8 @@ use AppBundle\Model\Project\Evolution;
 
 use AppBundle\Utils\Parser;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 class EvolutionManager
 {
     /** @var FeedbackGateway **/
@@ -27,7 +29,9 @@ class EvolutionManager
     protected $userManager;
     /** @var Parser **/
     protected $parser;
-    
+    /** @var UrlGeneratorInterface **/
+    protected $router;
+
     /**
      * @param FeedbackGateway $gateway
      * @param CommentManager $commentManager
@@ -35,6 +39,7 @@ class EvolutionManager
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
      * @param Parser $parser
+     * @param UrlGeneratorInterface $router
      */
     public function __construct(
         FeedbackGateway $gateway,
@@ -42,7 +47,8 @@ class EvolutionManager
         LabelManager $labelManager,
         NotificationManager $notificationManager,
         UserManager $userManager,
-        Parser $parser
+        Parser $parser,
+        UrlGeneratorInterface $router
     )
     {
         $this->gateway = $gateway;
@@ -51,8 +57,9 @@ class EvolutionManager
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
         $this->parser = $parser;
+        $this->router = $router;
     }
-    
+
     /**
      * @param string $title
      * @param string $description
@@ -69,7 +76,7 @@ class EvolutionManager
             $user->getEmail()
         )->getBody(), true));
     }
-    
+
     /**
      * @param Evolution $evolution
      * @param User $user
@@ -78,9 +85,11 @@ class EvolutionManager
     public function update(Evolution $evolution, User $user)
     {
         $updatedEvolution = $this->format(json_decode($this->gateway->updateEvolution($evolution)->getBody(), true));
-        
+
         $title = 'Evolution mise à jour';
-        $content = "{$user->getUsername()} a mis à jour l'évolution \"{$evolution->getTitle()}\".";
+        // We get bug URL from the slug, who is necessarily not empty, because we just updated it.
+        $url = $this->router->generate('get_evolution', ['id' => $updatedEvolution->getSlug()]);
+        $content = "{$user->getUsername()} a mis à jour <a href=\"$url\"\">l'évolution \"{$evolution->getTitle()}\"</a>.";
         // We avoid sending notification to the updater, whether he is the feedback author or not
         $players = [$user->getId()];
         if ($evolution->getAuthor()->getId() !== $user->getId() && $evolution->getAuthor()->getId() !== 0) {
@@ -89,7 +98,7 @@ class EvolutionManager
         }
         foreach ($evolution->getComments() as $comment) {
             $commentAuthor = $comment->getAuthor();
-            
+
             if (in_array($commentAuthor->getId(), $players) || $commentAuthor->getId() === 0) {
                 continue;
             }
@@ -98,7 +107,7 @@ class EvolutionManager
         }
         return $updatedEvolution;
     }
-    
+
     /**
      * @param Evolution $evolution
      * @param string $labelId
@@ -107,7 +116,7 @@ class EvolutionManager
     {
         $this->gateway->addLabelToEvolution($evolution, $labelId);
     }
-    
+
     /**
      * @param Evolution $evolution
      * @param string $labelId
@@ -116,7 +125,7 @@ class EvolutionManager
     {
         $this->gateway->removeLabelFromEvolution($evolution, $labelId);
     }
-    
+
     /**
      * @return array
      */
@@ -128,7 +137,7 @@ class EvolutionManager
         }
         return $result;
     }
-    
+
     /**
      * @param string $id
      * @return Evolution
@@ -137,7 +146,7 @@ class EvolutionManager
     {
         return $this->format(json_decode($this->gateway->getEvolution($id)->getBody(), true), true);
     }
-    
+
     /**
      * @param array $data
      * @param boolean $getAuthor
@@ -168,7 +177,7 @@ class EvolutionManager
         }
         return $evolution;
     }
-    
+
     /**
      * @param string $username
      * @param boolean $getAuthorData

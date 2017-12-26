@@ -13,6 +13,8 @@ use AppBundle\Model\Project\Bug;
 
 use AppBundle\Utils\Parser;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 class BugManager
 {
     /** @var FeedbackGateway **/
@@ -27,7 +29,9 @@ class BugManager
     protected $userManager;
     /** @var Parser **/
     protected $parser;
-    
+    /** @var UrlGeneratorInterface **/
+    protected $router;
+
     /**
      * @param FeedbackGateway $gateway
      * @param CommentManager $commentManager
@@ -35,6 +39,8 @@ class BugManager
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
      * @param Parser $parser
+     * @param Router $router
+     * @param UrlGeneratorInterface $router
      */
     public function __construct(
         FeedbackGateway $gateway,
@@ -42,7 +48,8 @@ class BugManager
         LabelManager $labelManager,
         NotificationManager $notificationManager,
         UserManager $userManager,
-        Parser $parser
+        Parser $parser,
+        UrlGeneratorInterface $router
     )
     {
         $this->gateway = $gateway;
@@ -51,8 +58,9 @@ class BugManager
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
         $this->parser = $parser;
+        $this->router = $router;
     }
-    
+
     /**
      * @param string $title
      * @param string $description
@@ -69,7 +77,7 @@ class BugManager
             $user->getEmail()
         )->getBody(), true));
     }
-    
+
     /**
      * @param Bug $bug
      * @param User $user
@@ -78,10 +86,13 @@ class BugManager
     public function update(Bug $bug, User $user)
     {
         $updatedBug = $this->format(json_decode($this->gateway->updateBug($bug)->getBody(), true));
-        
+
         $title = 'Bug mis à jour';
-        $content = "{$user->getUsername()} a mis à jour le bug \"{$bug->getTitle()}\".";
-        // We avoid sending notification to the updater, whether he is the feedback author or not
+        // We get bug URL from the slug, who is necessarily not empty, because we just updated it.
+        $url = $this->router->generate('get_bug', ['id' => $updatedBug->getSlug()]);
+        $content = "{$user->getUsername()} a mis à jour <a href=\"$url\">le bug \"{$bug->getTitle()}\"</a>";
+
+        // We avoid sending notification to the updater, whether he is the feedback author or not.
         $players = [$user->getId()];
         if ($bug->getAuthor()->getId() !== $user->getId() && $bug->getAuthor()->getId() !== 0) {
             $players[] = $bug->getAuthor()->getId();
@@ -89,7 +100,7 @@ class BugManager
         }
         foreach ($bug->getComments() as $comment) {
             $commentAuthor = $comment->getAuthor();
-            
+
             if (in_array($commentAuthor->getId(), $players) || $commentAuthor->getId() === 0) {
                 continue;
             }
@@ -98,7 +109,7 @@ class BugManager
         }
         return $updatedBug;
     }
-    
+
     /**
      * @param Bug $bug
      * @param string $labelId
@@ -107,7 +118,7 @@ class BugManager
     {
         $this->gateway->addLabelToBug($bug, $labelId);
     }
-    
+
     /**
      * @param Bug $bug
      * @param string $labelId
@@ -116,7 +127,7 @@ class BugManager
     {
         $this->gateway->removeLabelFromBug($bug, $labelId);
     }
-    
+
     /**
      * @return array
      */
@@ -128,7 +139,7 @@ class BugManager
         }
         return $result;
     }
-    
+
     /**
      * @param string $id
      * @return Bug
@@ -137,7 +148,7 @@ class BugManager
     {
         return $this->format(json_decode($this->gateway->getBug($id)->getBody(), true), true);
     }
-    
+
     /**
      * @param array $data
      * @param boolean $getAuthor
@@ -168,7 +179,7 @@ class BugManager
         }
         return $bug;
     }
-    
+
     protected function getAuthor($name, $getAuthorData = false)
     {
         if ($getAuthorData === false) {
