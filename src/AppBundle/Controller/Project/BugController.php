@@ -84,11 +84,11 @@ class BugController extends Controller
             }
             $bug->setStatus($data['status']);
         }
-        if (!empty($description = $data['description'])) {
+        if (!empty($data['description'])) {
             if($bug->getAuthor()->getId() != $this->getUser()->getId()) {
                 throw new AccessDeniedHttpException('project.feedback.not_author');
             }
-            $bug->setDescription($this->get(Parser::class)->parse($description));
+            $bug->setDescription($this->get(Parser::class)->parse($data['description']));
         }
         return new JsonResponse($bugManager->update($bug, $this->getUser()));
     }

@@ -26,6 +26,7 @@ use AppBundle\Manager\Project\{
     EvolutionManager,
     LabelManager
 };
+use AppBundle\Manager\Vote\PollManager;
 
 class EvolutionController extends Controller
 {
@@ -86,11 +87,11 @@ class EvolutionController extends Controller
             }
             $evolution->setStatus($data['status']);
         }
-        if (!empty($description = $data['description'])) {
+        if (!empty($data['description'])) {
             if($evolution->getAuthor()->getId() != $this->getUser()->getId()) {
                 throw new AccessDeniedHttpException('project.feedback.not_author');
             }
-            $evolution->setDescription($this->get(Parser::class)->parse($description));
+            $evolution->setDescription($this->get(Parser::class)->parse($data['description']));
         }
         return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
     }
@@ -154,6 +155,7 @@ class EvolutionController extends Controller
         }
         return $this->render('project/feedback.html.twig', [
             'feedback' => $evolution,
+            'poll' => $this->get(PollManager::class)->getActivePollByFeature($evolution),
             'labels' => $this->get(LabelManager::class)->getAll()
         ]);
     }

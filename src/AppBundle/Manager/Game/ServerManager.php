@@ -61,7 +61,7 @@ class ServerManager
                 unset($servers[$key]);
             }
         }
-        return $servers;
+        return array_values($servers);
     }
     
     /**

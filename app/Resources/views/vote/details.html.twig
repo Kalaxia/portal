@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/poll.css') }}" />
+{% endblock %}
+
+{% block page_title %}{{ poll.getTitle() }}{% endblock %}
+
+{% block body %}
+    <div id="poll-container">
+        <div id="other-polls">
+            <div class="polls-list">
+                <h3>{{ 'polls.other_polls' | trans }}</h3>
+                {% for other_poll in other_polls if other_poll.id != poll.id %}
+                    <div class="poll">
+                        <div class="info">
+                            <strong>
+                                {{ other_poll.getTitle() }}
+                            </strong>
+                            <em>
+                                {{ other_poll.endedAt | date('full_date' | trans) }}
+                            </em>
+                        </div>
+                        <div class="link">
+                            <a href="{{ path('get_poll', {"id": other_poll.id}) }}" class="button warning">
+                                {{ 'polls.goto' | trans }}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="poll">
+            <div id="poll-description">
+                {{ poll.getContent() }}
+            </div>
+            <div id="poll-options">
+                {% if is_granted('ROLE_USER') == false %}
+                    {{ 'polls.not_user' | trans }}
+                {% elseif has_voted == false %}
+                    {% for option in options %}
+                        <a href="{{ path('vote_poll', {'id': poll.id, 'option_id': option.id }) }}" class="button warning">
+                            {{ option.value | trans }}
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    {{ 'polls.user_already_voted' | trans }}
+                {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
