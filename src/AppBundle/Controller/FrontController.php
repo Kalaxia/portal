@@ -7,13 +7,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use AppBundle\Manager\Project\LabelManager;
 use AppBundle\Manager\Game\ServerManager;
+use AppBundle\Manager\Vote\PollManager;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\RSS\Parser;
-use AppBundle\RSS\Template;
-use AppBundle\RSS\DefaultTemplate;
 
 class FrontController extends Controller
 {
@@ -41,7 +40,8 @@ class FrontController extends Controller
         $serverManager = $this->get(ServerManager::class);
         return $this->render('front/dashboard.html.twig', [
             'available_servers' => $serverManager->getAvailableServers($this->getUser()),
-            'next_servers' => $serverManager->getNextServers()
+            'next_servers' => $serverManager->getNextServers(),
+            'current_polls' => $this->get(PollManager::class)->getActivePolls()
         ]);
     }
 

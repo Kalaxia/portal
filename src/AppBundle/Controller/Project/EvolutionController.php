@@ -26,6 +26,7 @@ use AppBundle\Manager\Project\{
     EvolutionManager,
     LabelManager
 };
+use AppBundle\Manager\Vote\PollManager;
 
 class EvolutionController extends Controller
 {
@@ -154,6 +155,7 @@ class EvolutionController extends Controller
         }
         return $this->render('project/feedback.html.twig', [
             'feedback' => $evolution,
+            'poll' => $this->get(PollManager::class)->getActivePollByFeature($evolution),
             'labels' => $this->get(LabelManager::class)->getAll()
         ]);
     }
