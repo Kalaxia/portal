@@ -33,7 +33,7 @@
         </div>
         <div id="poll">
             <div id="poll-description">
-                {{ poll.getContent() }}
+                {{ poll.getContent() | raw }}
             </div>
             <div id="poll-options">
                 {% if is_granted('ROLE_USER') == false %}
