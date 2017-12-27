@@ -166,11 +166,13 @@ body {
     margin-top: 20px;
 }
 
-.servers-list {
+.servers-list,
+.polls-list {
     display:flex;
 }
 
-.server {
+.server,
+.poll {
     display: flex;
     align-items: center;
     padding:10px 20px;
@@ -178,15 +180,26 @@ body {
     background: rgba(0,0,0,0.6);
 }
 
+.poll .info {
+    width: 200px;
+    height: 60px;
+}
+
+.poll .link {
+    text-align: right;
+}
+
 .server > .actions {
     margin-left: 10px;
 }
 
-.server strong {
+.server strong,
+.poll strong {
     display:block;
 }
 
-.server em {
+.server em,
+.poll em {
     display:block;
 }
 

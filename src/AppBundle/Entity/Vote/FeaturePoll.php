@@ -66,4 +66,20 @@ class FeaturePoll extends Poll
     {
         return $this->feedback;
     }
+    
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->feedback->getTitle();
+    }
+    
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->feedback->getContent();
+    }
 }

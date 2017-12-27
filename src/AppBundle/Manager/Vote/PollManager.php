@@ -86,6 +86,22 @@ class PollManager
     }
     
     /**
+     * @return array
+     */
+    public function getActivePolls()
+    {
+        $polls = $this->entityManager->getRepository(Poll::class)->findBy([
+            'isOver' => false
+        ]);
+        foreach ($polls as &$poll) {
+            if ($poll instanceof FeaturePoll) {
+                $poll->setFeedback($this->evolutionManager->get($poll->getFeedbackId()));
+            }
+        }
+        return $polls;
+    }
+    
+    /**
      * @param Feedback $feedback
      * @return Poll
      */

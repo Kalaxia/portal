@@ -1,5 +1,6 @@
 ---
 full_date: 'd/m/Y \à H:i'
+date: 'd/m/Y'
 website_name: 'Kalaxia'
 registration: 'Inscription'
 connection: 'Connexion'
@@ -116,6 +117,8 @@ polls:
     already_voted: 'Ce vote est terminé'
     user_already_voted: 'Vous avez déjà voté'
     wrong_feedback_type: 'Seules les fonctionnalités peuvent être soumises au vote'
+    current_polls: 'Votes en cours'
+    goto: 'Voir'
 
 profile:
     dashboard: 'Mon Profil'

@@ -77,6 +77,29 @@
                 {% endfor %}
             </section>
             {% endif %}
+            
+            {% if current_polls | length > 0 %}
+            <h3>{{ 'polls.current_polls' | trans }}</h3>
+            <section class="polls-list">
+                {% for poll in current_polls %}
+                    <div class="poll">
+                        <div class="info">
+                            <strong>
+                                {{ poll.getTitle() }}
+                            </strong>
+                            <em>
+                                {{ poll.endedAt | date('full_date' | trans) }}
+                            </em>
+                        </div>
+                        <div class="link">
+                            <a href="{{ path('get_poll', {"id": poll.id}) }}" class="button warning">
+                                {{ 'polls.goto' | trans }}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
