@@ -9,8 +9,6 @@ abstract class Option
     /** @var Poll **/
     protected $poll;
     /** @var string **/
-    protected $color;
-    /** @var string **/
     protected $value;
     
     /**
@@ -49,25 +47,6 @@ abstract class Option
     public function getPoll()
     {
         return $this->poll;
-    }
-    
-    /**
-     * @param string $color
-     * @return $this
-     */
-    public function setColor($color)
-    {
-        $this->color = $color;
-        
-        return $this;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getColor()
-    {
-        return $this->color;
     }
     
     /**

@@ -56,13 +56,11 @@ class PollManager
         $yes =
             (new Option())
             ->setPoll($poll)
-            ->setColor("#00FF00")
             ->setValue($this->translator->trans('project.votes.yes'))
         ;
         $no =
             (new Option())
             ->setPoll($poll)
-            ->setColor("#FF0000")
             ->setValue($this->translator->trans('project.votes.no'))
         ;
         $this->entityManager->persist($poll);

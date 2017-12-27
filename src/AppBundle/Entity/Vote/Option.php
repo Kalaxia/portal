@@ -23,10 +23,6 @@ class Option extends OptionModel
      */
     protected $poll;
     /**
-     * @ORM\Column(type="string", length=10) 
-     */
-    protected $color;
-    /**
      * @ORM\Column(type="string", length=100) 
      */
     protected $value;
