@@ -123,7 +123,7 @@ php bin/console cache:clear
 chown -R www-data:www-data var/cache
 ```
 
-If you want to give roles to an user, use FOS User built-in command:
+If you want to give roles to a user, use FOS User built-in command:
 
 ```
 php bin/console fos:user:promote
@@ -131,7 +131,7 @@ php bin/console fos:user:promote
 
 ### Code update
 
-**Do not forget to keep your local copy updated !** To update your local branch with the last works of the team, run the foolowing commands:
+**Do not forget to keep your local copy updated !** To update your local branch with the last works of the team, run the following commands:
 
 ```
 git fetch
@@ -144,9 +144,9 @@ If you see the ```develop``` branch has been updated, use ```rebase``` to retrie
 
 This step is mandatory when you will want to merge your work with develop. Your branch must be updated.
 
-### Databse update
+### Database update
 
-When updating, you can - you *should* - check if there are new database migrations to execute.
+When updating, you can - and you should - check if there are new database migrations to execute.
 
 To do so, you can run **in the portal container** (``docker exec -it portal_phpfpm /bin/bash``): 
 
