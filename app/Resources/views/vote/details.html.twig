@@ -35,17 +35,18 @@
             <div id="poll-description">
                 {{ poll.getContent() }}
             </div>
-            {% if has_voted == false %}
-                <div id="poll-options">
+            <div id="poll-options">
+                {% if is_granted('ROLE_USER') == false %}
+                    {{ 'polls.not_user' | trans }}
+                {% elseif has_voted == false %}
                     {% for option in options %}
                         <a href="{{ path('vote_poll', {'id': poll.id, 'option_id': option.id }) }}" class="button warning">
                             {{ option.value | trans }}
                         </a>
                     {% endfor %}
-                </div>
-            {% else %}
-                <div id="notice">{{ 'polls.user_already_voted' | trans }}</p>
-            {% endif %}
+                {% else %}
+                    {{ 'polls.user_already_voted' | trans }}
+                {% endif %}
         </div>
     </div>
 {% endblock %}

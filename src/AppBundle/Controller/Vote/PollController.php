@@ -57,7 +57,7 @@ class PollController extends Controller
         return $this->render('vote/details.html.twig', [
             'poll' => $poll,
             'options' => $this->get(OptionManager::class)->getPollOptions($poll),
-            'has_voted' => $this->get(VoteManager::class)->hasAlreadyVoted($poll, $this->getUser()),
+            'has_voted' => ($this->getUser()) ? $this->get(VoteManager::class)->hasAlreadyVoted($poll, $this->getUser()) : false,
             'other_polls' => $pollManager->getActivePolls()
         ]);
     }

@@ -120,6 +120,7 @@ polls:
     current_polls: 'Votes en cours'
     goto: 'Voir'
     other_polls: 'Autres votes'
+    not_user: 'Vous devez être connecté pour participer au vote'
 
 profile:
     dashboard: 'Mon Profil'

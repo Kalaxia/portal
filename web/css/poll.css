@@ -24,14 +24,6 @@
     text-align:center;
 }
 
-#poll #notice {
-    padding-top: 10px;
-    border-top: 2px solid #EFEFEF;
-    background-color: #48C;
-    text-align: center;
-    font-weight: bold;
-}
-
 .polls-list {
     display: block;
     flex-grow: 1;
