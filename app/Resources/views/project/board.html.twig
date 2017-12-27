@@ -69,7 +69,12 @@
                                     </div>
                                 </header>
                                 <section>
-                                    <p class="author">{{ feedback.author }}</p>
+                                    <div class="feedback_info">
+                                        <div class="author">{{ feedback.author }}</div>
+                                        {% if feedback.comments | length  > 0 %}
+                                        <div>{{ feedback.comments | length }}<img src="{{ asset('images/icons/comment.png') }}"/></div>
+                                        {% endif %}
+                                    </div>
                                     <p class="date">
                                         {% if feedback.createdAt == feedback.updatedAt %}
                                             {{ 'project.feedback.created_at' | trans }} {{ feedback.createdAt | date('full_date' | trans) }}
