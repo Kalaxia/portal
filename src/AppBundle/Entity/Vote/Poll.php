@@ -8,7 +8,7 @@ use AppBundle\Model\Vote\Poll as PollModel;
 
 /**
  * @ORM\Table(name="vote__polls")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Vote\PollRepository")
+ * @ORM\Entity()
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=15)
  * @ORM\DiscriminatorMap({
@@ -37,6 +37,10 @@ abstract class Poll extends PollModel
      * @ORM\Column(type="boolean")
      */
     protected $isOver;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $isApproved;
     
     const TYPE_COMMON = 'common';
     const TYPE_FEATURE = 'feature';
@@ -52,5 +56,7 @@ abstract class Poll extends PollModel
     public function prePersist()
     {
         $this->createdAt = new \DateTime();
+        $this->isOver = false;
+        $this->isApproved = false;
     }
 }

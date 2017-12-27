@@ -15,7 +15,7 @@ class Version20171226180252 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE vote__polls (id INT AUTO_INCREMENT NOT NULL, created_at DATETIME NOT NULL, ended_at DATETIME NOT NULL, is_over TINYINT(1) NOT NULL, type VARCHAR(15) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE vote__polls (id INT AUTO_INCREMENT NOT NULL, created_at DATETIME NOT NULL, ended_at DATETIME NOT NULL, is_over TINYINT(1) NOT NULL, is_approved TINYINT(1) NOT NULL, type VARCHAR(15) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE vote__common_polls (id INT NOT NULL, title VARCHAR(150) NOT NULL, content LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE vote__options (id INT AUTO_INCREMENT NOT NULL, poll_id INT DEFAULT NULL, color VARCHAR(10) NOT NULL, value VARCHAR(100) NOT NULL, INDEX IDX_5A22B2D33C947C0F (poll_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE vote__votes (user_id INT NOT NULL, poll_id INT NOT NULL, option_id INT NOT NULL, INDEX IDX_D754E409A76ED395 (user_id), INDEX IDX_D754E4093C947C0F (poll_id), INDEX IDX_D754E409A7C41D6F (option_id), PRIMARY KEY(user_id, poll_id, option_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');

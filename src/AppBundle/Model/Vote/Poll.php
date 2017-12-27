@@ -12,6 +12,8 @@ abstract class Poll
     protected $endedAt;
     /** @var boolean **/
     protected $isOver;
+    /** @var boolean **/
+    protected $isApproved;
     
     /**
      * @param int $id
@@ -87,5 +89,24 @@ abstract class Poll
     public function getIsOver()
     {
         return $this->isOver;
+    }
+    
+    /**
+     * @param boolean $isApproved
+     * @return $this
+     */
+    public function setIsApproved($isApproved)
+    {
+        $this->isApproved = $isApproved;
+        
+        return $this;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function getIsApproved()
+    {
+        return $this->isApproved;
     }
 }
