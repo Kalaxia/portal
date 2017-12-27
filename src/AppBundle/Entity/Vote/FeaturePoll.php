@@ -19,6 +19,8 @@ class FeaturePoll extends Poll
     /** @var Feedback **/
     protected $feedback;
     
+    const POLL_DURATION = '+2days';
+    
     /**
      * {@inheritdoc}
      */
