@@ -68,6 +68,20 @@
                     </div>
                 </div>
                 {% endif %}
+                {% if feedback.type == 'evo' and feedback.status == 'to_specify' and (is_author or is_granted('ROLE_ADMIN')) %}
+                    <div class="info-card">
+                        <em>{{ 'project.feedback.poll' | trans }}</em>
+                        {% if poll is defined and poll != null %}
+                            <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
+                                {{ 'project.feedback.goto_poll' | trans }}
+                            </a>
+                        {% else %}
+                            <a href="{{ path('launch_feedback_poll', {'feedback_id': feedback.id}) }}" class="button warning">
+                                {{ 'project.feedback.launch_poll' | trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
                 <div class="info-card">
                     <em>{{ 'project.feedback.created_at' | trans }}</em>
                     <strong>{{ feedback.createdAt|date('full_date'| trans) }}</strong>

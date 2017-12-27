@@ -87,6 +87,10 @@ project:
         update: 'Mettre à jour'
         confirm_cancel: 'Attention toutes les modifications apportées seront perdues. Voulez-continuer ?'
         
+        poll: 'Vote'
+        launch_poll: 'Lancer un vote'
+        goto_poll: 'Voir le vote'
+        
     status:
         to_specify: 'À spécifier'
         ready: 'Prêt'
@@ -103,6 +107,15 @@ project:
         title: 'Étiquettes'
         create: 'Ajouter'
         name: 'Nom'
+        
+    votes:
+        yes: 'Oui'
+        no: 'Non'
+
+polls:
+    already_voted: 'Ce vote est terminé'
+    user_already_voted: 'Vous avez déjà voté'
+    wrong_feedback_type: 'Seules les fonctionnalités peuvent être soumises au vote'
 
 profile:
     dashboard: 'Mon Profil'

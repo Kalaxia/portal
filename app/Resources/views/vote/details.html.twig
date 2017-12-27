@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/poll.css') }}" />
+{% endblock %}
+
+{% block page_title %}{{ (poll.type != 'feature') ? poll.title : poll.feedback.title }}{% endblock %}
+
+{% block body %}
+    <div id="poll-description">
+        {{ (poll.type != 'feature') ? poll.content : poll.feedback.description }}
+    </div>
+    {% if has_voted == false %}
+        <div id="poll-options">
+            {% for option in options %}
+                <a href="{{ path('vote_poll', {'id': poll.id, 'option_id': option.id }) }}" class="button warning">
+                    {{ option.value | trans }}
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>{{ 'polls.user_already_voted' | trans }}</p>
+    {% endif %}
+{% endblock %}
+
