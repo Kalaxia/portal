@@ -39,7 +39,6 @@ class BugManager
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
      * @param Parser $parser
-     * @param Router $router
      * @param UrlGeneratorInterface $router
      */
     public function __construct(

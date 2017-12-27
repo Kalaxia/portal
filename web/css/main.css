@@ -84,6 +84,11 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+.notification > section > a:visited {
+    color: #888;
+    text-decoration: none;
+    font-weight: bold;
+}
 
 .notification > section.active {
     height: auto;
