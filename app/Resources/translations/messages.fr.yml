@@ -119,6 +119,7 @@ polls:
     wrong_feedback_type: 'Seules les fonctionnalités peuvent être soumises au vote'
     current_polls: 'Votes en cours'
     goto: 'Voir'
+    other_polls: 'Autres votes'
 
 profile:
     dashboard: 'Mon Profil'

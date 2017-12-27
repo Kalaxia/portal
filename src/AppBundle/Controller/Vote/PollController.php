@@ -52,11 +52,13 @@ class PollController extends Controller
      */
     public function getPollAction(Request $request)
     {
-        $poll = $this->get(PollManager::class)->get($request->attributes->get('id'));
+        $pollManager = $this->get(PollManager::class);
+        $poll = $pollManager->get($request->attributes->get('id'));
         return $this->render('vote/details.html.twig', [
             'poll' => $poll,
             'options' => $this->get(OptionManager::class)->getPollOptions($poll),
-            'has_voted' => $this->get(VoteManager::class)->hasAlreadyVoted($poll, $this->getUser())
+            'has_voted' => $this->get(VoteManager::class)->hasAlreadyVoted($poll, $this->getUser()),
+            'other_polls' => $pollManager->getActivePolls()
         ]);
     }
 }

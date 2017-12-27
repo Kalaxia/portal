@@ -80,6 +80,6 @@ class FeaturePoll extends Poll
      */
     public function getContent()
     {
-        return $this->feedback->getContent();
+        return $this->feedback->getDescription();
     }
 }
