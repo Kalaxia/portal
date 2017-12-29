@@ -10,6 +10,8 @@ RUN apt-get update \
     && wget https://phar.phpunit.de/phpunit-6.1.phar \
     && chmod +x phpunit-6.1.phar \
     && mv phpunit-6.1.phar /usr/bin/phpunit \
+    
+    && echo "date.timezone = Europe/Paris" > /usr/local/etc/php/php.ini \
 
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/bin/ --filename=composer \
