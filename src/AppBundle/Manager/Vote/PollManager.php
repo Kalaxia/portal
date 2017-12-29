@@ -19,20 +19,16 @@ class PollManager
 {
     /** @var EntityManagerInterface **/
     protected $entityManager;
-    /** @var TranslatorInterface **/
-    protected $translator;
     /** @var EvolutionManager **/
     protected $evolutionManager;
     
     /**
      * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface $translator
      * @param EvolutionManager $evolutionManager
      */
-    public function __construct(EntityManagerInterface $entityManager, TranslatorInterface $translator, EvolutionManager $evolutionManager)
+    public function __construct(EntityManagerInterface $entityManager, EvolutionManager $evolutionManager)
     {
         $this->entityManager = $entityManager;
-        $this->translator = $translator;
         $this->evolutionManager = $evolutionManager;
     }
     
@@ -56,12 +52,12 @@ class PollManager
         $yes =
             (new Option())
             ->setPoll($poll)
-            ->setValue($this->translator->trans('project.votes.yes'))
+            ->setValue(Option::VALUE_YES)
         ;
         $no =
             (new Option())
             ->setPoll($poll)
-            ->setValue($this->translator->trans('project.votes.no'))
+            ->setValue(Option::VALUE_NO)
         ;
         $this->entityManager->persist($poll);
         $this->entityManager->persist($yes);
