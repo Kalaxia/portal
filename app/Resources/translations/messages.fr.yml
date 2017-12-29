@@ -91,6 +91,7 @@ project:
         poll: 'Vote'
         launch_poll: 'Lancer un vote'
         goto_poll: 'Voir le vote'
+        retry_poll: 'Relancer (%score%%)'
         
     status:
         to_specify: 'À spécifier'

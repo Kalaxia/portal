@@ -155,7 +155,7 @@ class EvolutionController extends Controller
         }
         return $this->render('project/feedback.html.twig', [
             'feedback' => $evolution,
-            'poll' => $this->get(PollManager::class)->getActivePollByFeature($evolution),
+            'poll' => $this->get(PollManager::class)->getLastFeaturePoll($evolution),
             'labels' => $this->get(LabelManager::class)->getAll()
         ]);
     }

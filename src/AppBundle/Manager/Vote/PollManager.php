@@ -40,7 +40,7 @@ class PollManager
         if ($feedback->getStatus() !== Feedback::STATUS_TO_SPECIFY) {
             throw new BadRequestHttpException('project.votes.already_accepted');
         }
-        if ($this->getActivePollByFeature($feedback) !== null) {
+        if (($featurePoll = $this->getLastFeaturePoll($feedback)) !== null && !$featurePoll->getIsOver()) {
             throw new BadRequestHttpException('project.votes.already_voting');
         }
         $poll = 
@@ -99,11 +99,12 @@ class PollManager
      * @param Feedback $feedback
      * @return Poll
      */
-    public function getActivePollByFeature(Feedback $feedback)
+    public function getLastFeaturePoll(Feedback $feedback)
     {
-        return $this->entityManager->getRepository(FeaturePoll::class)->findOneBy([
-            'feedbackId' => $feedback->getId(),
-            'isOver' => false
-        ]);
+        return $this
+            ->entityManager
+            ->getRepository(FeaturePoll::class)
+            ->getLastFeaturePoll($feedback->getId())
+        ;
     }
 }
