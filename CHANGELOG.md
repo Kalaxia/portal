@@ -1,3 +1,8 @@
+## [0.1.3] - 2017-12-29
+### Added
+- Notification links
+- Comments count on board cards
+
 ## [0.1.2] - 2017-12-27
 ### Added
 - Poll model classes
