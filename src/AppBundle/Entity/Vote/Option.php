@@ -26,4 +26,7 @@ class Option extends OptionModel
      * @ORM\Column(type="string", length=100) 
      */
     protected $value;
+    
+    const VALUE_YES = 'project.votes.yes';
+    const VALUE_NO = 'project.votes.no';
 }
