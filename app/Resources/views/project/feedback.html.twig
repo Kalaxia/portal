@@ -71,9 +71,13 @@
                 {% if feedback.type == 'evo' and feedback.status == 'to_specify' and (is_author or is_granted('ROLE_ADMIN')) %}
                     <div class="info-card">
                         <em>{{ 'project.feedback.poll' | trans }}</em>
-                        {% if poll is defined and poll != null %}
+                        {% if poll is defined and poll != null and poll.isOver == false %}
                             <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
                                 {{ 'project.feedback.goto_poll' | trans }}
+                            </a>
+                        {% elseif poll is defined and poll != null and poll.isOver %}
+                            <a href="{{ path('launch_feedback_poll', {'feedback_id': feedback.id}) }}" class="button success" style="background-color:#D00">
+                                {{ 'project.feedback.retry_poll' | trans({"%score%": (poll.score / poll.nbVotes) * 100 }) }}
                             </a>
                         {% else %}
                             <a href="{{ path('launch_feedback_poll', {'feedback_id': feedback.id}) }}" class="button warning">
@@ -84,9 +88,17 @@
                 {% elseif poll is defined and poll != null %}
                     <div class="info-card">
                         <em>{{ 'project.feedback.poll' | trans }}</em>
-                        <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
-                            {{ 'project.feedback.goto_poll' | trans }}
-                        </a>
+                        {% if poll.isOver %}
+                            <a href="{{ path('get_poll', {'id': poll.id}) }}"
+                               class="button success"
+                               style="background-color: #{{ (poll.winningOption.value == 'project.votes.yes') ? '48C' : 'F00' }}">
+                                {{ (poll.score / poll.nbVotes) * 100 }}%
+                            </a>
+                        {% else %}
+                            <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
+                                {{ 'project.feedback.goto_poll' | trans }}
+                            </a>
+                        {% endif %}
                     </div>
                 {% endif %}
                 <div class="info-card">

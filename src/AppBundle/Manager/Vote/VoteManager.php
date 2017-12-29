@@ -33,6 +33,11 @@ class VoteManager
         $this->optionManager = $optionManager;
     }
     
+    public function getPollVotes(Poll $poll)
+    {
+        return $this->entityManager->getRepository(Vote::class)->findByPoll($poll);
+    }
+    
     /**
      * @param Poll $poll
      * @param User $user

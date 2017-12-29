@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Model\Project\Feedback;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Vote\FeaturePollRepository")
  * @ORM\Table(name="vote__feature_polls")
  */
 class FeaturePoll extends Poll

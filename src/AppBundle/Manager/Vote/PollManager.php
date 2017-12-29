@@ -19,20 +19,16 @@ class PollManager
 {
     /** @var EntityManagerInterface **/
     protected $entityManager;
-    /** @var TranslatorInterface **/
-    protected $translator;
     /** @var EvolutionManager **/
     protected $evolutionManager;
     
     /**
      * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface $translator
      * @param EvolutionManager $evolutionManager
      */
-    public function __construct(EntityManagerInterface $entityManager, TranslatorInterface $translator, EvolutionManager $evolutionManager)
+    public function __construct(EntityManagerInterface $entityManager, EvolutionManager $evolutionManager)
     {
         $this->entityManager = $entityManager;
-        $this->translator = $translator;
         $this->evolutionManager = $evolutionManager;
     }
     
@@ -44,7 +40,7 @@ class PollManager
         if ($feedback->getStatus() !== Feedback::STATUS_TO_SPECIFY) {
             throw new BadRequestHttpException('project.votes.already_accepted');
         }
-        if ($this->getActivePollByFeature($feedback) !== null) {
+        if (($featurePoll = $this->getLastFeaturePoll($feedback)) !== null && !$featurePoll->getIsOver()) {
             throw new BadRequestHttpException('project.votes.already_voting');
         }
         $poll = 
@@ -56,12 +52,12 @@ class PollManager
         $yes =
             (new Option())
             ->setPoll($poll)
-            ->setValue($this->translator->trans('project.votes.yes'))
+            ->setValue(Option::VALUE_YES)
         ;
         $no =
             (new Option())
             ->setPoll($poll)
-            ->setValue($this->translator->trans('project.votes.no'))
+            ->setValue(Option::VALUE_NO)
         ;
         $this->entityManager->persist($poll);
         $this->entityManager->persist($yes);
@@ -103,11 +99,12 @@ class PollManager
      * @param Feedback $feedback
      * @return Poll
      */
-    public function getActivePollByFeature(Feedback $feedback)
+    public function getLastFeaturePoll(Feedback $feedback)
     {
-        return $this->entityManager->getRepository(FeaturePoll::class)->findOneBy([
-            'feedbackId' => $feedback->getId(),
-            'isOver' => false
-        ]);
+        return $this
+            ->entityManager
+            ->getRepository(FeaturePoll::class)
+            ->getLastFeaturePoll($feedback->getId())
+        ;
     }
 }

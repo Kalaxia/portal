@@ -38,9 +38,17 @@ abstract class Poll extends PollModel
      */
     protected $isOver;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Vote\Option")
      */
-    protected $isApproved;
+    protected $winningOption;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $score;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $nbVotes;
     
     const TYPE_COMMON = 'common';
     const TYPE_FEATURE = 'feature';
@@ -57,6 +65,5 @@ abstract class Poll extends PollModel
     {
         $this->createdAt = new \DateTime();
         $this->isOver = false;
-        $this->isApproved = false;
     }
 }

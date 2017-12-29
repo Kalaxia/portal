@@ -12,8 +12,12 @@ abstract class Poll
     protected $endedAt;
     /** @var boolean **/
     protected $isOver;
-    /** @var boolean **/
-    protected $isApproved;
+    /** @var Option **/
+    protected $winningOption;
+    /** @var int **/
+    protected $score;
+    /** @var int **/
+    protected $nbVotes;
     
     /**
      * @param int $id
@@ -92,21 +96,59 @@ abstract class Poll
     }
     
     /**
-     * @param boolean $isApproved
+     * @param Option $option
      * @return $this
      */
-    public function setIsApproved($isApproved)
+    public function setWinningOption(Option $option)
     {
-        $this->isApproved = $isApproved;
+        $this->winningOption = $option;
         
         return $this;
     }
     
     /**
-     * @return boolean
+     * @return Option
      */
-    public function getIsApproved()
+    public function getWinningOption()
     {
-        return $this->isApproved;
+        return $this->winningOption;
+    }
+    
+    /**
+     * @param int $score
+     * @return $this
+     */
+    public function setScore($score)
+    {
+        $this->score = $score;
+        
+        return $this;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
+    
+    /**
+     * @param int $nbVotes
+     * @return $this
+     */
+    public function setNbVotes($nbVotes)
+    {
+        $this->nbVotes = $nbVotes;
+        
+        return $this;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getNbVotes()
+    {
+        return $this->nbVotes;
     }
 }

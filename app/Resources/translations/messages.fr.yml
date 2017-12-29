@@ -91,6 +91,7 @@ project:
         poll: 'Vote'
         launch_poll: 'Lancer un vote'
         goto_poll: 'Voir le vote'
+        retry_poll: 'Relancer (%score%%)'
         
     status:
         to_specify: 'À spécifier'
@@ -121,6 +122,7 @@ polls:
     goto: 'Voir'
     other_polls: 'Autres votes'
     not_user: 'Vous devez être connecté pour participer au vote'
+    results: '%value% (%score%% de %nbVotes% votes)'
 
 profile:
     dashboard: 'Mon Profil'
