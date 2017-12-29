@@ -74,7 +74,7 @@ class ProcessVoteResultsCommand extends ContainerAwareCommand
             ->setIsOver(true)
             ->setNbVotes(count($votes))
         ;
-        asort($scores);
+        arsort($scores);
         reset($scores);
         if ($poll->getNbVotes() > 0) {
             $key = key($scores);
