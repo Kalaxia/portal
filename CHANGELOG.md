@@ -1,3 +1,11 @@
+## [0.1.4] - 2017-12-29
+### Added
+- Crontab support in portal container
+- Poll results processing
+- Poll results display
+- Automatic move of a feature card after successful vote
+- Poll retry after reject
+
 ## [0.1.3] - 2017-12-29
 ### Added
 - Notification links
