@@ -4,6 +4,8 @@ namespace AppBundle\Entity\Game;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use AppBundle\Model\Game\Server as ServerModel;
 
 /**
@@ -47,6 +49,11 @@ abstract class Server extends ServerModel
      */
     protected $banner;
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game\Faction")
+     * @ORM\JoinTable(name="game__server_factions")
+     */
+    protected $factions;
+    /**
      * @ORM\Column(type="string", length=85) 
      */
     protected $signature;
@@ -67,10 +74,14 @@ abstract class Server extends ServerModel
      */
     protected $updatedAt;
     
-    
     const TYPE_MULTIPLAYER = 'multiplayer';
     const TYPE_SOLO = 'solo';
     const TYPE_TUTORIAL = 'tutorial';
+    
+    public function __construct()
+    {
+        $this->factions = new ArrayCollection();
+    }
     
     /**
      * @return string
