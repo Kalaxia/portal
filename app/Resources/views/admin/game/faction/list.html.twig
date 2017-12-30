@@ -1,0 +1,30 @@
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_game.css') }}" />
+{% endblock %}
+
+{% block page_title %}{{ 'game.faction.list' | trans }}{% endblock %}
+
+{% block body %}
+    <div id="factions-list">
+        <header>
+            <div class="toolbar">
+                <a href="{{ path('game_new_faction') }}" class="button">
+                    {{ 'game.faction.new' | trans }}
+                </a>
+            </div>
+        </header>
+        <section>
+            {% for faction in factions %}
+                <div class="faction">
+                    <strong>{{ faction.name }}</strong>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}
+

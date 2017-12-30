@@ -158,6 +158,14 @@ game:
 
     tutorial:
         launch: 'Lancer le tutoriel'
+        
+    faction:
+        new: 'Créer une faction'
+        list: 'Factions'
+        name: 'Nom'
+        description: 'Description'
+        create: 'Nouvelle faction'
+        validate: 'Valider'
 
 security:
     login:

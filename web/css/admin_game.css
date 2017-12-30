@@ -1,3 +1,18 @@
 #server-form {
     margin-top:50px;
 }
+
+#factions-list {
+    margin: 40px;
+}
+
+#factions-list > section {
+    display: flex;
+    margin-top: 10px;
+}
+
+#factions-list > section > .faction {
+    padding: 20px;
+    margin-right: 10px;
+    background-color: rgba(0,0,0,0.6);
+}

@@ -12,6 +12,9 @@
         <header>
             <h3>{{ 'game.available_servers' | trans }}</h3>
             <div class="toolbar">
+                <a href="{{ path('factions_admin_list') }}" class="button">
+                    {{ 'game.faction.list' | trans }}
+                </a>
                 <a href="{{ path('new_game_server') }}" class="button">
                     {{ 'game.server.create' | trans }}
                 </a>
