@@ -18,6 +18,15 @@ class FactionManager
     {
         $this->entityManager = $entityManager;
     }
+    
+    /**
+     * @param int $id
+     * @return Faction
+     */
+    public function get($id)
+    {
+        return $this->entityManager->getRepository(Faction::class)->find($id);
+    }
 
     /**
      * @return array

@@ -32,6 +32,14 @@
                 <label for="description">{{ 'game.server.description' | trans }}</label>
                 <textarea name="description"></textarea>
             </div>
+            <div class="form-group checkboxes">
+                {% for faction in factions %}
+                    <div class="checkbox">
+                        <input type="checkbox" name="factions[]" value="{{ faction.id }}" />
+                        <label>{{ faction.name }}</label>
+                    </div>
+                {% endfor %}
+            </div>
             <div class="form-group">
                 <label for="public_key">{{ 'game.server.public_key' | trans }}</label>
                 <textarea name="public_key"></textarea>

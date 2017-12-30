@@ -103,5 +103,24 @@ abstract class Server extends ServerModel
     {
         $this->updatedAt = new \DateTime();
     }
+    
+    /**
+     * @param Faction $faction
+     * @return $this
+     */
+    public function addFaction(Faction $faction)
+    {
+        $this->factions->add($faction);
+        
+        return $this;
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getFactions()
+    {
+        return $this->factions;
+    }
 }
 

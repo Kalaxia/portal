@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model\Game;
 
-abstract class Faction
+abstract class Faction implements \JsonSerializable
 {
     /** @var int **/
     protected $id;
@@ -66,5 +66,17 @@ abstract class Faction
     public function getDescription()
     {
         return $this->description;
+    }
+    
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description
+        ];
     }
 }
