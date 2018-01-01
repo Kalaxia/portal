@@ -168,6 +168,15 @@ body {
     padding-top:20px;
 }
 
+.form-group.checkboxes {
+    display: flex;
+    justify-content: center;
+}
+
+.form-group.checkboxes > .checkbox {
+    margin-right: 10px;
+}
+
 .form .form-group > label {
     display:block;
 }

@@ -20,6 +20,8 @@ class ServerManager
 {
     /** @var EntityManagerInterface **/
     protected $entityManager;
+    /** @var FactionManager **/
+    protected $factionManager;
     /** @var ServerGateway **/
     protected $serverGateway;
     /** @var RsaEncryptionManager **/
@@ -29,13 +31,15 @@ class ServerManager
     
     /**
      * @param EntityManagerInterface $entityManager
+     * @param FactionManager $factionManager
      * @param ServerGateway $serverGateway
      * @param RsaEncryptionManager $rsaEncryptionManager
      * @param Slugger $slugger
      */
-    public function __construct(EntityManagerInterface $entityManager, ServerGateway $serverGateway, RsaEncryptionManager $rsaEncryptionManager, Slugger $slugger)
+    public function __construct(EntityManagerInterface $entityManager, FactionManager $factionManager, ServerGateway $serverGateway, RsaEncryptionManager $rsaEncryptionManager, Slugger $slugger)
     {
         $this->entityManager = $entityManager;
+        $this->factionManager = $factionManager;
         $this->serverGateway = $serverGateway;
         $this->rsaEncryptionManager = $rsaEncryptionManager;
         $this->slugger = $slugger;
@@ -86,10 +90,11 @@ class ServerManager
      * @param string $description
      * @param string $banner
      * @param string $startedAt
+     * @param array $factions
      * @param string $publicKey
      * @param string $type
      */
-    public function create($name, $host, $description, $banner, $startedAt, $publicKey, $type)
+    public function create($name, $host, $description, $banner, $startedAt, $factions, $publicKey, $type)
     {
         $serverClass = [
             Server::TYPE_MULTIPLAYER => MultiplayerServer::class,
@@ -108,9 +113,16 @@ class ServerManager
             ->setStartedAt(new \DateTime($startedAt))
             ->setPublicKey($publicKey)
         ;
+        foreach ($factions as $factionId) {
+            if (($faction = $this->factionManager->get($factionId)) === null) {
+                throw new BadRequestHttpException('game.server.faction_not_found');
+            }
+            $server->addFaction($faction);
+        }
         $response = $this->serverGateway->bindServer($host, $this->rsaEncryptionManager->encrypt($server, json_encode([
             'name' => $name,
             'type' => $type,
+            'factions' => $server->getFactions()->toArray(),
             'signature' => $signature,
             'map_size' => 100,
         ])));

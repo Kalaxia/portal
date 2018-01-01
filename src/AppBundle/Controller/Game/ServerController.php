@@ -16,7 +16,10 @@ use Symfony\Component\HttpKernel\Exception\{
     NotFoundHttpException
 };
 
-use AppBundle\Manager\Game\ServerManager;
+use AppBundle\Manager\Game\{
+    FactionManager,
+    ServerManager
+};
 use AppBundle\Entity\Game\Server;
 
 use AppBundle\Gateway\ServerGateway;
@@ -29,7 +32,9 @@ class ServerController extends Controller
      */
     public function newServerAction()
     {
-        return $this->render('admin/game/server/new.html.twig');
+        return $this->render('admin/game/server/new.html.twig', [
+            'factions' => $this->get(FactionManager::class)->getAll()
+        ]);
     }
     
     /**
@@ -51,6 +56,9 @@ class ServerController extends Controller
         if (empty($startedAt = $request->request->get('started_at'))) {
             throw new BadRequestHttpException('game.server.missing_started_at');
         }
+        if (empty($factions = $request->request->get('factions'))) {
+            throw new BadRequestHttpException('game.server.missing_factions');
+        }
         if (empty($publicKey = $request->request->get('public_key'))) {
             throw new BadRequestHttpException('game.server.missing_public_key');
         }
@@ -60,6 +68,7 @@ class ServerController extends Controller
             $description,
             $request->request->get('banner', 'default.png'),
             $startedAt,
+            $factions,
             $publicKey,
             Server::TYPE_MULTIPLAYER
         );
