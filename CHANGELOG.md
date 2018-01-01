@@ -1,3 +1,9 @@
+## [0.1.5] - 2018-01-01
+### Added
+- Game factions model
+- Game factions creation
+- Factions choice at server creation
+
 ## [0.1.4] - 2017-12-29
 ### Added
 - Crontab support in portal container
