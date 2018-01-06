@@ -17,31 +17,35 @@ class ServerGateway
     
     /**
      * @param string $host
-     * @param string $content
+     * @param array $data
      * @return Response
      */
-    public function bindServer($host, $content)
+    public function bindServer($host, $data)
     {
         return $this->client->post("$host/api/servers", [
             'headers' => [
-                'Content-Type' => 'text/plain'
+                'Content-Type' => 'application/octet-stream',
+                'Application-Key' => $data['key'],
+                'Application-Iv' => $data['iv']
             ],
-            'body' => $content
+            'body' => $data['cipher']
         ]);
     }
     
     /**
      * @param string $host
-     * @param string $content
+     * @param array $data
      * @return Response
      */
-    public function connectPlayer($host, $content)
+    public function connectPlayer($host, $data)
     {
         return $this->client->post("$host/api/auth", [
             'headers' => [
-                'Content-Type' => 'text/plain'
+                'Content-Type' => 'application/octet-stream',
+                'Application-Key' => $data['key'],
+                'Application-Iv' => $data['iv']
             ],
-            'body' => $content
+            'body' => $data['cipher']
         ]);
     }
 }

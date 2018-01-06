@@ -148,7 +148,11 @@ class ServerManager
             ]))
         );
         
-        $jwt = $this->rsaEncryptionManager->decrypt($response->getBody()->getContents());
+        $jwt = $this->rsaEncryptionManager->decrypt(
+            $response->getHeader('Application-Key')[0],
+            $response->getHeader('Application-Iv')[0],
+            $response->getBody()->getContents()
+        );
         
         if (!$user->hasServer($server)) {
             $user->addServer($server);
