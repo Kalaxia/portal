@@ -24,17 +24,58 @@ class RsaEncryptionManager
      */
     public function encrypt(Server $server, $data)
     {
-        openssl_public_encrypt($data, $crypted, $server->getPublicKey());
-        return $crypted;
+        $aesData = $this->encryptAesPayload($data);
+        
+        openssl_public_encrypt($aesData['key'], $aesData['key'], $server->getPublicKey());
+        openssl_public_encrypt($aesData['iv'], $aesData['iv'], $server->getPublicKey());
+        
+        $aesData['key'] = base64_encode($aesData['key']);
+        $aesData['iv'] = base64_encode($aesData['iv']);
+        
+        return $aesData;
     }
     
     /**
+     * @param string $key
+     * @param string $iv
      * @param string $data
      * @return string
      */
-    public function decrypt($data)
+    public function decrypt($key, $iv, $data)
     {
-        openssl_private_decrypt($data, $decrypted, file_get_contents("{$this->projectDir}/rsa_vault/portal_rsa"));
+        $privateKey = file_get_contents("{$this->projectDir}/rsa_vault/portal_rsa");
+        
+        $aesData = [];
+        
+        openssl_private_decrypt(base64_decode($key), $aesData['key'], $privateKey);
+        openssl_private_decrypt(base64_decode($iv), $aesData['iv'], $privateKey);
+        
+        if (($decrypted = openssl_decrypt($data, 'aes-256-cbc', $aesData['key'], OPENSSL_RAW_DATA, $aesData['iv'])) === false) {
+            throw new \ErrorException(openssl_error_string());
+        }
         return $decrypted;
+    }
+    
+    protected function encryptAesPayload($payload)
+    {
+        $key = $this->generateAesKey();
+        
+        if (($cipher = openssl_encrypt($payload, 'aes-256-cbc', $key['key'], OPENSSL_RAW_DATA, $key['iv'])) === false) {
+            throw new \ErrorException(openssl_error_string());
+        }
+        return array_merge($key, [
+            'cipher' => $cipher
+        ]);
+    }
+    
+    protected function generateAesKey()
+    {
+        $key = openssl_random_pseudo_bytes(32);
+        $iv = openssl_random_pseudo_bytes(16);
+        
+        return [
+            'key' => $key,
+            'iv' => $iv
+        ];
     }
 }
