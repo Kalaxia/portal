@@ -10,7 +10,8 @@ use AppBundle\Entity\Game\{
     TutorialServer,
     SoloServer,
     Server,
-    MultiplayerServer
+    MultiplayerServer,
+    Faction
 };
 
 use AppBundle\Entity\User;
@@ -26,6 +27,7 @@ class ServerManagerTest extends TestCase
     {
         $this->manager = new ServerManager(
             $this->getEntityManagerMock(),
+            $this->getFactionManagerMock(),
             $this->getServerGatewayMock(),
             $this->getRsaEncryptionManagerMock(),
             $this->getSluggerMock()
@@ -134,6 +136,29 @@ class ServerManagerTest extends TestCase
             (new MultiplayerServer())->setId(4),
             (new MultiplayerServer())->setId(5)
         ];
+    }
+    
+    public function getFactionManagerMock()
+    {
+        $factionManagerMock = $this
+            ->getMockBuilder(\AppBundle\Manager\Game\FactionManager::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $factionManagerMock
+            ->expects($this->any())
+            ->method('get')
+            ->willReturnCallback([$this, 'getFactionMock'])
+        ;
+        return $factionManagerMock;
+    }
+    
+    public function getFactionMock($id)
+    {
+        return
+            (new Faction())
+            ->setId($id)
+        ;
     }
     
     public function getServerGatewayMock()

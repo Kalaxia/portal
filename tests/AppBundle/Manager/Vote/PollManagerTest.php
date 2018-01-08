@@ -18,14 +18,13 @@ class PollManagerTest extends TestCase
     {
         $this->manager = new PollManager(
             $this->getEntityManagerMock(),
-            $this->getTranslatorMock(),
             $this->getEvolutionManagerMock()
         );
     }
     
     public function testCreateFeaturePoll()
     {
-        $poll = $this->manager->createFeaturePoll((new Evolution())->setId('abcd'));
+        $poll = $this->manager->createFeaturePoll($this->getFeedbackMock('abcde'));
         
         $this->assertInstanceOf(FeaturePoll::class, $poll);
     }
@@ -86,18 +85,7 @@ class PollManagerTest extends TestCase
             ->setFeedbackId('abcde')
             ->setCreatedAt(new \DateTime())
             ->setIsOver(false)
-            ->setIsApproved(false)
         ;
-    }
-    
-    protected function getTranslatorMock()
-    {
-        $translatorMock = $this
-            ->getMockBuilder(\Symfony\Component\Translation\Translator::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        return $translatorMock;
     }
     
     protected function getEvolutionManagerMock()
@@ -121,6 +109,7 @@ class PollManagerTest extends TestCase
             (new Evolution())
             ->setId($id)
             ->setTitle("J'aime les tartes")
+            ->setStatus(Evolution::STATUS_TO_SPECIFY)
         ;
     }
 }

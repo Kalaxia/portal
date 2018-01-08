@@ -4,7 +4,10 @@ namespace Tests\AppBundle\Model\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Entity\Vote\FeaturePoll;
+use AppBundle\Entity\Vote\{
+    FeaturePoll,
+    Option
+};
 use AppBundle\Model\Project\Evolution;
 
 class FeaturePollTest extends TestCase
@@ -19,7 +22,9 @@ class FeaturePollTest extends TestCase
             ->setCreatedAt(new \DateTime())
             ->setEndedAt(new \DateTime(FeaturePoll::POLL_DURATION))
             ->setIsOver(true)
-            ->setIsApproved(true)
+            ->setScore(10)
+            ->setNbVotes(12)
+            ->setWinningOption((new Option()))
         ;
         $this->assertEquals(1, $poll->getId());
         $this->assertInstanceOf(Evolution::class, $poll->getFeedback());
@@ -27,7 +32,9 @@ class FeaturePollTest extends TestCase
         $this->assertInstanceOf('DateTime', $poll->getCreatedAt());
         $this->assertInstanceOf('DateTime', $poll->getEndedAt());
         $this->assertTrue($poll->getIsOver());
-        $this->assertTrue($poll->getIsApproved());
+        $this->assertEquals(10, $poll->getScore());
+        $this->assertEquals(12, $poll->getNbVotes());
+        $this->assertInstanceOf(Option::class, $poll->getWinningOption());
     }
     
     public function testPrePersist()
@@ -37,7 +44,6 @@ class FeaturePollTest extends TestCase
         
         $this->assertInstanceOf('DateTime', $poll->getCreatedAt());
         $this->assertFalse($poll->getIsOver());
-        $this->assertFalse($poll->getIsApproved());
     }
     
     public function testGetType()

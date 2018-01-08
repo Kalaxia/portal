@@ -4,7 +4,10 @@ namespace Tests\AppBundle\Model\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Entity\Vote\CommonPoll;
+use AppBundle\Entity\Vote\{
+    CommonPoll,
+    Option
+};
 
 class CommonPollTest extends TestCase
 {
@@ -18,7 +21,9 @@ class CommonPollTest extends TestCase
             ->setCreatedAt(new \DateTime())
             ->setEndedAt(new \DateTime('+7days'))
             ->setIsOver(true)
-            ->setIsApproved(false)
+            ->setScore(10)
+            ->setNbVotes(12)
+            ->setWinningOption((new Option()))
         ;
         $this->assertEquals(1, $poll->getId());
         $this->assertEquals('On mange où ?', $poll->getTitle());
@@ -26,7 +31,9 @@ class CommonPollTest extends TestCase
         $this->assertInstanceOf('DateTime', $poll->getCreatedAt());
         $this->assertInstanceOf('DateTime', $poll->getEndedAt());
         $this->assertTrue($poll->getIsOver());
-        $this->assertFalse($poll->getIsApproved());
+        $this->assertEquals(10, $poll->getScore());
+        $this->assertEquals(12, $poll->getNbVotes());
+        $this->assertInstanceOf(Option::class, $poll->getWinningOption());
     }
     
     public function testPrePersist()
@@ -36,7 +43,6 @@ class CommonPollTest extends TestCase
         
         $this->assertInstanceOf('DateTime', $poll->getCreatedAt());
         $this->assertFalse($poll->getIsOver());
-        $this->assertFalse($poll->getIsApproved());
     }
     
     public function testGetType()
