@@ -51,7 +51,10 @@ class FactionController extends Controller
         if (empty($description = $request->request->get('description'))) {
             throw new BadRequestHttpException('game.faction.missing_description');
         }
-        $this->get(FactionManager::class)->create($name, $description);
+        if (empty($color = $request->request->get('color'))) {
+            throw new BadRequestHttpException('game.faction.missing_color');
+        }
+        $this->get(FactionManager::class)->create($name, $description, $color);
         return $this->redirectToRoute('factions_admin_list');
     }
 }

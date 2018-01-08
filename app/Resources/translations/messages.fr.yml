@@ -164,6 +164,7 @@ game:
         list: 'Factions'
         name: 'Nom'
         description: 'Description'
+        color: 'Couleur'
         create: 'Nouvelle faction'
         validate: 'Valider'
 

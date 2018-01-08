@@ -39,14 +39,16 @@ class FactionManager
     /**
      * @param string $name
      * @param string $description
+     * @param string $color
      * @return Faction
      */
-    public function create($name, $description)
+    public function create($name, $description, $color)
     {
         $faction =
             (new Faction())
             ->setName($name)
             ->setDescription($description)
+            ->setColor($color)
         ;
         $this->entityManager->persist($faction);
         $this->entityManager->flush($faction);
