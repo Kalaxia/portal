@@ -1,3 +1,17 @@
+## [0.1.6] - 2018-01-08
+### Added
+- Hybrid encryption for game servers communication
+- Factions color field
+- Scrutinizer CI configuration
+- Travis CI configuration
+- Blog link
+
+### Changed
+- Social links now open in new tab
+
+### Fixed
+- Unsecure social links
+
 ## [0.1.5] - 2018-01-01
 ### Added
 - Game factions model
