@@ -26,4 +26,8 @@ class Faction extends FactionModel
      * @ORM\Column(type="text")
      */
     protected $description;
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    protected $color;
 }
