@@ -46,6 +46,7 @@ You can finally launch the Docker Compose setup:
 ```
 cd kalaxia-portal
 cp portal.dist.env portal.env
+cp .dist.env .env
 docker-compose up -d
 ```
 
