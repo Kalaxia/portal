@@ -185,12 +185,10 @@ body {
     margin-top: 20px;
 }
 
-.servers-list,
 .polls-list {
     display:flex;
 }
 
-.server,
 .poll {
     display: flex;
     align-items: center;
@@ -267,4 +265,17 @@ body {
 .tooltip:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
+}
+
+.servers-list {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.servers-list > .server {
+    display: flex;
+    align-items: center;
+    padding:10px 20px;
+    margin: 10px;
+    background: rgba(0,0,0,0.6);
 }

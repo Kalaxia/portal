@@ -23,12 +23,14 @@
         <section class="servers-list">
             {% for server in opened_servers %}
                 <div class="server">
-                    <strong>
-                        {{ server.name }}
-                    </strong>
-                    <em>
-                        {{ server.startedAt | date('full_date' | trans) }}
-                    </em>
+                    <div class="info">
+                        <strong>
+                            {{ server.name }}
+                        </strong>
+                        <em>
+                            {{ server.startedAt | date('full_date' | trans) }}
+                        </em>
+                    </div>
                 </div>
             {% endfor %}
         </section>
