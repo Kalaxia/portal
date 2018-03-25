@@ -67,6 +67,7 @@ body,
 	background: transparent;
 	-webkit-transition: -webkit-transform 0.3s;
 	transition: transform 0.3s;
+    cursor: pointer;
 }
 
 .menu-button::before {
