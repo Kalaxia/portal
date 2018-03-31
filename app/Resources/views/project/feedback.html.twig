@@ -28,7 +28,7 @@
             <div class="feedback-content">
                 <div class="description">
                     <div class="description-content">
-                    {{ feedback.description | raw }}
+                    {{ feedback.description | raw | escape }}
                     </div>
                     {% if is_author %}
                     <div class="description-action">
@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                             <div class="feedback-content">
-                                {{ comment.content | raw }}
+                                {{ comment.content | raw | escape }}
                             </div>
                         </div>
                     {% endfor %}
