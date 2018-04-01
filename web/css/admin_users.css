@@ -1,0 +1,45 @@
+#users-search {
+    width: 60%;
+    margin: auto;
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#users-search > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#users-search > div > div > label {
+    cursor: pointer;
+}
+
+#users-list {
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+#users-list > header > p {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+#users-list > section > .user,
+#users-list > header {
+    display: flex;
+}
+
+#users-list > section > .user > strong,
+#users-list > header > p:first-child {
+    flex-grow: 1;
+    flex-basis: 20%;
+}
+
+#users-list > section > .user > em,
+#users-list > header > p:not(:first-child){
+    flex-grow: 1;
+    flex-basis: 40%;
+}

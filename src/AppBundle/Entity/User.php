@@ -11,8 +11,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Game\Server;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
+ * @ORM\HasLifecycleCallbacks
  */
 class User extends UserModel implements \JsonSerializable
 {
@@ -22,6 +23,10 @@ class User extends UserModel implements \JsonSerializable
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $createdAt;
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Notification", mappedBy="user")
      */
@@ -40,6 +45,33 @@ class User extends UserModel implements \JsonSerializable
         parent::__construct();
         $this->notifications = new ArrayCollection();
         $this->servers = new ArrayCollection();
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        $this->createdAt = new \DateTime();
+    }
+    
+    /**
+     * @param \DateTime $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        
+        return $this;
+    }
+    
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
     
     /**
@@ -125,7 +157,8 @@ class User extends UserModel implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'username' => $this->username
+            'username' => $this->username,
+            'roles' => $this->roles,
         ];
     }
 }

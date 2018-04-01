@@ -16,11 +16,20 @@ homepage:
 
 admin:
     dashboard: 'Administration'
+    users:
+        list: 'Utilisateurs'
+        search: 'Rechercher'
+        last_registrations: 'Dernières inscriptions'
+        see_all: 'Voir tous les utilisateurs'
 
 user:
     dashboard: 'Mon espace'
     account: 'Mon compte'
     connect: 'Identifiez-vous'
+    username: 'Nom d''utilisateur'
+    email: 'Adresse e-mail'
+    last_login: 'Dernière connexion'
+    roles: 'Rôles'
 
 project:
     board: 'Gestionnaire de projet'
