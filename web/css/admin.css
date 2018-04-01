@@ -1,7 +1,28 @@
+#users,
 #servers,
 #labels {
     width: 90%;
     margin:auto;
+}
+
+#users > section {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#users > section > .user {
+    padding: 20px;
+    margin: 10px;
+    background-color: rgba(0,0,0,0.6);
+}
+
+#users > section > .user:first-child {
+    margin-left: 0px;
+}
+
+#users > footer {
+    margin-top: 10px;
 }
 
 #servers > header {

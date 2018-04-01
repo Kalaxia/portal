@@ -8,6 +8,21 @@
 {% block page_title %}{{ 'admin.dashboard' | trans }}{% endblock %}
 
 {% block body %}
+    <div id="users">
+        <header>
+            <h3>{{ 'admin.users.last_registrations' | trans }}</h3>
+        </header>
+        <section>
+            {% for user in new_users %}
+                <div class="user">
+                    {{ user.username }}
+                </div>
+            {% endfor %}
+        </section>
+        <footer>
+            <a href="{{ path('users_list') }}" class="button">{{ 'admin.users.see_all' | trans }}</a>
+        </footer>
+    </div>
     <div id="servers">
         <header>
             <h3>{{ 'game.available_servers' | trans }}</h3>
