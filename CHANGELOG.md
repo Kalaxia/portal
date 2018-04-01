@@ -1,3 +1,13 @@
+## [0.1.7] - 2018-04-01
+### Added
+- Last user registrations on admin dashboard
+- Users list in admin area
+- Users search form
+
+### Fixed
+- Servers list wrapping on small screens
+- Icons paths for social networks
+
 ## [0.1.6] - 2018-01-08
 ### Added
 - Hybrid encryption for game servers communication
