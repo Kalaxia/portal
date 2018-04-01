@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_users.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}{{ 'admin.users.list' | trans }}{% endblock %}
+
+{% block body %}
+    <form id="users-search" class="form" onsubmit="searchUsers(event);">
+        <input type="text" name="username" placeholder="{{ 'user.username' | trans }}" />
+
+        <div>
+        {% for role, children in roles %}
+            <div>
+                <input type="checkbox" id="role-{{ role }}" name="{{ role }}" />
+                <label for="role-{{ role }}">{{ role }}</label>
+            </div>
+        {% endfor %}
+        </div>
+        <button type="submit" class="button">{{ 'admin.users.search' | trans }}</button>
+    </form>
+    <div id="users-list">
+        <header>
+            <p>{{ 'user.username' | trans }}</p>
+            <p>{{ 'user.email' | trans }}</p>
+            <p>{{ 'user.last_login' | trans }}</p>
+            <p>{{ 'user.roles' | trans }}</p>
+        </header>
+        <section>
+            {% for user in users %}
+                <div class="user">
+                    <strong>{{ user.username }}</strong>
+                    <em>{{ user.email }}</em>
+                    <em>{{ user.lastLogin.format('full_date' | trans ) }}</em>
+                    <em>
+                        {% for role in user.roles if role != 'ROLE_USER' %}
+                            {{ role }}
+                        {% endfor %}
+                    </em>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}
+
