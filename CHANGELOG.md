@@ -1,3 +1,7 @@
+## [0.1.8] - 2018-04-02
+### Changed
+- New Feedback Manager API
+
 ## [0.1.7] - 2018-04-01
 ### Added
 - Last user registrations on admin dashboard
