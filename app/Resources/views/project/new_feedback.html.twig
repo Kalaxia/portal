@@ -6,11 +6,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}" />
 {% endblock %}
 
-{% block page_title %}{{ 'project.feedback.propose_evolution' | trans }}{% endblock %}
+{% block page_title %}{{ (type == 'evolution' ? 'project.feedback.propose_evolution' : 'project.feedback.report_bug') | trans }}{% endblock %}
 
 {% block body %}
     <div id="feedback-form" class="form">
-        <form method="post" action="{{ path('create_evolution') }}">
+        <form method="post" action="{{ path('create_feedback') }}">
             <div class="form-group">
                 <label for="title">{{ 'project.feedback.title' | trans }}</label>
                 <input type="text" name="title" />
@@ -19,6 +19,7 @@
                 <label for="description">{{ 'project.feedback.description' | trans }}</label>
                 <textarea name="description"></textarea>
             </div>
+            <input type="hidden" name="type" value="{{ type }}"/>
             <button type="submit">{{ 'project.feedback.create' | trans }}</button>
         </form>
     </div>
