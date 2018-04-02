@@ -30,16 +30,23 @@
                     <div class="description-content">
                     {{ feedback.description | raw }}
                     </div>
+                    <div class="description-actions">
                     {% if is_author %}
-                    <div class="description-action">
-                        <img id="edit-description-button" class='description-action-img' src="{{ asset('images/icons/edit.png') }}" onclick="edit_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
-                        <div id="confirm-description-changes">
-                            <img class='description-action-img' src="{{ asset('images/icons/validate.png') }}" onclick="update_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
-                            <img class='description-action-img' src="{{ asset('images/icons/cancel.png') }}" onclick="cancel_update_description('{{ 'project.feedback.confirm_cancel' | trans }}');" />
+                        <div class="description-action">
+                            <img id="edit-description-button" class='description-action-img' src="{{ asset('images/icons/edit.png') }}" onclick="edit_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
+                            <div id="confirm-description-changes">
+                                <img class='description-action-img' src="{{ asset('images/icons/validate.png') }}" onclick="update_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
+                                <img class='description-action-img' src="{{ asset('images/icons/cancel.png') }}" onclick="cancel_update_description('{{ 'project.feedback.confirm_cancel' | trans }}');" />
+                            </div>
                         </div>
-                    </div>
-                    <div id="description-old"></div>
+                        <div id="description-old"></div>
                     {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="description-action">
+                            <img class='description-action-img' src="{{ asset('images/icons/remove.png') }}" onclick="remove_feedback('{{ feedback.id }}');" />
+                        </div>
+                    {% endif %}
+                    </div>
                 </div>
 
                 <div class="infos">

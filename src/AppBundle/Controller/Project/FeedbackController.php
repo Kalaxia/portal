@@ -146,7 +146,7 @@ class FeedbackController extends Controller
     }
 
     /**
-     * @Route("/feedbacks/{id}", name="get_feedback")
+     * @Route("/feedbacks/{id}", name="get_feedback", methods={"GET"})
      */
     public function getAction($id, FeedbackManager $feedbackManager, PollManager $pollManager, LabelManager $labelManager)
     {
@@ -158,5 +158,14 @@ class FeedbackController extends Controller
             'poll' => $pollManager->getLastFeaturePoll($feedback),
             'labels' => $labelManager->getAll()
         ]);
+    }
+    
+    /**
+     * @Route("/feedbacks/{id}", name="remove_feedback", methods={"DELETE"})
+     */
+    public function removeAction($id, FeedbackManager $feedbackManager)
+    {
+        $feedbackManager->remove($id);
+        return new Response('', 204);
     }
 }

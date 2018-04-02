@@ -73,6 +73,18 @@ const cancel_update_description = (alert_text) => {
   }   
 };
 
+const remove_feedback = id => {
+    if (!confirm('are you sure ?')) {
+        return false;
+    }
+    return fetch(`/feedbacks/${id}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    }).then(response => {
+        window.location = '/board';
+    });
+};
+
 const create_comment = id => {
     var textArea = document.querySelector('textarea[name="comment-content"]');
     var content = textArea.value;

@@ -147,6 +147,11 @@ class FeedbackManager
     {
         return $this->format(json_decode($this->gateway->getFeedback($id)->getBody(), true), true);
     }
+    
+    public function remove($id)
+    {
+        return $this->gateway->deleteFeedback($id);
+    }
 
     /**
      * @param array $data
