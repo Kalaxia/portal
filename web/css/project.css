@@ -293,6 +293,11 @@
     margin-left: 15px;
 }
 
+.description-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .description-action {
     text-align: right;
     padding-right: 5px;
