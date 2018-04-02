@@ -63,22 +63,19 @@ class CommentManager
             ->feedbackGateway
             ->createComment(
                 $feedback->getId(),
-                $feedback->getType(),
                 $this->parser->parse($content),
                 $author->getUsername(),
                 $author->getEmail()
             )
             ->getBody()
         , true));
-
         $title = 'Nouveau commentaire';
-        $isBug = $feedback->getType() === Feedback::TYPE_BUG;
         // We get feedback URL from the slug, who is necessarily not empty, because we just updated it.
         $id = empty($id = $feedback->getSlug()) ? $feedback->getId() : $id;
-        $url = $this->router->generate($isBug ? 'get_bug' : 'get_evolution', ['id' => $id]);
+        $url = $this->router->generate('get_feedback', ['id' => $id]);
         $content =
             "{$author->getUsername()} a posté un commentaire sur <a href=\"$url\">".
-             ($isBug ? 'le bug' : 'l\'évolution'). " \"{$feedback->getTitle()}\" </a>."
+             ($feedback->getType() === Feedback::TYPE_BUG ? 'le bug' : 'l\'évolution'). " \"{$feedback->getTitle()}\" </a>."
         ;
         // We avoid sending notification to the comment author, whether he is the feedback author or not
         $players = [$author->getId()];

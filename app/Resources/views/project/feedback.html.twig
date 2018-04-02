@@ -132,7 +132,7 @@
                 {% if is_granted('ROLE_USER') %}
                 <div id="new-comment">
                     <textarea name="comment-content"></textarea>
-                    <button onclick="create_comment('{{ feedback.id }}', '{{ feedback.type }}');">{{ 'project.comment.create' | trans }}</button>
+                    <button onclick="create_comment('{{ feedback.id }}');">{{ 'project.comment.create' | trans }}</button>
                 </div>
                 {% endif %}
             </div>

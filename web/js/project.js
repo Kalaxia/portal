@@ -73,7 +73,7 @@ const cancel_update_description = (alert_text) => {
   }   
 };
 
-const create_comment = (id, type) => {
+const create_comment = id => {
     var textArea = document.querySelector('textarea[name="comment-content"]');
     var content = textArea.value;
     if (content.length === 0) return false;
@@ -81,7 +81,6 @@ const create_comment = (id, type) => {
     fetch(`/feedbacks/${id}/comments`, {
         method: 'POST', 
         body: JSON.stringify({
-            type: type,
             content: content
         }),
         credentials: 'include'
