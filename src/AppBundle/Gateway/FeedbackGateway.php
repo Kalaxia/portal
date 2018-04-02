@@ -100,6 +100,15 @@ class FeedbackGateway
     }
     
     /**
+     * @param string $id
+     * @return Response
+     */
+    public function deleteFeedback($id)
+    {
+        return $this->client->delete("/feedbacks/$id");
+    }
+    
+    /**
      * @return Response
      */
     public function getLabels()
