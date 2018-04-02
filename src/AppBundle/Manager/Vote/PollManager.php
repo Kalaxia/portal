@@ -4,7 +4,6 @@ namespace AppBundle\Manager\Vote;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 use AppBundle\Model\Project\Feedback;
 use AppBundle\Entity\Vote\{
@@ -13,23 +12,23 @@ use AppBundle\Entity\Vote\{
     Option
 };
 
-use AppBundle\Manager\Project\EvolutionManager;
+use AppBundle\Manager\Project\FeedbackManager;
 
 class PollManager
 {
     /** @var EntityManagerInterface **/
     protected $entityManager;
-    /** @var EvolutionManager **/
-    protected $evolutionManager;
+    /** @var FeedbackManager **/
+    protected $feedbackManager;
     
     /**
      * @param EntityManagerInterface $entityManager
-     * @param EvolutionManager $evolutionManager
+     * @param FeedbackManager $feedbackManager
      */
-    public function __construct(EntityManagerInterface $entityManager, EvolutionManager $evolutionManager)
+    public function __construct(EntityManagerInterface $entityManager, FeedbackManager $feedbackManager)
     {
         $this->entityManager = $entityManager;
-        $this->evolutionManager = $evolutionManager;
+        $this->feedbackManager = $feedbackManager;
     }
     
     /**
@@ -74,7 +73,7 @@ class PollManager
     {
         $poll = $this->entityManager->getRepository(Poll::class)->find($id);
         if ($poll instanceof FeaturePoll) {
-            $poll->setFeedback($this->evolutionManager->get($poll->getFeedbackId()));
+            $poll->setFeedback($this->feedbackManager->get($poll->getFeedbackId()));
         }
         return $poll;
     }
@@ -89,7 +88,7 @@ class PollManager
         ]);
         foreach ($polls as &$poll) {
             if ($poll instanceof FeaturePoll) {
-                $poll->setFeedback($this->evolutionManager->get($poll->getFeedbackId()));
+                $poll->setFeedback($this->feedbackManager->get($poll->getFeedbackId()));
             }
         }
         return $polls;

@@ -2,12 +2,14 @@
 
 namespace AppBundle\Model\Project;
 
-abstract class Feedback implements \JsonSerializable
+class Feedback implements \JsonSerializable
 {
     /** @var string **/
     protected $id;
     /** @var string **/
     protected $title;
+    /** @var string **/
+    protected $type;
     /** @var string **/
     protected $slug;
     /** @var string **/
@@ -26,7 +28,7 @@ abstract class Feedback implements \JsonSerializable
     protected $updatedAt;
     
     const TYPE_BUG = 'bug';
-    const TYPE_EVOLUTION = 'evo';
+    const TYPE_EVOLUTION = 'evolution';
     
     const STATUS_TO_SPECIFY = 'to_specify';
     const STATUS_READY = 'ready';
@@ -34,11 +36,6 @@ abstract class Feedback implements \JsonSerializable
     const STATUS_TO_VALIDATE = 'to_validate';
     const STATUS_TO_DEPLOY = 'to_deploy';
     const STATUS_DONE = 'done';
-    
-    /**
-     * @return string
-     */
-    abstract public function getType();
     
     /**
      * @param string $id
@@ -76,6 +73,25 @@ abstract class Feedback implements \JsonSerializable
     public function getTitle()
     {
         return $this->title;
+    }
+    
+    /**
+     * @param string $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type=  $type;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
     
     /**

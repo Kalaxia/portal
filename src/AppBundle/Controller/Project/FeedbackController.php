@@ -23,43 +23,46 @@ use Symfony\Component\HttpKernel\Exception\{
 };
 
 use AppBundle\Manager\Project\{
-    EvolutionManager,
+    FeedbackManager,
     LabelManager
 };
 use AppBundle\Manager\Vote\PollManager;
 
-class EvolutionController extends Controller
+class FeedbackController extends Controller
 {
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/evolutions/new", name="propose_evolution")
+     * @Route("/feedbacks/new", name="new_feedback")
      * @Method({"GET"})
      */
-    public function newEvolutionAction()
+    public function newFeedbackAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('project/new_evolution.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
+        return $this->render('project/new_feedback.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'type' => $request->query->get('type', 'bug')
         ]);
     }
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/evolutions", name="create_evolution")
+     * @Route("/feedbacks", name="create_feedback")
      * @Method({"POST"})
      */
-    public function createEvolutionAction(Request $request)
+    public function createFeedbackAction(Request $request, FeedbackManager $feedbackManager)
     {
         if (empty($title = trim($request->request->get('title')))) {
             throw new BadRequestHttpException('project.feedback.missing_title');
         }
+        if (empty($type = trim($request->request->get('type')))) {
+            throw new BadRequestHttpException('project.feedback.missing_type');
+        }
         if (empty($description = trim($request->request->get('description')))) {
             throw new BadRequestHttpException('project.feedback.missing_description');
         }
-        return $this->redirectToRoute('get_evolution', [
-            'id' => $this
-                ->get(EvolutionManager::class)
-                ->create($title, $description, $this->getUser())
+        return $this->redirectToRoute('get_feedback', [
+            'id' => $feedbackManager
+                ->create($title, $type, $description, $this->getUser())
                 ->getId()
         ]);
     }
@@ -67,17 +70,16 @@ class EvolutionController extends Controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/evolutions/{id}", name="update_evolution")
+     * @Route("/feedbacks/{id}", name="update_feedback")
      * @Method({"PUT"})
      */
-    public function updateEvolutionAction(Request $request)
+    public function updateFeedbackAction(Request $request, FeedbackManager $feedbackManager, Parser $parser)
     {
         $data = json_decode($request->getContent(), true);
         if (empty($id = $request->attributes->get('id'))) {
             throw new BadRequestHttpException('project.feedback.missing_id');
         }
-        $evolutionManager = $this->get(EvolutionManager::class);
-        if (($evolution = $evolutionManager->get($id)) === null) {
+        if (($feedback = $feedbackManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
 
@@ -85,78 +87,76 @@ class EvolutionController extends Controller
             if(!$this->isGranted('ROLE_DEVELOPER')) {
                 throw new AccessDeniedHttpException('project.feedback.not_developer');
             }
-            $evolution->setStatus($data['status']);
+            $feedback->setStatus($data['status']);
         }
         if (!empty($data['description'])) {
-            if($evolution->getAuthor()->getId() != $this->getUser()->getId()) {
+            if($feedback->getAuthor()->getId() != $this->getUser()->getId()) {
                 throw new AccessDeniedHttpException('project.feedback.not_author');
             }
-            $evolution->setDescription($this->get(Parser::class)->parse($data['description']));
+            $feedback->setDescription($parser->parse($data['description']));
         }
-        return new JsonResponse($evolutionManager->update($evolution, $this->getUser()));
+        return new JsonResponse($feedbackManager->update($feedback, $this->getUser()));
     }
 
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/evolutions/{id}/labels/{label_id}", name="add_label_to_evolution")
+     * @Route("/feedbacks/{id}/labels/{label_id}", name="add_label_to_feedback")
      * @Method({"POST"})
      */
-    public function addLabelToEvolutionAction(Request $request)
+    public function addLabelToFeedbackAction(Request $request, FeedbackManager $feedbackManager)
     {
-        $evolutionManager = $this->get(EvolutionManager::class);
         if (empty($id = $request->attributes->get('id'))) {
             throw new BadRequestHttpException('project.feedback.missing_id');
         }
         if (empty($labelId = $request->attributes->get('label_id'))) {
             throw new BadRequestHttpException('project.feedback.missing_label_id');
         }
-        if (($evolution = $evolutionManager->get($id)) === null) {
+        if (($feedback = $feedbackManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
-        if ($this->getUser()->getId() !== $evolution->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
+        if ($this->getUser()->getId() !== $feedback->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedHttpException('project.feedback.access_denied');
         }
-        $evolutionManager->addLabelToEvolution($evolution, $labelId);
+        $feedbackManager->addLabelToFeedback($feedback, $labelId);
         return new Response('', 204);
     }
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/evolutions/{id}/labels/{label_id}", name="remove_label_from_evolution")
+     * @Route("/feedbacks/{id}/labels/{label_id}", name="remove_label_from_feedback")
      * @Method({"DELETE"})
      */
-    public function removeLabelFromEvolutionAction(Request $request)
+    public function removeLabelFromFeedbackAction(Request $request, FeedbackManager $feedbackManager)
     {
-        $evolutionManager = $this->get(EvolutionManager::class);
         if (empty($id = $request->attributes->get('id'))) {
             throw new BadRequestHttpException('project.feedback.missing_id');
         }
         if (empty($labelId = $request->attributes->get('label_id'))) {
             throw new BadRequestHttpException('project.feedback.missing_label_id');
         }
-        if (($evolution = $evolutionManager->get($id)) === null) {
+        if (($feedback = $feedbackManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
-        if ($this->getUser()->getId() !== $evolution->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
+        if ($this->getUser()->getId() !== $feedback->getAuthor()->getId() && !$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedHttpException('project.feedback.access_denied');
         }
-        $evolutionManager->removeLabelFromEvolution($evolution, $labelId);
+        $feedbackManager->removeLabelFromFeedback($feedback, $labelId);
         return new Response('', 204);
     }
 
     /**
-     * @Route("/evolutions/{id}", name="get_evolution")
+     * @Route("/feedbacks/{id}", name="get_feedback")
      */
-    public function getAction($id)
+    public function getAction($id, FeedbackManager $feedbackManager, PollManager $pollManager, LabelManager $labelManager)
     {
-        if (($evolution = $this->get(EvolutionManager::class)->get($id)) === null) {
+        if (($feedback = $feedbackManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
         return $this->render('project/feedback.html.twig', [
-            'feedback' => $evolution,
-            'poll' => $this->get(PollManager::class)->getLastFeaturePoll($evolution),
-            'labels' => $this->get(LabelManager::class)->getAll()
+            'feedback' => $feedback,
+            'poll' => $pollManager->getLastFeaturePoll($feedback),
+            'labels' => $labelManager->getAll()
         ]);
     }
 }
