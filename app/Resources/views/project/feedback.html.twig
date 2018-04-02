@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 {% endif %}
-                {% if feedback.type == 'evo' and feedback.status == 'to_specify' and (is_author or is_granted('ROLE_ADMIN')) %}
+                {% if feedback.type == 'evolution' and feedback.status == 'to_specify' and (is_author or is_granted('ROLE_ADMIN')) %}
                     <div class="info-card">
                         <em>{{ 'project.feedback.poll' | trans }}</em>
                         {% if poll is defined and poll != null and poll.isOver == false %}

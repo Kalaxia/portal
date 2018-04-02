@@ -15,7 +15,7 @@ const drop_handler = event => {
     // Get the id of the target and add the moved element to the target's DOM
     var card = document.getElementById(event.dataTransfer.getData("text"));
     event.target.appendChild(card);
-    fetch('/' + ((card.getAttribute('data-type') === 'bug') ? 'bugs' : 'evolutions') + '/' + card.getAttribute('data-id'), {
+    fetch(`/feedbacks/${card.getAttribute('data-id')}`, {
         method: 'PUT', 
         body: JSON.stringify({
             status: event.target.getAttribute('data-status')
@@ -45,7 +45,7 @@ const edit_description = (id, type) => {
 };
 
 const update_description = (id, type) => {
-    fetch('/' + ((type === 'bug') ? 'bugs' : 'evolutions') + '/' + id, {
+    fetch(`/feedbacks/${id}`, {
         method: 'PUT', 
         body: JSON.stringify({
             description: document.querySelector('#feedback .description-content > textarea').value
@@ -115,7 +115,7 @@ const create_comment = (id, type) => {
 
 const toggle_label = (event, feedbackId, feedbackType) => {
     var label = event.currentTarget;
-    fetch('/' + ((feedbackType === 'bug') ? 'bugs' : 'evolutions') + '/' + feedbackId + '/labels/' + label.getAttribute('data-id'), {
+    fetch(`/feedbacks/${feedbackId}/labels/${label.getAttribute('data-id')}`, {
         method: label.classList.contains('active') ? 'DELETE' : 'POST',
         credentials: 'include'
     }).then(response => {

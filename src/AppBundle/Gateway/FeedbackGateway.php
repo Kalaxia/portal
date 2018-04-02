@@ -5,11 +5,7 @@ namespace AppBundle\Gateway;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 
-use AppBundle\Model\Project\{
-    Feedback,
-    Evolution,
-    Bug
-};
+use AppBundle\Model\Project\Feedback;
 
 class FeedbackGateway
 {
@@ -26,20 +22,22 @@ class FeedbackGateway
     
     /**
      * @param string $title
+     * @param string $type
      * @param string $description
      * @param string $status
      * @param string $authorName
      * @param string $authorEmail
      * @return Response
      */
-    public function createEvolution($title, $description, $status, $authorName, $authorEmail)
+    public function createFeedback($title, $type, $description, $status, $authorName, $authorEmail)
     {
-        return $this->client->post('/evolutions', [
+        return $this->client->post('/feedbacks', [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],
             'body' => json_encode([
                 'title' => $title,
+                'type' => $type,
                 'description' => $description,
                 'status' => $status,
                 'author' => [
@@ -51,19 +49,19 @@ class FeedbackGateway
     }
     
     /**
-     * @param Evolution $evolution
+     * @param Feedback $feedback
      * @return Response
      */
-    public function updateEvolution(Evolution $evolution)
+    public function updateFeedback(Feedback $feedback)
     {
-        return $this->client->put('/evolutions/' . $evolution->getId(), [
+        return $this->client->put('/feedbacks/' . $feedback->getId(), [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],
             'body' => json_encode([
-                'title' => $evolution->getTitle(),
-                'description' => $evolution->getDescription(),
-                'status' => $evolution->getStatus()
+                'title' => $feedback->getTitle(),
+                'description' => $feedback->getDescription(),
+                'status' => $feedback->getStatus()
             ])
         ]);
     }
@@ -72,84 +70,22 @@ class FeedbackGateway
      * @param string $id
      * @return Response
      */
-    public function getEvolution($id)
+    public function getFeedback($id)
     {
-        return $this->client->get("/evolutions/$id");
+        return $this->client->get("/feedbacks/$id");
     }
     
     /**
      * @return Response
      */
-    public function getEvolutions()
+    public function getFeedbacks()
     {
-        return $this->client->get('/evolutions');
+        return $this->client->get('/feedbacks');
     }
     
-    /**
-     * @param string $title
-     * @param string $description
-     * @param string $status
-     * @param string $authorName
-     * @param string $authorEmail
-     * @return Response
-     */
-    public function createBug($title, $description, $status, $authorName, $authorEmail)
+    public function createComment($feedbackId, $content, $authorName, $authorEmail)
     {
-        return $this->client->post('/bugs', [
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ],
-            'body' => json_encode([
-                'title' => $title,
-                'description' => $description,
-                'status' => $status,
-                'author' => [
-                    'name' => $authorName,
-                    'email' => $authorEmail
-                ],
-            ])
-        ]);
-    }
-    
-    /**
-     * @param Bug $bug
-     * @return Response
-     */
-    public function updateBug(Bug $bug)
-    {
-        return $this->client->put('/bugs/' . $bug->getId(), [
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ],
-            'body' => json_encode([
-                'title' => $bug->getTitle(),
-                'description' => $bug->getDescription(),
-                'status' => $bug->getStatus()
-            ])
-        ]);
-    }
-    
-    /**
-     * @param string $id
-     * @return Response
-     */
-    public function getBug($id)
-    {
-        return $this->client->get("/bugs/$id");
-    }
-    
-    /**
-     * @return Response
-     */
-    public function getBugs()
-    {
-        return $this->client->get('/bugs');
-    }
-    
-    public function createComment($feedbackId, $feedbackType, $content, $authorName, $authorEmail)
-    {
-        $endpoint = ($feedbackType === Feedback::TYPE_BUG) ? 'bugs' : 'evolutions';
-        return $this->client->post("/$endpoint/$feedbackId/comments", [
+        return $this->client->post("/feedbacks/$feedbackId/comments", [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],
@@ -190,42 +126,22 @@ class FeedbackGateway
     }
     
     /**
-     * @param Bug $bug
+     * @param Feedback $feedback
      * @param string $labelId
      * @return Response
      */
-    public function addLabelToBug(Bug $bug, $labelId)
+    public function addLabelToFeedback(Feedback $feedback, $labelId)
     {
-        return $this->client->post("/bugs/{$bug->getId()}/labels/$labelId");
+        return $this->client->post("/feedbacks/{$feedback->getId()}/labels/$labelId");
     }
     
     /**
-     * @param Bug $bug
+     * @param Feedback $feedback
      * @param string $labelId
      * @return Response
      */
-    public function removeLabelFromBug(Bug $bug, $labelId)
+    public function removeLabelFromFeedback(Feedback $feedback, $labelId)
     {
-        return $this->client->delete("/bugs/{$bug->getId()}/labels/$labelId");
-    }
-    
-    /**
-     * @param Evolution $evolution
-     * @param string $labelId
-     * @return Response
-     */
-    public function addLabelToEvolution(Evolution $evolution, $labelId)
-    {
-        return $this->client->post("/evolutions/{$evolution->getId()}/labels/$labelId");
-    }
-    
-    /**
-     * @param Evolution $evolution
-     * @param string $labelId
-     * @return Response
-     */
-    public function removeLabelFromEvolution(Evolution $evolution, $labelId)
-    {
-        return $this->client->delete("/evolutions/{$evolution->getId()}/labels/$labelId");
+        return $this->client->delete("/feedbacks/{$feedback->getId()}/labels/$labelId");
     }
 }

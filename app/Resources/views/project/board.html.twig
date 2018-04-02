@@ -17,10 +17,10 @@
     <div id="board" data-enhanced="false">
         <header>
             {% if is_granted('ROLE_USER') %}
-                <a class="button" href="{{ path('report_bug') }}">
+                <a class="button" href="{{ path('new_feedback', {"type": "bug"}) }}">
                     {{ 'project.feedback.report_bug' | trans }}
                 </a>
-                <a class="button" href="{{ path('propose_evolution') }}">
+                <a class="button" href="{{ path('new_feedback', {"type": "evolution"}) }}">
                     {{ 'project.feedback.propose_evolution' | trans }}
                 </a>
             {% endif %}
@@ -47,7 +47,7 @@
                     {% endif %}>
                     {% if feedbacks[status] is defined %}
                         {% for feedback in feedbacks[status] %}
-                            <a href="{{ path((feedback.type == 'bug') ? 'get_bug': 'get_evolution', {'id': (feedback.slug | length > 0) ? feedback.slug : feedback.id}) }}"
+                            <a href="{{ path('get_feedback', {'id': (feedback.slug | length > 0) ? feedback.slug : feedback.id}) }}"
                                id="feedback-{{ feedback.id }}}"
                                class="board-card"
                                data-type="{{ feedback.type }}"

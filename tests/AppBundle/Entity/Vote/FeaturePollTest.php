@@ -8,7 +8,7 @@ use AppBundle\Entity\Vote\{
     FeaturePoll,
     Option
 };
-use AppBundle\Model\Project\Evolution;
+use AppBundle\Model\Project\Feedback;
 
 class FeaturePollTest extends TestCase
 {
@@ -17,7 +17,7 @@ class FeaturePollTest extends TestCase
         $poll =
             (new FeaturePoll())
             ->setId(1)
-            ->setFeedback(new Evolution())
+            ->setFeedback(new Feedback())
             ->setFeedbackId('qs56d4f5sd5gd56ds6')
             ->setCreatedAt(new \DateTime())
             ->setEndedAt(new \DateTime(FeaturePoll::POLL_DURATION))
@@ -27,7 +27,7 @@ class FeaturePollTest extends TestCase
             ->setWinningOption((new Option()))
         ;
         $this->assertEquals(1, $poll->getId());
-        $this->assertInstanceOf(Evolution::class, $poll->getFeedback());
+        $this->assertInstanceOf(Feedback::class, $poll->getFeedback());
         $this->assertEquals('qs56d4f5sd5gd56ds6', $poll->getFeedbackId());
         $this->assertInstanceOf('DateTime', $poll->getCreatedAt());
         $this->assertInstanceOf('DateTime', $poll->getEndedAt());

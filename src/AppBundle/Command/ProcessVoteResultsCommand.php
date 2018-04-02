@@ -86,7 +86,7 @@ class ProcessVoteResultsCommand extends ContainerAwareCommand
         if ($poll->getType() === Poll::TYPE_FEATURE && $poll->getWinningOption()->getValue() === Option::VALUE_YES) {
             $feature = $poll->getFeedback();
             $feature->setStatus(Feedback::STATUS_READY);
-            $this->feedbackGateway->updateEvolution($feature);
+            $this->feedbackGateway->updateFeedback($feature);
         }
         $this->entityManager->flush($poll);
     }

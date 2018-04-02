@@ -45,7 +45,7 @@
     background-image: url('../images/icons/bug.png');
 }
 
-.board-card[data-type=evo] {
+.board-card[data-type=evolution] {
     background-image: url('../images/icons/evolution.png');
 }
 

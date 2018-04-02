@@ -24,7 +24,7 @@ class LabelController extends Controller
      * @Method({"POST"})
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, LabelManager $labelManager)
     {
         if (empty($name = $request->request->get('name'))) {
             throw new BadRequestHttpException('project.labels.missing_name');
@@ -32,7 +32,7 @@ class LabelController extends Controller
         if (empty($color = $request->request->get('color'))) {
             throw new BadRequestHttpException('project.labels.missing_color');
         }
-        $this->get(LabelManager::class)->create($name, $color);
+        $labelManager->create($name, $color);
         return $this->redirectToRoute('admin_dashboard');
     }
     
@@ -41,12 +41,12 @@ class LabelController extends Controller
      * @Method({"DELETE"})
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function deleteAction(Request $request)
+    public function deleteAction(Request $request, LabelManager $labelManager)
     {
         if (empty($id = $request->attributes->get('id'))) {
             throw new BadRequestHttpException('project.labels.missing_id');
         }
-        $this->get(LabelManager::class)->create($id);
+        $labelManager->create($id);
         return $this->redirectToRoute('admin_dashboard');
     }
 }
