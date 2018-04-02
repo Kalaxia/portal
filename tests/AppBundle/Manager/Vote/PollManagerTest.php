@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 use AppBundle\Manager\Vote\PollManager;
 
-use AppBundle\Model\Project\Evolution;
+use AppBundle\Model\Project\Feedback;
 use AppBundle\Entity\Vote\FeaturePoll;
 
 class PollManagerTest extends TestCase
@@ -18,7 +18,7 @@ class PollManagerTest extends TestCase
     {
         $this->manager = new PollManager(
             $this->getEntityManagerMock(),
-            $this->getEvolutionManagerMock()
+            $this->getFeedbackManagerMock()
         );
     }
     
@@ -88,10 +88,10 @@ class PollManagerTest extends TestCase
         ;
     }
     
-    protected function getEvolutionManagerMock()
+    protected function getFeedbackManagerMock()
     {
         $evolutionManagerMock = $this
-            ->getMockBuilder(\AppBundle\Manager\Project\EvolutionManager::class)
+            ->getMockBuilder(\AppBundle\Manager\Project\FeedbackManager::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -106,10 +106,10 @@ class PollManagerTest extends TestCase
     public function getFeedbackMock($id)
     {
         return
-            (new Evolution())
+            (new Feedback())
             ->setId($id)
             ->setTitle("J'aime les tartes")
-            ->setStatus(Evolution::STATUS_TO_SPECIFY)
+            ->setStatus(Feedback::STATUS_TO_SPECIFY)
         ;
     }
 }
