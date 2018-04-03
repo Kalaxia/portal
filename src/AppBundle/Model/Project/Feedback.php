@@ -274,8 +274,12 @@ class Feedback implements \JsonSerializable
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'slug' => $this->slug,
             'description' => $this->description,
+            'type' => $this->type,
+            'status' => $this->status,
             'author' => $this->author,
+            'labels' => $this->labels,
             'comments' => $this->comments,
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt
