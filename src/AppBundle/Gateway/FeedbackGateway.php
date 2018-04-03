@@ -83,6 +83,18 @@ class FeedbackGateway
         return $this->client->get('/feedbacks');
     }
     
+    public function searchFeedbacks($title)
+    {
+        return $this->client->post("/feedbacks/search", [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode([
+                'title' => $title,
+            ])
+        ]);
+    }
+    
     public function createComment($feedbackId, $content, $authorName, $authorEmail)
     {
         return $this->client->post("/feedbacks/$feedbackId/comments", [

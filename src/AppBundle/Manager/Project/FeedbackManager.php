@@ -148,6 +148,24 @@ class FeedbackManager
         return $this->format(json_decode($this->gateway->getFeedback($id)->getBody(), true), true);
     }
     
+    /**
+     * @param string $title
+     * @return array
+     */
+    public function search($title)
+    {
+        $result = json_decode($this->gateway->searchFeedbacks($title)->getBody(), true);
+        dump($result);
+        foreach ($result as &$data) {
+            $data = $this->format($data);
+        }
+        return $result;
+    }
+    
+    /**
+     * @param string $id
+     * @return Response
+     */
     public function remove($id)
     {
         return $this->gateway->deleteFeedback($id);

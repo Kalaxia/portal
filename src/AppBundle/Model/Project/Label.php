@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model\Project;
 
-class Label
+class Label implements \JsonSerializable
 {
     /** @var string **/
     protected $id;
@@ -66,5 +66,14 @@ class Label
     public function getColor()
     {
         return $this->color;
+    }
+    
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'color' => $this->color,
+        ];
     }
 }
