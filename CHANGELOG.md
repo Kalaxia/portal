@@ -1,3 +1,12 @@
+## [0.1.9] - 2018-04-03
+### Added
+- Board cards search tool
+- Board cards removal for admins
+- Remember me configuration for main firewall
+
+### Fixed
+- Board cards comments creation
+
 ## [0.1.8] - 2018-04-02
 ### Changed
 - New Feedback Manager API
