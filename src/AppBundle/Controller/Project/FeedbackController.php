@@ -31,6 +31,16 @@ use AppBundle\Manager\Vote\PollManager;
 class FeedbackController extends Controller
 {
     /**
+     * @Route("/feedbacks/search", name="search_feedbacks", methods={"POST"})
+     */
+    public function searchAction(Request $request, FeedbackManager $feedbackManager)
+    {
+        $data = json_decode($request->getContent(), true);
+        
+        return new JsonResponse($feedbackManager->search($data['title']));
+    }
+    
+    /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/feedbacks/new", name="new_feedback")
      * @Method({"GET"})
