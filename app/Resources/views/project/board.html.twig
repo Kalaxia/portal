@@ -16,6 +16,7 @@
 {% block body %}
     <div id="board" data-enhanced="false">
         <header>
+            <input type="text" name="search" placeholder="{{ 'project.feedback.search' | trans }}" onchange="search_feedbacks(event);"/>
             {% if is_granted('ROLE_USER') %}
                 <a class="button" href="{{ path('new_feedback', {"type": "bug"}) }}">
                     {{ 'project.feedback.report_bug' | trans }}
@@ -40,10 +41,11 @@
                 {%endif%}
                 </h3>
 
-                <section {% if is_granted('ROLE_DEVELOPER') %}
+                <section
                     data-status="{{ status }}"
-                    ondrop="drop_handler(event);"
-                    ondragover="dragover_handler(event);"
+                    {% if is_granted('ROLE_DEVELOPER') %}
+                        ondrop="drop_handler(event);"
+                        ondragover="dragover_handler(event);"
                     {% endif %}>
                     {% if feedbacks[status] is defined %}
                         {% for feedback in feedbacks[status] %}

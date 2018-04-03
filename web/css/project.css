@@ -6,6 +6,15 @@
     margin-bottom:20px;
 }
 
+#board > header > input {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 0px;
+    height: 35px;
+}
+
 #board > header > .button {
     margin-right:10px;
 }

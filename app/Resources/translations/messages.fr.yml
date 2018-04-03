@@ -83,6 +83,7 @@ project:
 
     feedback:
         title: 'Intitulé'
+        search: 'Rechercher'
         description: 'Description'
         status: 'Statut'
         author: 'Auteur'

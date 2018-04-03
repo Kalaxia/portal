@@ -85,6 +85,44 @@ const remove_feedback = id => {
     });
 };
 
+const search_feedbacks = event => fetch('/feedbacks/search', {
+    method: 'POST',
+    body: JSON.stringify({
+        title: event.currentTarget.value
+    }),
+    credentials: 'include'
+}).then(response => response.json()).
+then(data => {
+    let options = {day: 'numeric', month: 'numeric', year: 'numeric', hour: "numeric", minute: "numeric"};
+    document.querySelectorAll('.board-column > section > a').forEach(node => node.remove());
+    for (let feedback of data) {
+        console.log(feedback);
+        let id = (feedback.slug != '') ? feedback.slug : feedback.id;
+        let date =
+            (feedback.created_at.date === feedback.updated_at.date)
+            ? 'Créé le ' + new Intl.DateTimeFormat({}, options).format(new Date(feedback.created_at.date))
+            : 'Mis à jour le ' + new Intl.DateTimeFormat({}, options).format(new Date(feedback.created_at.date))
+        ;
+        let card = document.createElement('a');
+        card.id = `feedback-${feedback.id}`;
+        card.href= `/feedbacks/${id}`;
+        card.classList.add('board-card');
+        card.setAttribute('data-id', id);
+        card.setAttribute('data-type', feedback.type);
+        card.setAttribute('draggable', true);
+        card.addEventListener('dragstart', dragstart_handler);
+        card.innerHTML =
+            `<header><h5>${feedback.title}</h5><div class="labels">${feedback.labels.map(label => {
+                return `<div class="tooltip" style="background-color: ${label.color }">
+                    <span class="tooltip-text">${label.name}</span>
+                </div>`;
+            })}</div></header>
+            <section><div class="feedback-info"><div class="author">${feedback.author}</div></div><p class="date">${date}</p></section>`
+        ;
+        document.querySelector(`.board-column > section[data-status="${feedback.status}"]`).appendChild(card);
+    }
+});
+
 const create_comment = id => {
     var textArea = document.querySelector('textarea[name="comment-content"]');
     var content = textArea.value;
