@@ -155,7 +155,6 @@ class FeedbackManager
     public function search($title)
     {
         $result = json_decode($this->gateway->searchFeedbacks($title)->getBody(), true);
-        dump($result);
         foreach ($result as &$data) {
             $data = $this->format($data);
         }
