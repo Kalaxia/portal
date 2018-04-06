@@ -4,6 +4,7 @@ namespace AppBundle\Manager\Vote;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use AppBundle\Model\Project\Feedback;
 use AppBundle\Entity\Vote\{
@@ -14,20 +15,26 @@ use AppBundle\Entity\Vote\{
 
 use AppBundle\Manager\Project\FeedbackManager;
 
+use AppBundle\Event\Poll\CreationEvent;
+
 class PollManager
 {
     /** @var EntityManagerInterface **/
     protected $entityManager;
+    /** @var EventDispatcherInterface **/
+    protected $eventDispatcher;
     /** @var FeedbackManager **/
     protected $feedbackManager;
     
     /**
      * @param EntityManagerInterface $entityManager
+     * @param EventDispatcherInterface $eventDispatcher
      * @param FeedbackManager $feedbackManager
      */
-    public function __construct(EntityManagerInterface $entityManager, FeedbackManager $feedbackManager)
+    public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher, FeedbackManager $feedbackManager)
     {
         $this->entityManager = $entityManager;
+        $this->eventDispatcher = $eventDispatcher;
         $this->feedbackManager = $feedbackManager;
     }
     
@@ -62,6 +69,7 @@ class PollManager
         $this->entityManager->persist($yes);
         $this->entityManager->persist($no);
         $this->entityManager->flush();
+        $this->eventDispatcher->dispatch(CreationEvent::NAME, new CreationEvent($poll));
         return $poll;
     }
     
