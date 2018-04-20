@@ -92,7 +92,7 @@ class FeedbackController extends Controller
         if (($feedback = $feedbackManager->get($id)) === null) {
             throw new NotFoundHttpException('project.feedback.not_found');
         }
-
+        $oldStatus = $feedback->getStatus();
         if (!empty($data['status'])) {
             if(!$this->isGranted('ROLE_DEVELOPER')) {
                 throw new AccessDeniedHttpException('project.feedback.not_developer');
@@ -105,7 +105,7 @@ class FeedbackController extends Controller
             }
             $feedback->setDescription($parser->parse($data['description']));
         }
-        return new JsonResponse($feedbackManager->update($feedback, $this->getUser()));
+        return new JsonResponse($feedbackManager->update($feedback, $oldStatus, $this->getUser()));
     }
 
 
