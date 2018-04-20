@@ -1,3 +1,10 @@
+## [0.1.10] - 2018-04-20
+### Added
+- Discord notifications on poll creation
+- Discord notifications on feedback creation
+- Discord notifications on feedback update
+- Discord notifications on feedback removal
+
 ## [0.1.9] - 2018-04-03
 ### Added
 - Board cards search tool
