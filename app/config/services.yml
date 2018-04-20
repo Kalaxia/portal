@@ -43,6 +43,11 @@ services:
     #         $someArgument: 'some_value'
 
 
+    AppBundle\Gateway\DiscordBotGateway:
+        public: true
+        arguments:
+            - "%discord.bot.url%"
+            
     AppBundle\Gateway\FeedbackGateway:
         public: true
         arguments:
@@ -56,6 +61,10 @@ services:
         arguments:
             - "%kernel.project_dir%"
 
+    AppBundle\Subscriber\DiscordBotSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
+            
     AppBundle\Subscriber\RegistrationSubscriber:
         tags:
             - { name: kernel.event_subscriber }

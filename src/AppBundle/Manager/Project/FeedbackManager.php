@@ -4,9 +4,16 @@ namespace AppBundle\Manager\Project;
 
 use AppBundle\Model\Project\Feedback;
 
+use AppBundle\Event\Feedback\{
+    CreationEvent,
+    UpdateEvent,
+    DeleteEvent
+};
+
 use AppBundle\Manager\Project\CommentManager;
 use AppBundle\Manager\Project\LabelManager;
 use AppBundle\Gateway\FeedbackGateway;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use AppBundle\Manager\NotificationManager;
 use AppBundle\Utils\Parser;
 use AppBundle\Entity\User;
@@ -23,6 +30,8 @@ class FeedbackManager
     protected $gateway;
     /** @var UserManager **/
     protected $userManager;
+    /** @var EventDispatcherInterface **/
+    protected $eventDispatcher;
     /** @var NotificationManager **/
     protected $notificationManager;
     /** @var Parser **/
@@ -35,6 +44,7 @@ class FeedbackManager
      * @param LabelManager $labelManager
      * @param FeedbackGateway $gateway
      * @param UserManager $userManager
+     * @param EventDispatcherInterface $eventDispatcher
      * @param NotificationManager $notificationManager
      * @param Parser $parser
      * @param UrlGeneratorInterface $router
@@ -44,6 +54,7 @@ class FeedbackManager
         LabelManager $labelManager,
         FeedbackGateway $gateway,
         UserManager $userManager,
+        EventDispatcherInterface $eventDispatcher,
         NotificationManager $notificationManager,
         Parser $parser,
         UrlGeneratorInterface $router
@@ -53,6 +64,7 @@ class FeedbackManager
         $this->labelManager = $labelManager;
         $this->gateway = $gateway;
         $this->userManager = $userManager;
+        $this->eventDispatcher = $eventDispatcher;
         $this->notificationManager = $notificationManager;
         $this->parser = $parser;
         $this->router = $router;
@@ -63,11 +75,11 @@ class FeedbackManager
      * @param string $type
      * @param string $description
      * @param User $user
-     * @return Response
+     * @return Feedback
      */
     public function create($title, $type, $description, User $user)
     {
-        return $this->format(json_decode($this->gateway->createFeedback(
+        $feedback = $this->format(json_decode($this->gateway->createFeedback(
             $title,
             $type,
             $this->parser->parse($description),
@@ -75,14 +87,17 @@ class FeedbackManager
             $user->getUsername(),
             $user->getEmail()
         )->getBody(), true));
+        $this->eventDispatcher->dispatch(CreationEvent::NAME, new CreationEvent($feedback));
+        return $feedback;
     }
 
     /**
      * @param Feedback $feedback
+     * @param string $oldStatus
      * @param User $user
-     * @return Response
+     * @return Feedback
      */
-    public function update(Feedback $feedback, User $user)
+    public function update(Feedback $feedback, $oldStatus, User $user)
     {
         $updatedFeedback = $this->format(json_decode($this->gateway->updateFeedback($feedback)->getBody(), true));
 
@@ -106,6 +121,7 @@ class FeedbackManager
             $players[] = $commentAuthor->getId();
             $this->notificationManager->create($commentAuthor, $title, $content);
         }
+        $this->eventDispatcher->dispatch(UpdateEvent::NAME, new UpdateEvent($updatedFeedback, $oldStatus));
         return $updatedFeedback;
     }
 
@@ -167,6 +183,8 @@ class FeedbackManager
      */
     public function remove($id)
     {
+        $feedback = $this->get($id);
+        $this->eventDispatcher->dispatch(DeleteEvent::NAME, $feedback);
         return $this->gateway->deleteFeedback($id);
     }
 
