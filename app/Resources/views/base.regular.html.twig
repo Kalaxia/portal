@@ -5,6 +5,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{{ 'website_name' | trans }}{% if nbNotifications > 0 %} ({{ nbNotifications }}){% endif %}{% endblock %}</title>
+        {% block meta %}{% endblock %}
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
             <link rel="stylesheet" type="text/css" href="{{ asset('css/menu.css') }}" />
