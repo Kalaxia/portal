@@ -5,6 +5,7 @@ namespace AppBundle\Subscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use AppBundle\Gateway\DiscordBotGateway;
+use Symfony\Component\Translation\TranslatorInterface;
 
 use AppBundle\Event\Poll\CreationEvent as PollCreationEvent;
 use AppBundle\Event\Feedback\{
@@ -17,13 +18,17 @@ class DiscordBotSubscriber implements EventSubscriberInterface
 {
     /** @var DiscordBotGateway **/
     protected $gateway;
+    /** @var TranslatorInterface **/
+    protected $translator;
     
     /**
      * @param DiscordBotGateway $gateway
+     * @param TransatorInterface $translator
      */
-    public function __construct(DiscordBotGateway $gateway)
+    public function __construct(DiscordBotGateway $gateway, TranslatorInterface $translator)
     {
         $this->gateway = $gateway;
+        $this->translator = $translator;
     }
     
     /**
@@ -56,7 +61,7 @@ class DiscordBotSubscriber implements EventSubscriberInterface
         $this->gateway->notifyFeedbackCreation(
             $feedback->getTitle(),
             $feedback->getSlug(),
-            $feedback->getStatus()
+            $this->translator->trans("project.status.{$feedback->getStatus()}")
         );
     }
     
@@ -69,8 +74,8 @@ class DiscordBotSubscriber implements EventSubscriberInterface
         $this->gateway->notifyFeedbackUpdate(
             $feedback->getTitle(),
             $feedback->getSlug(),
-            $event->getOldStatus(),
-            $feedback->getStatus()
+            $this->translator->trans("project.status.{$event->getOldStatus()}"),
+            $this->translator->trans("project.status.{$feedback->getStatus()}")
         );
     }
     
@@ -83,7 +88,7 @@ class DiscordBotSubscriber implements EventSubscriberInterface
         $this->gateway->notifyFeedbackDelete(
             $feedback->getTitle(),
             $feedback->getSlug(),
-            $feedback->getStatus()
+            $this->translator->trans("project.status.{$feedback->getStatus()}")
         );
     }
 }

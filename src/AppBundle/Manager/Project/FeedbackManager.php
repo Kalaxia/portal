@@ -184,7 +184,7 @@ class FeedbackManager
     public function remove($id)
     {
         $feedback = $this->get($id);
-        $this->eventDispatcher->dispatch(DeleteEvent::NAME, $feedback);
+        $this->eventDispatcher->dispatch(DeleteEvent::NAME, new DeleteEvent($feedback));
         return $this->gateway->deleteFeedback($id);
     }
 
