@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block meta %}
+    <meta property="og:title" content="{{ poll.getTitle() }}" />
+    <meta property="og:description" content="{{ poll.getContent() | raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('get_poll', {"id": poll.id})) }}" />
+    <meta property="og:image" content="{{ absolute_url(asset('images/icons/evolution.png')) }}" />
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/poll.css') }}" />

@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 {% set is_author = app.user.username is defined and feedback.author.username == app.user.username %}
 
+{% block meta %}
+    <meta property="og:title" content="{{ feedback.title }}" />
+    <meta property="og:description" content="{{ feedback.description | raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('get_feedback', {'id': (feedback.slug | length > 0) ? feedback.slug : feedback.id})) }}" />
+    <meta property="og:image" content="{{ absolute_url(asset('images/icons/' ~ ((feedback.type == 'bug') ? 'bug.png': 'evolution.png'))) }}" />
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}" />
