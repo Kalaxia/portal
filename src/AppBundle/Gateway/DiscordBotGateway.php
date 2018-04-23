@@ -57,6 +57,26 @@ class DiscordBotGateway
     /**
      * @param string $title
      * @param string $slug
+     * @param string $author
+     * @return Response
+     */
+    public function notifyFeedbackCommentCreation($title, $slug, $author)
+    {
+        return $this->client->post('/tickets/comment', [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode([
+                'title' => $title,
+                'slug' => $slug,
+                'author' => $author,
+            ])
+        ]);
+    }
+    
+    /**
+     * @param string $title
+     * @param string $slug
      * @param string $oldStatus
      * @param string $newStatus
      * @return Response

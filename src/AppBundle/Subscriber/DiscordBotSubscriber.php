@@ -9,6 +9,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 use AppBundle\Event\Poll\CreationEvent as PollCreationEvent;
 use AppBundle\Event\Feedback\{
+    CommentCreationEvent,
     CreationEvent as FeedbackCreationEvent,
     UpdateEvent as FeedbackUpdateEvent,
     DeleteEvent as FeedbackDeleteEvent
@@ -38,6 +39,7 @@ class DiscordBotSubscriber implements EventSubscriberInterface
     {
         return [
             PollCreationEvent::NAME => 'onPollCreation',
+            CommentCreationEvent::NAME => 'onFeedbackCommentCreation',
             FeedbackCreationEvent::NAME => 'onFeedbackCreation',
             FeedbackUpdateEvent::NAME => 'onFeedbackUpdate',
             FeedbackDeleteEvent::NAME => 'onFeedbackDelete',
@@ -51,6 +53,20 @@ class DiscordBotSubscriber implements EventSubscriberInterface
     {
         $this->gateway->notifyPollCreation($event->getPoll()->getId());
     }
+    
+    /**
+     * @param CommentCreationEvent $event
+     */
+    public function onFeedbackCommentCreation(CommentCreationEvent $event)
+    {
+        $feedback = $event->getFeedback();
+        $this->gateway->notifyFeedbackCommentCreation(
+            $feedback->getTitle(),
+            $feedback->getSlug(),
+            $event->getComment()->getAuthor()
+        );
+    }
+    
     
     /**
      * @param FeedbackCreationEvent $event
