@@ -4,12 +4,16 @@ namespace AppBundle\Manager\Project;
 
 use AppBundle\Gateway\FeedbackGateway;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 use AppBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager;
 
 use AppBundle\Manager\NotificationManager;
 
 use AppBundle\Model\Project\{Comment, Feedback};
+
+use AppBundle\Event\Feedback\CommentCreationEvent;
 
 use AppBundle\Utils\Parser;
 
@@ -19,6 +23,8 @@ class CommentManager
 {
     /** @var FeedbackGateway **/
     protected $feedbackGateway;
+    /** @var EventDispatcherInterface **/
+    protected $eventDispatcher;
     /** @var NotificationManager **/
     protected $notificationManager;
     /** @var UserManager **/
@@ -30,6 +36,7 @@ class CommentManager
 
     /**
      * @param FeedbackGateway $feedbackGateway
+     * @param EventDispatcherInterface $eventDispatcher
      * @param NotificationManager $notificationManager
      * @param UserManager $userManager
      * @param Parser $parser
@@ -37,6 +44,7 @@ class CommentManager
      */
     public function __construct(
         FeedbackGateway $feedbackGateway,
+        EventDispatcherInterface $eventDispatcher,
         NotificationManager $notificationManager,
         UserManager $userManager,
         Parser $parser,
@@ -44,6 +52,7 @@ class CommentManager
     )
     {
         $this->feedbackGateway = $feedbackGateway;
+        $this->eventDispatcher = $eventDispatcher;
         $this->notificationManager = $notificationManager;
         $this->userManager = $userManager;
         $this->parser = $parser;
@@ -92,6 +101,7 @@ class CommentManager
             $players[] = $commentAuthor->getId();
             $this->notificationManager->create($commentAuthor, $title, $content);
         }
+        $this->eventDispatcher->dispatch(CommentCreationEvent::NAME, new CommentCreationEvent($feedback, $comment));
         return $comment;
     }
 
