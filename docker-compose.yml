@@ -1,0 +1,85 @@
+---
+version: '3.5'
+
+networks:
+    game:
+        external:
+            name: kalaxia_game
+    portal:
+        name: kalaxia_portal
+        driver: bridge
+    mongo:
+        driver: bridge
+
+services:
+    app:
+        container_name: portal_app
+        build: .
+        working_dir: /srv/app
+        env_file:
+            - portal.env
+        networks:
+            - portal
+            - game
+        volumes:
+            - "./:/srv/app"
+
+    bot:
+        container_name: discord_bot
+        image: kalaxia/discord-bot
+        env_file:
+            - portal.env
+        networks:
+            - portal
+
+    nginx:
+        container_name: portal_nginx
+        build: build/docker/nginx
+        depends_on:
+            - app
+        env_file:
+            - portal.env
+        volumes:
+            # applications
+            - "./:/srv/app"
+            # nginx
+            - "./volumes/ssl:/etc/ssl"
+            - "./volumes/logs:/var/log/nginx"
+        networks:
+            - portal
+        ports:
+            - 443:443
+            - 80:80
+
+    mysql:
+        container_name: portal_mysql
+        image: mysql
+        env_file:
+            - portal.env
+        networks:
+            - portal
+        volumes:
+            - "./volumes/mysql:/var/lib/mysql"
+
+    phpmyadmin:
+        container_name: portal_phpmyadmin
+        image: nazarpc/phpmyadmin
+        networks:
+            - portal
+        ports:
+            - 8082:80
+
+    mongodb:
+        container_name: portal_mongodb
+        image: mongo
+        networks:
+            - mongo
+
+    feedback_manager:
+        container_name: portal_feedback_manager
+        image: citadeltechnologies/feedback-manager
+        env_file:
+            - portal.env
+        networks:
+            - portal
+            - mongo
