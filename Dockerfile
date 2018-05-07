@@ -7,7 +7,9 @@ COPY crontab /etc/cron.d/app-cron
 RUN chown root:root /entrypoint.sh && chmod a+x /entrypoint.sh \
     && apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y cron wget zip unzip \
+    && apt-get install -y cron wget zip unzip dos2unix \
+    
+    && dos2unix /entrypoint.sh \
 
     && usermod -u 1000 www-data \
 
