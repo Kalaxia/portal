@@ -11,15 +11,13 @@ class Server
     /** @var string **/
     protected $slug;
     /** @var string **/
-    protected $host;
-    /** @var string **/
     protected $description;
     /** @var string **/
     protected $banner;
     /** @var string **/
     protected $signature;
-    /** @var string **/
-    protected $publicKey;
+    /** @var Machine **/
+    protected $machine;
     /** @var \DateTime **/
     protected $createdAt;
     /** @var \DateTime **/
@@ -85,25 +83,6 @@ class Server
     }
     
     /**
-     * @param string $host
-     * @return $this
-     */
-    public function setHost($host)
-    {
-        $this->host = $host;
-        
-        return $this;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getHost()
-    {
-        return $this->host;
-    }
-    
-    /**
      * @param string $description
      * @return $this
      */
@@ -160,23 +139,16 @@ class Server
         return $this->signature;
     }
     
-    /**
-     * @param string $publicKey
-     * @return $this
-     */
-    public function setPublicKey($publicKey)
+    public function setMachine(Machine $machine): Server
     {
-        $this->publicKey = $publicKey;
+        $this->machine = $machine;
         
         return $this;
     }
     
-    /**
-     * @return string
-     */
-    public function getPublicKey()
+    public function getMachine(): Machine 
     {
-        return $this->publicKey;
+        return $this->machine;
     }
     
     /**
