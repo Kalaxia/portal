@@ -1,0 +1,1 @@
+*/1 * * * * root /usr/local/bin/php /srv/app/bin/console app:vote:process-results >> /var/log/cron.log 2>&1

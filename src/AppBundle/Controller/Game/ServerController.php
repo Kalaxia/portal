@@ -89,8 +89,9 @@ class ServerController extends Controller
             throw new NotFoundHttpException('game.server.not_found');
         }
         $jwt = $this->get(ServerManager::class)->joinServer($server, $this->getUser());
+        $host = gethostbyname($server->getHost());
         return new Response('', Response::HTTP_OK, [
-            'Location' => "{$server->getHost()}?jwt=$jwt",
+            'Location' => "http://$host?jwt=$jwt",
         ]);
     }
 }
