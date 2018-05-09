@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model\Game;
 
-abstract class Machine
+abstract class Machine implements \JsonSerializable
 {
     /** @var int **/
     protected $id;
@@ -87,5 +87,16 @@ abstract class Machine
     public function getIsLocal(): bool
     {
         return $this->isLocal;
+    }
+    
+    public function jsonSerialize(): array {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'host' => $this->host,
+            'public_key' => $this->publicKey,
+            'is_local' => $this->isLocal
+        ];
     }
 }

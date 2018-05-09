@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model\Game;
 
-class Server
+class Server implements \JsonSerializable
 {
     /** @var integer **/
     protected $id;
@@ -206,5 +206,22 @@ class Server
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'type' => $this->getType(),
+            'description' => $this->description,
+            'banner' => $this->banner,
+            'created_at' => $this->createdAt,
+            'started_at' => $this->startedAt,
+            'updated_at' => $this->updatedAt,
+            'machine' => $this->machine,
+            'factions' => $this->factions,
+        ];
     }
 }
