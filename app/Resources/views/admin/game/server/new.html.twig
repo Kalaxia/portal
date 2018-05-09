@@ -7,45 +7,84 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_game.css') }}" />
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
+{% endblock %}
+
 {% block page_title %}{{ 'game.server.create' | trans }}{% endblock %}
 
 {% block body %}
-    <div id="server-form" class="form">
-        <form method="post" action="{{ path('create_game_server') }}">
-            <div class="form-group">
-                <label for="title">{{ 'game.server.name' | trans }}</label>
-                <input type="text" name="name" placeholder="{{ 'game.server.name' | trans }}" />
-            </div>
-            <div class="form-group">
-                <label for="host">{{ 'game.server.host' | trans }}</label>
-                <input type="text" name="host" placeholder="{{ 'game.server.host' | trans }}" />
-            </div>
-            <div class="form-group">
-                <label for="banner">{{ 'game.server.banner' | trans }}</label>
-                <input type="file" name="banner" placeholder="{{ 'game.server.banner' | trans }}" />
-            </div>
-            <div class="form-group">
-                <label for="started_at">{{ 'game.server.started_at' | trans }}</label>
-                <input type="date" name="started_at" />
-            </div>
-            <div class="form-group">
-                <label for="description">{{ 'game.server.description' | trans }}</label>
-                <textarea name="description"></textarea>
-            </div>
-            <div class="form-group checkboxes">
-                {% for faction in factions %}
-                    <div class="checkbox">
-                        <input type="checkbox" name="factions[]" value="{{ faction.id }}" />
-                        <label>{{ faction.name }}</label>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="form-group">
-                <label for="public_key">{{ 'game.server.public_key' | trans }}</label>
-                <textarea name="public_key"></textarea>
-            </div>
-            <button type="submit">{{ 'game.server.validate' | trans }}</button>
+    <div id="machine-form" class="form">
+        <div class="key-container"></div>
+        <form onsubmit="createMachine(event);">
+            <h3>Nouvelle machine</h3>
+            <input type="text" name="name" placeholder="Nom" onchange="checkMachineForm();">
+            <button class="button enabled" type="button" onclick="toggleLocalMachine(event);">
+                Machine locale
+            </button>
+            <input type="text" name="host" placeholder="Host" onchange="checkMachineForm();">
+            <button class="button" type="button" onclick="openPublicKeyModal();">
+                <img src="{{ asset('images/icons/disabled_key.svg') }}" />
+            </button>
+            <input type="hidden" name="public_key">
+            <button type="submit" class="button">
+                Valider
+            </button>
         </form>
+        <div class="key-container"></div>
+    </div>
+    <div id="server-form" class="form">
+        <form onsubmit="createServer(event);">
+            <div id="server">
+                <div id="banner">
+                    <label for="banner-input">{{ 'game.server.banner' | trans }}</label>
+                    <input id="banner-input" type="file" name="banner" placeholder="{{ 'game.server.banner' | trans }}" />
+                </div>
+                <div class="form-group">
+                    <label for="title">{{ 'game.server.name' | trans }}</label>
+                    <input id="title" type="text" name="name" />
+                </div>
+                <div class="form-group">
+                    <label for="started_at">{{ 'game.server.started_at' | trans }}</label>
+                    <input id="started_at" type="date" name="started_at" />
+                </div>
+                <div class="form-group">
+                    <label for="description">{{ 'game.server.description' | trans }}</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+                <button type="submit" class="button">{{ 'game.server.validate' | trans }}</button>
+            </div>
+            <div id="informations">
+                <header>
+                    <h3>Sélectionner une machine</h3>
+                    {% for machine in machines %}
+                        <div onclick="selectMachine(event);" data-id="{{ machine.id }}">
+                            <span>{{ machine.id }}</span>
+                            <span>{{ machine.name }}</span>
+                            <span class="{{ machine.isLocal == false ? 'disabled' : '' }}">Machine locale</span>
+                        </div>
+                    {% endfor %}
+                </header>
+                <section>
+                    <h3>Sélectionner des factions</h3>
+                    <div>
+                    {% for faction in factions %}
+                        <div class="faction" data-id="{{ faction.id }}" onclick="selectFaction(event);">
+                            <span>{{ faction.name }}</span>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </section>
+            </div>
+        </form>
+    </div>
+    <div id="public-key-overlay" onclick="closePublicKeyModal(event);">
+        <section>
+            <h3>Clé publique de la machine</h3>
+            <textarea></textarea>
+            <button class="button" onclick="setPublicKey();">Valider</button>
+        </section>
     </div>
 {% endblock %}
 
