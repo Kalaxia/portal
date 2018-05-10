@@ -37,10 +37,6 @@ abstract class Server extends ServerModel
      */
     protected $slug;
     /**
-     * @ORM\Column(type="string", length=80)
-     */
-    protected $host;
-    /**
      * @ORM\Column(type="text")
      */
     protected $description;
@@ -58,9 +54,9 @@ abstract class Server extends ServerModel
      */
     protected $signature;
     /**
-     * @ORM\Column(type="text")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Game\Machine")
      */
-    protected $publicKey;
+    protected $machine;
     /**
      * @ORM\Column(name="created_at", type="datetime") 
      */

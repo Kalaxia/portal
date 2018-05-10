@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -18,11 +19,10 @@ use Symfony\Component\HttpKernel\Exception\{
 
 use AppBundle\Manager\Game\{
     FactionManager,
+    MachineManager,
     ServerManager
 };
 use AppBundle\Entity\Game\Server;
-
-use AppBundle\Gateway\ServerGateway;
 
 class ServerController extends Controller
 {
@@ -33,46 +33,43 @@ class ServerController extends Controller
     public function newServerAction()
     {
         return $this->render('admin/game/server/new.html.twig', [
-            'factions' => $this->get(FactionManager::class)->getAll()
+            'factions' => $this->get(FactionManager::class)->getAll(),
+            'machines' => $this->get(MachineManager::class)->getAll(),
         ]);
     }
     
     /**
-     * @Route("/admin/servers", name="create_game_server")
-     * @Method({"POST"})
+     * @Route("/admin/servers", name="create_game_server", methods={"POST"})
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function createServerAction(Request $request)
+    public function createServerAction(Request $request): Response
     {
-        if (empty($name = $request->request->get('name'))) {
+        $data = json_decode($request->getContent(), true);
+        
+        if (empty($data['name'])) {
             throw new BadRequestHttpException('game.server.missing_name');
         }
-        if (empty($host = $request->request->get('host'))) {
-            throw new BadRequestHttpException('game.server.missing_host');
-        }
-        if (empty($description = $request->request->get('description'))) {
+        if (empty($data['description'])) {
             throw new BadRequestHttpException('game.server.missing_description');
         }
-        if (empty($startedAt = $request->request->get('started_at'))) {
+        if (empty($data['started_at'])) {
             throw new BadRequestHttpException('game.server.missing_started_at');
         }
-        if (empty($factions = $request->request->get('factions'))) {
+        if (empty($data['machine'])) {
+            throw new BadRequestHttpException('game.server.missing_machine');
+        }
+        if (empty($data['factions'])) {
             throw new BadRequestHttpException('game.server.missing_factions');
         }
-        if (empty($publicKey = $request->request->get('public_key'))) {
-            throw new BadRequestHttpException('game.server.missing_public_key');
-        }
-        $this->get(ServerManager::class)->create(
-            $name,
-            $host,
-            $description,
-            $request->request->get('banner', 'default.png'),
-            $startedAt,
-            $factions,
-            $publicKey,
+        return new JsonResponse($this->get(ServerManager::class)->create(
+            $data['name'],
+            $data['description'],
+            'default.png',
+            $data['started_at'],
+            $data['machine'],
+            $data['factions'],
             Server::TYPE_MULTIPLAYER
-        );
-        return $this->redirectToRoute('admin_dashboard');
+        ), 201);
     }
     
     /**
@@ -89,7 +86,11 @@ class ServerController extends Controller
             throw new NotFoundHttpException('game.server.not_found');
         }
         $jwt = $this->get(ServerManager::class)->joinServer($server, $this->getUser());
-        $host = gethostbyname($server->getHost());
+        $host = 
+            $server->getMachine()->getIsLocal() === true
+            ? gethostbyname($server->getMachine()->getHost())
+            : $server->getMachine()->getHost()
+        ;
         return new Response('', Response::HTTP_OK, [
             'Location' => "http://$host?jwt=$jwt",
         ]);

@@ -1,5 +1,293 @@
+#machine-form {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 2px dotted #B4C5CC;
+    border-bottom: 2px solid #B4C5CC;
+}
+
+#machine-form.valid {
+    border-top: 2px dotted #003C71;
+    border-bottom: 2px solid #003C71;
+}
+
+#machine-form > form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#machine-form > form > h3 {
+    text-align: left;
+    font-variant: small-caps;
+}
+
+#machine-form > form > input {
+    height: 46px;
+    margin-top: 0px;
+    border: 2px solid #E1BB81;
+    color: #E1BB81;
+    font-variant: small-caps;
+}
+
+#machine-form.valid > form > input {
+    border: 2px solid #003C71;
+    color: #B4C5CC;
+}
+
+#machine-form > form > input[name="host"]:not(.display) {
+    display: none;
+}
+
+#machine-form > form > button {
+    height: 52px;
+    padding: 10px;
+    text-align: center;
+    margin: 0px;
+}
+
+#machine-form > form > button:not(.enabled) {
+    border: 2px solid #786A58;
+    color: #786A58;
+}
+
+#machine-form > form > button.error {
+    border: 2px solid #A70717;
+}
+
+#machine-form.valid > form > button {
+    border: 2px solid #003C71;
+    color: #B4C5CC;
+}
+
+#machine-form > form > button > img {
+    width: 32px;
+    height: 32px;
+}
+
+#machine-form > .key-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    
+}
+
+#machine-form > .key-container:first-child {
+    margin-bottom: 10px;
+}
+
+#machine-form > .key-container:nth-child(3) {
+    margin-top: 10px;
+}
+
+#machine-form > .key-container > span {
+    margin: 0px 5px;
+    margin-bottom: 10px;
+    font-size: 0.5em;
+}
+
+#machine-form > .key-container > span:nth-child(5n) {
+    color: #E1BB81;
+}
+
+#machine-form > .key-container.error > span:nth-child(5n) {
+    color: #A70717;
+}
+
+#machine-form.valid > .key-container > span:nth-child(5n) {
+    color: #003C71;
+}
+
+#machine-form > .key-container:nth-child(3) > span {
+    margin: 10px 5px;
+    margin-bottom: 0px;
+}
+
 #server-form {
     margin-top:50px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+#server-form > form {
+    display: flex;
+    justify-content: space-between;
+}
+
+#server-form > form > #server {
+    flex-grow: 2;
+    border-right: 2px dotted #B4C5CC;
+}
+
+#server-form > form > #server > #banner {
+    width: calc(100% - 2px);
+    height: 200px;
+    background-color: #111;
+    background-image: url('../images/icons/add_image.svg');
+    background-size: 100px 100px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-left: 2px dotted #E1BB81;
+}
+
+#server-form > form > #server > #banner > input {
+    display: none;
+}
+
+#server-form > form > #server > #banner > label {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    padding-top: 150px;
+    font-size: 1.5em;
+    font-variant: small-caps;
+    color: #786A58;
+}
+
+#server-form > form > #server > .form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-right: 40px;
+}
+
+#server-form > form > #server > .form-group > label {
+    font-variant: small-caps;
+    font-size: 1.2em;
+    width: 200px;
+    text-align: left;
+}
+
+#server-form > form > #server > .form-group > input,
+#server-form > form > #server > .form-group > textarea {
+    text-align: left;
+    flex-grow: 2;
+    color: #E1BB81;
+    border-bottom: #786A58 1px solid;
+}
+
+#server-form > form > #server > .form-group > input:focus,
+#server-form > form > #server > .form-group > textarea:focus {
+    border-bottom: #E1BB81 1px solid;
+}
+
+#server-form > form > #informations {
+    margin-left: 40px;
+}
+
+
+#server-form > form > #informations > header {
+    min-height: 300px;
+}
+
+#server-form > form > #informations > header > h3,
+#server-form > form > #informations > section > h3 {
+    margin-top: 0px;
+    text-align: left;
+    font-variant: small-caps;
+}
+
+#server-form > form > #informations > header > div {
+    display: flex;
+    cursor: pointer;
+    border: 2px solid #CFD6D8;
+    padding: 10px;
+    border: 2px solid #CFD6D8;
+    background-color: #003C71;
+    margin-top: 10px;
+}
+
+#server-form > form > #informations > header > div > span {
+    display: inline-block;
+    color: #CFD6D8;
+    font-variant: small-caps;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    text-align: center ;
+    border: 2px solid #CFD6D8;
+}
+
+#server-form > form > #informations > header > div.selected, 
+#server-form > form > #informations > header > div:hover {
+    background-color: #26A;
+}
+
+#server-form > form > #informations > section > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 40px;
+}
+
+#server-form > form > #informations > section > div > .faction {
+    display: flex;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 40px;
+    border: 2px solid #CFD6D8;
+    color: #CFD6D8;
+    text-align: center;
+    cursor: pointer;
+}
+
+#server-form > form > #informations > section > div > .faction.selected {
+    background-color: #0A457B;
+}
+
+#public-key-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 100;
+    overflow: hidden;
+}
+
+#public-key-overlay:not(.visible) {
+    width: 0px;
+    height: 0px;
+}
+
+#public-key-overlay > section {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    height: 80px;
+    margin: auto;
+    margin-top: 200px;
+    background-color: rgba(0, 80, 160, 0.5);
+    border: 2px solid #CFD6D8;
+    padding: 20px 40px;
+}
+
+#public-key-overlay > section > h3 {
+    font-variant: small-caps;
+    margin-right: 50px;
+}
+
+#public-key-overlay > section > textarea {
+    flex-grow: 2;
+    resize: none;
+    border: 1px solid #CFD6D8;
+    color: #CFD6D8;
+    background-color: #0A457B;
+}
+
+#public-key-overlay > section > button {
+    margin-left: 40px;
+    border: 1px solid #CFD6D8;
+    color: #CFD6D8;
 }
 
 #factions-list {

@@ -22,6 +22,8 @@ class ServerManager
     protected $entityManager;
     /** @var FactionManager **/
     protected $factionManager;
+    /** @var MachineManager **/
+    protected $machineManager;
     /** @var ServerGateway **/
     protected $serverGateway;
     /** @var RsaEncryptionManager **/
@@ -29,27 +31,17 @@ class ServerManager
     /** @var Slugger **/
     protected $slugger;
     
-    /**
-     * @param EntityManagerInterface $entityManager
-     * @param FactionManager $factionManager
-     * @param ServerGateway $serverGateway
-     * @param RsaEncryptionManager $rsaEncryptionManager
-     * @param Slugger $slugger
-     */
-    public function __construct(EntityManagerInterface $entityManager, FactionManager $factionManager, ServerGateway $serverGateway, RsaEncryptionManager $rsaEncryptionManager, Slugger $slugger)
+    public function __construct(EntityManagerInterface $entityManager, FactionManager $factionManager, MachineManager $machineManager, ServerGateway $serverGateway, RsaEncryptionManager $rsaEncryptionManager, Slugger $slugger)
     {
         $this->entityManager = $entityManager;
         $this->factionManager = $factionManager;
+        $this->machineManager = $machineManager;
         $this->serverGateway = $serverGateway;
         $this->rsaEncryptionManager = $rsaEncryptionManager;
         $this->slugger = $slugger;
     }
     
-    /**
-     * @param int $id
-     * @return Server
-     */
-    public function get($id)
+    public function get(int $id): Server
     {
         return $this->entityManager->getRepository(Server::class)->find($id);
     }
@@ -84,18 +76,11 @@ class ServerManager
         return $this->entityManager->getRepository(Server::class)->getNextServers();
     }
     
-    /**
-     * @param string $name
-     * @param string $host
-     * @param string $description
-     * @param string $banner
-     * @param string $startedAt
-     * @param array $factions
-     * @param string $publicKey
-     * @param string $type
-     */
-    public function create($name, $host, $description, $banner, $startedAt, $factions, $publicKey, $type)
+    public function create(string $name, string $description, string $banner, string $startedAt, int $machineId, array $factions, string $type): Server
     {
+        if (($machine = $this->machineManager->get($machineId)) === null) {
+            throw new BadRequestHttpException('game.server.machine_not_found');
+        }
         $serverClass = [
             Server::TYPE_MULTIPLAYER => MultiplayerServer::class,
             Server::TYPE_SOLO => SoloServer::class,
@@ -106,12 +91,11 @@ class ServerManager
             (new $serverClass())
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
-            ->setHost($host)
             ->setDescription($description)
             ->setBanner($banner)
             ->setSignature($signature)
             ->setStartedAt(new \DateTime($startedAt))
-            ->setPublicKey($publicKey)
+            ->setMachine($machine)
         ;
         foreach ($factions as $factionId) {
             if (($faction = $this->factionManager->get($factionId)) === null) {
@@ -119,7 +103,7 @@ class ServerManager
             }
             $server->addFaction($faction);
         }
-        $response = $this->serverGateway->bindServer($host, $this->rsaEncryptionManager->encrypt($server, json_encode([
+        $response = $this->serverGateway->bindServer($machine->getHost(), $this->rsaEncryptionManager->encrypt($server, json_encode([
             'name' => $name,
             'type' => $type,
             'factions' => $server->getFactions()->toArray(),
@@ -131,6 +115,7 @@ class ServerManager
         }
         $this->entityManager->persist($server);
         $this->entityManager->flush($server);
+        return $server;
     }
     
     /**

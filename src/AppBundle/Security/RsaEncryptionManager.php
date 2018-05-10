@@ -26,8 +26,8 @@ class RsaEncryptionManager
     {
         $aesData = $this->encryptAesPayload($data);
         
-        openssl_public_encrypt($aesData['key'], $aesData['key'], $server->getPublicKey());
-        openssl_public_encrypt($aesData['iv'], $aesData['iv'], $server->getPublicKey());
+        openssl_public_encrypt($aesData['key'], $aesData['key'], $server->getMachine()->getPublicKey());
+        openssl_public_encrypt($aesData['iv'], $aesData['iv'], $server->getMachine()->getPublicKey());
         
         $aesData['key'] = base64_encode($aesData['key']);
         $aesData['iv'] = base64_encode($aesData['iv']);
