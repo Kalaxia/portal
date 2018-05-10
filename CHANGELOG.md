@@ -1,3 +1,14 @@
+## [0.2.0] - 2018-05-10
+### Added
+- Meta tags for shared links on feedbacks
+- Community logo as tab icon
+- Discord notifications on feedback comment
+- Docker Compose configuration for the stack
+- Server machines model
+- Local machines and network handling
+- Design update
+- Machine creation form
+
 ## [0.1.10] - 2018-04-20
 ### Added
 - Discord notifications on poll creation
