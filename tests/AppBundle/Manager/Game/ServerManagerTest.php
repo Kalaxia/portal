@@ -11,7 +11,8 @@ use AppBundle\Entity\Game\{
     SoloServer,
     Server,
     MultiplayerServer,
-    Faction
+    Faction,
+    Machine
 };
 
 use AppBundle\Entity\User;
@@ -28,6 +29,7 @@ class ServerManagerTest extends TestCase
         $this->manager = new ServerManager(
             $this->getEntityManagerMock(),
             $this->getFactionManagerMock(),
+            $this->getMachineManagerMock(),
             $this->getServerGatewayMock(),
             $this->getRsaEncryptionManagerMock(),
             $this->getSluggerMock()
@@ -158,6 +160,33 @@ class ServerManagerTest extends TestCase
         return
             (new Faction())
             ->setId($id)
+        ;
+    }
+    
+    public function getMachineManagerMock()
+    {
+        $machineManagerMock = $this
+            ->getMockBuilder(\AppBundle\Manager\Game\MachineManager::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $machineManagerMock
+            ->expects($this->any())
+            ->method('get')
+            ->willReturnCallback([$this, 'getMachineMock'])
+        ;
+        return $machineManagerMock;
+    }
+    
+    public function getMachineMock($id)
+    {
+        return
+            (new Machine())
+            ->setId($id)
+            ->setName('Local')
+            ->setSlug('local')
+            ->setHost('http://kalaxia_nginx')
+            ->setIsLocal(true)
         ;
     }
     
