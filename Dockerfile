@@ -16,7 +16,7 @@ RUN chown root:root /entrypoint.sh && chmod a+x /entrypoint.sh \
     && chmod 0644 /etc/cron.d/app-cron \
     && touch /var/log/cron.log \
 
-    && docker-php-ext-install pdo pdo_mysql \
+    && docker-php-ext-install pdo pdo_mysql opcache \
 
     && wget https://phar.phpunit.de/phpunit-6.1.phar \
     && chmod +x phpunit-6.1.phar \
