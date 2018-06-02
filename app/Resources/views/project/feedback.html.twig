@@ -73,75 +73,83 @@
                 </div>
 
                 <div class="infos">
-                <div class="info-card">
-                    <em>{{ 'project.feedback.author' | trans }}</em>
-                    <strong>{{ feedback.author.username }}</strong>
-                </div>
-                <div class="info-card">
-                    <em>{{ 'project.feedback.status' | trans }}</em>
-                    <strong>{{ ('project.status.' ~ feedback.status) | trans }}</strong>
-                </div>
+                    <div class="info-card">
+                        <em>{{ 'project.feedback.author' | trans }}</em>
+                        <strong>{{ feedback.author.username }}</strong>
+                    </div>
+                    <div class="info-card">
+                        <em>{{ 'project.feedback.status' | trans }}</em>
+                        <strong>{{ ('project.status.' ~ feedback.status) | trans }}</strong>
+                    </div>
 
-                {% if feedback.labels | length > 0 or is_granted('ROLE_ADMIN') or is_author %}
-                <div class="info-card">
-                    <em>{{ 'project.labels.title' | trans }}</em>
-                    <div class="labels {% if is_granted('ROLE_ADMIN') or is_author %}editable{% endif %}">
-                    {% for label in labels %}
-                        <div style="background-color: {{ label.color }}"
-                             data-id="{{ label.id }}"
-                             class="tooltip{% if feedback.hasLabel(label) %} active{% endif %}"
-                             {% if is_granted('ROLE_ADMIN') or is_author %}onclick="toggle_label(event, '{{ feedback.id }}', '{{ feedback.type }}');"{% endif %}
-                             >
-                            <span class="tooltip-text">{{ label.name }}</span>
+                    {% if feedback.labels | length > 0 or is_granted('ROLE_ADMIN') or is_author %}
+                    <div class="info-card">
+                        <em>{{ 'project.labels.title' | trans }}</em>
+                        <div class="labels {% if is_granted('ROLE_ADMIN') or is_author %}editable{% endif %}">
+                        {% for label in labels %}
+                            <div style="background-color: {{ label.color }}"
+                                 data-id="{{ label.id }}"
+                                 class="tooltip{% if feedback.hasLabel(label) %} active{% endif %}"
+                                 {% if is_granted('ROLE_ADMIN') or is_author %}onclick="toggle_label(event, '{{ feedback.id }}', '{{ feedback.type }}');"{% endif %}
+                                 >
+                                <span class="tooltip-text">{{ label.name }}</span>
+                            </div>
+                        {% endfor %}
                         </div>
-                    {% endfor %}
                     </div>
-                </div>
-                {% endif %}
-                {% if feedback.type == 'evolution' and feedback.status == 'to_specify' and (is_author or is_granted('ROLE_ADMIN')) %}
+                    {% endif %}
+                    {% if feedback.type == 'evolution' and feedback.status == 'to_specify' and (is_author or is_granted('ROLE_ADMIN')) %}
+                        <div class="info-card">
+                            <em>{{ 'project.feedback.poll' | trans }}</em>
+                            {% if poll is defined and poll != null and poll.isOver == false %}
+                                <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
+                                    {{ 'project.feedback.goto_poll' | trans }}
+                                </a>
+                            {% elseif poll is defined and poll != null and poll.isOver %}
+                                <a href="{{ path('launch_feedback_poll', {'feedback_id': feedback.id}) }}" class="button success" style="background-color:#D00">
+                                    {{ 'project.feedback.retry_poll' | trans({"%score%": (poll.score / poll.nbVotes) * 100 }) }}
+                                </a>
+                            {% else %}
+                                <a href="{{ path('launch_feedback_poll', {'feedback_id': feedback.id}) }}" class="button warning">
+                                    {{ 'project.feedback.launch_poll' | trans }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% elseif poll is defined and poll != null %}
+                        <div class="info-card">
+                            <em>{{ 'project.feedback.poll' | trans }}</em>
+                            {% if poll.isOver %}
+                                <a href="{{ path('get_poll', {'id': poll.id}) }}"
+                                   class="button success"
+                                   style="background-color: #{{ (poll.winningOption.value == 'project.votes.yes') ? '48C' : 'F00' }}">
+                                    {{ (poll.score / poll.nbVotes) * 100 }}%
+                                </a>
+                            {% else %}
+                                <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
+                                    {{ 'project.feedback.goto_poll' | trans }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if feedback.status == 'to_validate' and is_granted('ROLE_USER') %}
+                        <div class="info-card">
+                            <em>{{ 'project.feedback.validation' | trans }}</em>
+                            <a href="{{ path('validate_feedback', {'id': feedback.id}) }}" class="button success">
+                                {{ 'project.feedback.validate' | trans }}
+                            </a>
+                        </div>
+                    {% endif %}
                     <div class="info-card">
-                        <em>{{ 'project.feedback.poll' | trans }}</em>
-                        {% if poll is defined and poll != null and poll.isOver == false %}
-                            <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
-                                {{ 'project.feedback.goto_poll' | trans }}
-                            </a>
-                        {% elseif poll is defined and poll != null and poll.isOver %}
-                            <a href="{{ path('launch_feedback_poll', {'feedback_id': feedback.id}) }}" class="button success" style="background-color:#D00">
-                                {{ 'project.feedback.retry_poll' | trans({"%score%": (poll.score / poll.nbVotes) * 100 }) }}
-                            </a>
-                        {% else %}
-                            <a href="{{ path('launch_feedback_poll', {'feedback_id': feedback.id}) }}" class="button warning">
-                                {{ 'project.feedback.launch_poll' | trans }}
-                            </a>
-                        {% endif %}
+                        <em>{{ 'project.feedback.created_at' | trans }}</em>
+                        <strong>{{ feedback.createdAt|date('full_date'| trans) }}</strong>
                     </div>
-                {% elseif poll is defined and poll != null %}
+                    {% if feedback.createdAt != feedback.updatedAt %}
                     <div class="info-card">
-                        <em>{{ 'project.feedback.poll' | trans }}</em>
-                        {% if poll.isOver %}
-                            <a href="{{ path('get_poll', {'id': poll.id}) }}"
-                               class="button success"
-                               style="background-color: #{{ (poll.winningOption.value == 'project.votes.yes') ? '48C' : 'F00' }}">
-                                {{ (poll.score / poll.nbVotes) * 100 }}%
-                            </a>
-                        {% else %}
-                            <a href="{{ path('get_poll', {'id': poll.id}) }}" class="button success">
-                                {{ 'project.feedback.goto_poll' | trans }}
-                            </a>
-                        {% endif %}
+                        <em>{{ 'project.feedback.updated_at' | trans }}</em>
+                        <strong>{{ feedback.updatedAt|date('full_date'| trans) }}</strong>
                     </div>
-                {% endif %}
-                <div class="info-card">
-                    <em>{{ 'project.feedback.created_at' | trans }}</em>
-                    <strong>{{ feedback.createdAt|date('full_date'| trans) }}</strong>
+                    {% endif %}
                 </div>
-                {% if feedback.createdAt != feedback.updatedAt %}
-                <div class="info-card">
-                    <em>{{ 'project.feedback.updated_at' | trans }}</em>
-                    <strong>{{ feedback.updatedAt|date('full_date'| trans) }}</strong>
-                </div>
-                {% endif %}
-            </div>
                 <hr>
                 <div class="comments">
                     {% for comment in feedback.comments %}

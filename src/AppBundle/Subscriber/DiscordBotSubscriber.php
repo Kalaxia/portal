@@ -12,6 +12,7 @@ use AppBundle\Event\Feedback\{
     CommentCreationEvent,
     CreationEvent as FeedbackCreationEvent,
     UpdateEvent as FeedbackUpdateEvent,
+    ValidateEvent as FeedbackValidateEvent,
     DeleteEvent as FeedbackDeleteEvent
 };
 
@@ -42,6 +43,7 @@ class DiscordBotSubscriber implements EventSubscriberInterface
             CommentCreationEvent::NAME => 'onFeedbackCommentCreation',
             FeedbackCreationEvent::NAME => 'onFeedbackCreation',
             FeedbackUpdateEvent::NAME => 'onFeedbackUpdate',
+            FeedbackValidateEvent::NAME => 'onFeedbackValidate',
             FeedbackDeleteEvent::NAME => 'onFeedbackDelete',
         ];
     }
@@ -92,6 +94,16 @@ class DiscordBotSubscriber implements EventSubscriberInterface
             $feedback->getSlug(),
             $this->translator->trans("project.status.{$event->getOldStatus()}"),
             $this->translator->trans("project.status.{$feedback->getStatus()}")
+        );
+    }
+    
+    public function onFeedbackValidate(FeedbackValidateEvent $event)
+    {
+        $feedback = $event->getFeedback();
+        $this->gateway->notifyFeedbackValidate(
+            $feedback->getTitle(),
+            $feedback->getSlug(),
+            $event->getUser()->getUsername()
         );
     }
     

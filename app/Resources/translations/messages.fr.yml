@@ -103,6 +103,9 @@ project:
         goto_poll: 'Voir le vote'
         retry_poll: 'Relancer (%score%%)'
         
+        validation: 'Validation'
+        validate: 'valider'
+        
     status:
         to_specify: 'À spécifier'
         ready: 'Prêt'

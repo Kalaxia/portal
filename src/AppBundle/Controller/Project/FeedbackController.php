@@ -107,6 +107,19 @@ class FeedbackController extends Controller
         }
         return new JsonResponse($feedbackManager->update($feedback, $oldStatus, $this->getUser()));
     }
+    
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/feedbacks/{id}/validate", name="validate_feedback", methods={"GET"})
+     */
+    public function validateFeedback(Request $request, FeedbackManager $feedbackManager)
+    {
+        if (($feedback = $feedbackManager->get($request->attributes->get('id'))) === null) {
+            throw new NotFoundHttpException('project.feedback.not_found');
+        }
+        $feedbackManager->validate($feedback, $this->getUser());
+        return $this->redirectToRoute('project_board');
+    }
 
 
     /**

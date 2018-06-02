@@ -7,6 +7,7 @@ use AppBundle\Model\Project\Feedback;
 use AppBundle\Event\Feedback\{
     CreationEvent,
     UpdateEvent,
+    ValidateEvent,
     DeleteEvent
 };
 
@@ -123,6 +124,15 @@ class FeedbackManager
         }
         $this->eventDispatcher->dispatch(UpdateEvent::NAME, new UpdateEvent($updatedFeedback, $oldStatus));
         return $updatedFeedback;
+    }
+    
+    public function validate(Feedback $feedback, User $user)
+    {
+        $feedback->setStatus(Feedback::STATUS_TO_DEPLOY);
+        
+        $this->gateway->updateFeedback($feedback);
+        
+        $this->eventDispatcher->dispatch(ValidateEvent::NAME, new ValidateEvent($feedback, $user));
     }
 
     /**
