@@ -27,28 +27,29 @@ const drop_handler = event => {
 };
 
 const edit_description = (id, type) => {
-    var descriptionElement = document.querySelector('#feedback .description-content');
-    
-    if (descriptionElement.firstChild.tagName === 'textarea') {
-        return;
-    }
-    var textArea = document.createElement('textarea');
-    
-    textArea.setAttribute('name', 'description-update');
-    textArea.innerHTML = descriptionElement.innerText;
-    textArea.style.height = descriptionElement.style.height;
-    descriptionElement.innerHTML = textArea.outerHTML;
-    
-    document.querySelector('#description-old').innerHTML = textArea.innerText ;
+    ClassicEditor
+        .create(document.querySelector('#feedback .description-content'))
+        .then(editor => {
+            document.querySelector('#description-old').innerHTML = editor.getData();
+            document.querySelector('#confirm-description-changes > img:first-child').onclick = () => {
+                update_description(id, type, editor.getData());
+                editor.destroy();
+            };
+            document.querySelector('#confirm-description-changes > img:last-child').addEventListener('click', () => {
+                editor.destroy();
+            });
+        })
+        .catch(error => console.log(error))
+    ;
     document.querySelector('#confirm-description-changes').style.display = 'block';
     document.querySelector('#edit-description-button').style.display = 'none';
 };
 
-const update_description = (id, type) => {
+const update_description = (id, type, description) => {
     fetch(`/feedbacks/${id}`, {
         method: 'PUT', 
         body: JSON.stringify({
-            description: document.querySelector('#feedback .description-content > textarea').value
+            description: description
         }),
         credentials: 'include'
     }).then(response => {
@@ -57,20 +58,19 @@ const update_description = (id, type) => {
         }
         throw 'Error';
     }).then(data => {
-        document.querySelector('#feedback .description-content').innerHTML = data.description;
         document.querySelector('#confirm-description-changes').style.display = 'none';
         document.querySelector('#edit-description-button').style.display = 'inline';
     }).catch(error => console.log(error));
 };
 
-const cancel_update_description = (alert_text) => {
-  var result = confirm(alert_text) ;
-  if(result)
-  {
+const cancel_update_description = (event, confirmationText) => {
+  if(confirm(confirmationText)) {
       document.querySelector('#feedback .description-content').innerHTML = document.querySelector('#description-old').innerHTML;
       document.querySelector('#confirm-description-changes').style.display = 'none';
       document.querySelector('#edit-description-button').style.display = 'inline';
-  }   
+  } else {
+      event.stopPropagation();
+  }
 };
 
 const remove_feedback = id => {
@@ -123,26 +123,21 @@ then(data => {
     }
 });
 
-const create_comment = id => {
-    var textArea = document.querySelector('textarea[name="comment-content"]');
-    var content = textArea.value;
-    if (content.length === 0) return false;
+const create_comment = (id, comment) => {
+    if (comment.length === 0) return false;
     
     fetch(`/feedbacks/${id}/comments`, {
         method: 'POST', 
         body: JSON.stringify({
-            content: content
+            content: comment
         }),
         credentials: 'include'
     }).then(response => {
-        textArea.value = '';
         if (response.ok) {
             return response.json();
         }
         throw 'Erreur';
     }).then(data => {
-        console.log(data);
-        
         var commentsBox = document.querySelector('.comments');
         var comment = document.createElement('div');
         comment.classList.add('comment'); 
