@@ -157,7 +157,6 @@
 
 #feedback > section > .feedback-content > .description > .description-content {
     padding: 20px 2px;
-    display: flex;
     margin-left: 5px;
 }
 
@@ -319,4 +318,31 @@
 
 #description-old {
     display:none ;
+}
+
+#feedback-form > input {
+    display: block;
+    width: 60%;
+    height: 35px;
+    font-size: 1.2em;
+    margin:auto;
+    margin-top: 20px;
+}
+
+#feedback-form > .ck-editor {
+    width: 60%;
+    margin:auto;
+    margin-top: 50px;
+    color: #E1BB81;
+    background-color: #786A58;
+}
+
+#feedback-form .ck-editor__editable {
+    min-height: 400px;
+}
+
+#feedback-form > button {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
 }
