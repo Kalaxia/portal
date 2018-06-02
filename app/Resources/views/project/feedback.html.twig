@@ -16,6 +16,22 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('js/project.js') }}"></script>
+    {% if is_granted('ROLE_USER') %}
+        <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/classic/ckeditor.js"></script>
+        <script type="text/javascript">
+            ClassicEditor
+                .create(document.querySelector('#comment-editor'))
+                .then(editor => {
+                    document.querySelector('#new-comment > button').onclick = () => {
+                        if (create_comment('{{ feedback.id }}', editor.getData()) !== false) {
+                            editor.setData('');
+                        }
+                    };
+                })
+                .catch(error => console.log(error))
+            ;
+        </script>
+    {% endif %}
 {% endblock %}
 
 {% block page_title %}
@@ -42,8 +58,8 @@
                         <div class="description-action">
                             <img id="edit-description-button" class='description-action-img' src="{{ asset('images/icons/edit.png') }}" onclick="edit_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
                             <div id="confirm-description-changes">
-                                <img class='description-action-img' src="{{ asset('images/icons/validate.png') }}" onclick="update_description('{{ feedback.id }}', '{{ feedback.type }}');"/>
-                                <img class='description-action-img' src="{{ asset('images/icons/cancel.png') }}" onclick="cancel_update_description('{{ 'project.feedback.confirm_cancel' | trans }}');" />
+                                <img class='description-action-img' src="{{ asset('images/icons/validate.png') }}"/>
+                                <img class='description-action-img' src="{{ asset('images/icons/cancel.png') }}" onclick="cancel_update_description(event, '{{ 'project.feedback.confirm_cancel' | trans }}');" />
                             </div>
                         </div>
                         <div id="description-old"></div>
@@ -145,8 +161,8 @@
                 </div>
                 {% if is_granted('ROLE_USER') %}
                 <div id="new-comment">
-                    <textarea name="comment-content"></textarea>
-                    <button onclick="create_comment('{{ feedback.id }}');">{{ 'project.comment.create' | trans }}</button>
+                    <div id="comment-editor"></div>
+                    <button>{{ 'project.comment.create' | trans }}</button>
                 </div>
                 {% endif %}
             </div>
