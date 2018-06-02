@@ -96,6 +96,20 @@ class DiscordBotGateway
         ]);
     }
     
+    public function notifyFeedbackValidate(string $title, string $slug, string $tester): Response
+    {
+        return $this->client->post('/tickets/validate', [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode([
+                'title' => $title,
+                'slug' => $slug,
+                'tester' => $tester,
+            ])
+        ]);
+    }
+    
     /**
      * @param string $title
      * @param string $slug
