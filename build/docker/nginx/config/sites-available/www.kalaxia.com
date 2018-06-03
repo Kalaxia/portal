@@ -29,7 +29,7 @@ server {
     }
 
     location ~ ^/(app_dev|config)\.php(/|$) {
-        fastcgi_pass portal_phpfpm:9000;
+        fastcgi_pass portal_app:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
@@ -37,7 +37,7 @@ server {
     }
 
     location ~ ^/app\.php(/|$) {
-        fastcgi_pass portal_phpfpm:9000;
+        fastcgi_pass portal_app:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
