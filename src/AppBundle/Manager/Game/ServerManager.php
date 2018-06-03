@@ -126,7 +126,7 @@ class ServerManager
     public function joinServer(Server $server, User $user)
     {
         $response = $this->serverGateway->connectPlayer(
-            $server->getHost(),
+            $server->getMachine()->getHost(),
             $this->rsaEncryptionManager->encrypt($server, json_encode([
                 'username' => $user->getUsername(),
                 'signature' => $server->getSignature()
