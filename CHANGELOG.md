@@ -1,3 +1,8 @@
+## [0.2.1] - 2018-07-06
+### Added
+- Faction banners
+- Server subdomain
+
 ## [0.2.0] - 2018-05-10
 ### Added
 - Meta tags for shared links on feedbacks
