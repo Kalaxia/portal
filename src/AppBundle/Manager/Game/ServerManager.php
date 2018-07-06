@@ -106,7 +106,7 @@ class ServerManager
             }
             $server->addFaction($faction);
         }
-        $response = $this->serverGateway->bindServer($machine->getHost(), $this->rsaEncryptionManager->encrypt($server, json_encode([
+        $response = $this->serverGateway->bindServer($server->getHost(), $this->rsaEncryptionManager->encrypt($server, json_encode([
             'name' => $name,
             'type' => $type,
             'factions' => $server->getFactions()->toArray(),
@@ -114,7 +114,7 @@ class ServerManager
             'map_size' => 100,
         ])));
         if ($response->getStatusCode() !== 201) {
-            throw new \ErrorException($response->getBody()->getContent());
+            throw new \ErrorException($response->getBody()->getContents());
         }
         $this->entityManager->persist($server);
         $this->entityManager->flush($server);
