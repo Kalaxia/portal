@@ -67,6 +67,7 @@ class ServerController extends Controller
             'default.png',
             $data['started_at'],
             $data['machine'],
+            $data['subdomain'] ?? null,
             $data['factions'],
             Server::TYPE_MULTIPLAYER
         ), 201);
@@ -86,13 +87,9 @@ class ServerController extends Controller
             throw new NotFoundHttpException('game.server.not_found');
         }
         $jwt = $this->get(ServerManager::class)->joinServer($server, $this->getUser());
-        $host = 
-            $server->getMachine()->getIsLocal() === true
-            ? gethostbyname($server->getMachine()->getHost())
-            : $server->getMachine()->getHost()
-        ;
+        
         return new Response('', Response::HTTP_OK, [
-            'Location' => "http://$host?jwt=$jwt",
+            'Location' => "http://{$server->getHost()}?jwt=$jwt",
         ]);
     }
 }

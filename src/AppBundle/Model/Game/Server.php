@@ -18,6 +18,8 @@ class Server implements \JsonSerializable
     protected $signature;
     /** @var Machine **/
     protected $machine;
+    /** @var string **/
+    protected $subDomain;
     /** @var \DateTime **/
     protected $createdAt;
     /** @var \DateTime **/
@@ -151,6 +153,29 @@ class Server implements \JsonSerializable
         return $this->machine;
     }
     
+    public function setSubDomain(string $subDomain): Server
+    {
+        $this->subDomain = $subDomain;
+        
+        return $this;
+    }
+    
+    public function getSubDomain()
+    {
+        return $this->subDomain;
+    }
+    
+    public function getHost(): string
+    {
+        return
+            $this->machine->getIsLocal() === true
+            ? gethostbyname($this->machine->getHost())
+            : (empty($this->subDomain))
+                ? $this->machine->getHost()
+                : "{$this->subDomain}.{$this->machine->getHost()}"
+        ;
+    }
+    
     /**
      * @param \DateTime $createdAt
      * @return $this
@@ -221,6 +246,7 @@ class Server implements \JsonSerializable
             'started_at' => $this->startedAt,
             'updated_at' => $this->updatedAt,
             'machine' => $this->machine,
+            'sub_domain' => $this->subDomain,
             'factions' => $this->factions,
         ];
     }

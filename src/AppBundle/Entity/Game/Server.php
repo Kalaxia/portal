@@ -58,6 +58,10 @@ abstract class Server extends ServerModel
      */
     protected $machine;
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    protected $subDomain;
+    /**
      * @ORM\Column(name="created_at", type="datetime") 
      */
     protected $createdAt;

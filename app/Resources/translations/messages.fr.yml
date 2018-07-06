@@ -163,6 +163,7 @@ game:
         play: 'Jouer'
         name: 'Nom'
         host: 'Adresse'
+        subdomain: 'Sous-domaine'
         description: 'Description'
         banner: 'Bannière'
         started_at: 'Date de lancement'
