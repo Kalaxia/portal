@@ -165,12 +165,14 @@ class Server implements \JsonSerializable
         return $this->subDomain;
     }
     
-    public function getHost()
+    public function getHost(): string
     {
         return
-            (empty($this->subDomain))
-            ? $this->machine->getHost()
-            : "{$this->subDomain}.{$this->machine->getHost()}"
+            $this->machine->getIsLocal() === true
+            ? gethostbyname($this->machine->getHost())
+            : (empty($this->subDomain))
+                ? $this->machine->getHost()
+                : "{$this->subDomain}.{$this->machine->getHost()}"
         ;
     }
     

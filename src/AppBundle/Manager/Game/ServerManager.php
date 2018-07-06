@@ -76,7 +76,7 @@ class ServerManager
         return $this->entityManager->getRepository(Server::class)->getNextServers();
     }
     
-    public function create(string $name, string $description, string $banner, string $startedAt, int $machineId, array $factions, string $type): Server
+    public function create(string $name, string $description, string $banner, string $startedAt, int $machineId, string $subDomain = null, array $factions, string $type): Server
     {
         if (($machine = $this->machineManager->get($machineId)) === null) {
             throw new BadRequestHttpException('game.server.machine_not_found');
@@ -97,6 +97,9 @@ class ServerManager
             ->setStartedAt(new \DateTime($startedAt))
             ->setMachine($machine)
         ;
+        if ($subDomain !== null) {
+            $server->setSubDomain($subDomain);
+        }
         foreach ($factions as $factionId) {
             if (($faction = $this->factionManager->get($factionId)) === null) {
                 throw new BadRequestHttpException('game.server.faction_not_found');
