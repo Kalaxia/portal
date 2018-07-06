@@ -30,4 +30,8 @@ class Faction extends FactionModel
      * @ORM\Column(type="string", length=10)
      */
     protected $color;
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $banner;
 }

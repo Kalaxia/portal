@@ -12,6 +12,8 @@ abstract class Faction implements \JsonSerializable
     protected $description;
     /** @var string **/
     protected $color;
+    /** @var string **/
+    protected $banner;
     
     /**
      * @param int $id
@@ -89,6 +91,18 @@ abstract class Faction implements \JsonSerializable
         return $this->color;
     }
     
+    public function setBanner(string $banner): Faction
+    {
+        $this->banner = $banner;
+        
+        return $this;
+    }
+    
+    public function getBanner(): string
+    {
+        return $this->banner;
+    }
+    
     /**
      * @return array
      */
@@ -99,6 +113,7 @@ abstract class Faction implements \JsonSerializable
             'name' => $this->name,
             'description' => $this->description,
             'color' => $this->color,
+            'banner' => $this->banner,
         ];
     }
 }

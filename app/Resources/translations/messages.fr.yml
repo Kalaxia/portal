@@ -176,10 +176,15 @@ game:
         new: 'Créer une faction'
         list: 'Factions'
         name: 'Nom'
+        banner: 'Fichier de bannière'
         description: 'Description'
         color: 'Couleur'
         create: 'Nouvelle faction'
         validate: 'Valider'
+        missing_name: 'Le nom doit être renseigné'
+        missing_description: 'La description doit être renseignée'
+        missing_color: 'La couleur doit être renseignée'
+        missing_banner: 'Le nom de fichier de la bannière doit être renseigné'
 
 security:
     login:

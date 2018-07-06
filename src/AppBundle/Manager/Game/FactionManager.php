@@ -36,19 +36,14 @@ class FactionManager
         return $this->entityManager->getRepository(Faction::class)->findAll();
     }
     
-    /**
-     * @param string $name
-     * @param string $description
-     * @param string $color
-     * @return Faction
-     */
-    public function create($name, $description, $color)
+    public function create(string $name, string $description, string $color, string $banner): Faction
     {
         $faction =
             (new Faction())
             ->setName($name)
             ->setDescription($description)
             ->setColor($color)
+            ->setBanner($banner)
         ;
         $this->entityManager->persist($faction);
         $this->entityManager->flush($faction);
