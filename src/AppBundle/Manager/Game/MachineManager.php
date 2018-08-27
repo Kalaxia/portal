@@ -20,7 +20,7 @@ class MachineManager
         $this->slugger = $slugger;
     }
     
-    public function get(int $id): Machine
+    public function get(int $id): ?Machine
     {
         return $this->em->getRepository(Machine::class)->find($id);
     }

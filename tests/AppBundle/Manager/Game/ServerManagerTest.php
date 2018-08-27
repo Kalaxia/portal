@@ -17,6 +17,8 @@ use AppBundle\Entity\Game\{
 
 use AppBundle\Entity\User;
 
+use GuzzleHttp\Psr7\Response;
+
 class ServerManagerTest extends TestCase
 {
     /** @var ServerManager **/
@@ -69,6 +71,65 @@ class ServerManagerTest extends TestCase
     public function testGetNextServers()
     {
         $this->assertCount(2, $this->manager->getNextServers());
+    }
+    
+    public function testCreateServer()
+    {
+        $server = $this->manager->create(
+            'Serveur local',
+            'Mon super serveur',
+            'local_server.png',
+            '+2 days',
+            1,
+            null,
+            [1, 2, 3],
+            Server::TYPE_MULTIPLAYER
+        );
+        $this->assertInstanceOf(Server::class, $server);
+        $this->assertEquals('Serveur local', $server->getName());
+        $this->assertEquals('Mon super serveur', $server->getDescription());
+        $this->assertEquals('local_server.png', $server->getBanner());
+        $this->assertInstanceOf(\DateTime::class, $server->getStartedAt());
+        $this->assertEquals(1, $server->getMachine()->getId());
+        $this->assertTrue($server->getMachine()->getIsLocal());
+        $this->assertCount(3, $server->getFactions());
+        $this->assertEquals(Server::TYPE_MULTIPLAYER, $server->getType());
+    }
+    
+    public function testCreateServerWithRemoteMachine()
+    {
+        $server = $this->manager->create(
+            'Serveur distant',
+            'Un serveur loin, très loin',
+            'remote_server.png',
+            '+1 days',
+            2,
+            'test',
+            [1, 2, 3],
+            Server::TYPE_MULTIPLAYER
+        );
+        $this->assertInstanceOf(Server::class, $server);
+        $this->assertEquals(2, $server->getMachine()->getId());
+        $this->assertEquals('test.kalaxia_nginx', $server->getHost());
+        $this->assertFalse($server->getMachine()->getIsLocal());
+    }
+    
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage game.server.machine_not_found
+     */
+    public function testCreateServerWithInvalidMachine()
+    {
+        $this->manager->create('Serveur imaginaire', 'Un serveur abstrait', 'unknown_server.png', '+15 days', 3, null, [1, 2, 3], Server::TYPE_SOLO);
+    }
+    
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage game.server.faction_not_found
+     */
+    public function testCreateServerWithInvalidFaction()
+    {
+        $this->manager->create('Serveur fou', 'Le serveur des mille nations', 'faction_server.png', '+1 hour', 1, null, [4, 5, 6], Server::TYPE_MULTIPLAYER);
     }
     
     protected function getEntityManagerMock()
@@ -157,6 +218,9 @@ class ServerManagerTest extends TestCase
     
     public function getFactionMock($id)
     {
+        if ($id > 3) {
+            return null;
+        }
         return
             (new Faction())
             ->setId($id)
@@ -180,13 +244,16 @@ class ServerManagerTest extends TestCase
     
     public function getMachineMock($id)
     {
+        if ($id > 2) {
+            return null;
+        }
         return
             (new Machine())
             ->setId($id)
             ->setName('Local')
             ->setSlug('local')
-            ->setHost('http://kalaxia_nginx')
-            ->setIsLocal(true)
+            ->setHost('kalaxia_nginx')
+            ->setIsLocal(($id === 1))
         ;
     }
     
@@ -197,7 +264,27 @@ class ServerManagerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
+        $serverGatewayMock
+            ->expects($this->any())
+            ->method('bindServer')
+            ->willReturnCallback([$this, 'getServerResponseMock'])
+        ;
         return $serverGatewayMock;
+    }
+    
+    public function getServerResponseMock()
+    {
+        $responseMock = $this
+            ->getMockBuilder(Response::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $responseMock
+            ->expects($this->any())
+            ->method('getStatusCode')
+            ->willReturn(201)
+        ;
+        return $responseMock;
     }
     
     public function getRsaEncryptionManagerMock()

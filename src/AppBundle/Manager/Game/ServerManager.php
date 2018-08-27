@@ -16,6 +16,8 @@ use AppBundle\Security\RsaEncryptionManager;
 
 use AppBundle\Utils\Slugger;
 
+use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class ServerManager
 {
     /** @var EntityManagerInterface **/
@@ -79,7 +81,7 @@ class ServerManager
     public function create(string $name, string $description, string $banner, string $startedAt, int $machineId, string $subDomain = null, array $factions, string $type): Server
     {
         if (($machine = $this->machineManager->get($machineId)) === null) {
-            throw new BadRequestHttpException('game.server.machine_not_found');
+            throw new NotFoundHttpException('game.server.machine_not_found');
         }
         $serverClass = [
             Server::TYPE_MULTIPLAYER => MultiplayerServer::class,
@@ -102,7 +104,7 @@ class ServerManager
         }
         foreach ($factions as $factionId) {
             if (($faction = $this->factionManager->get($factionId)) === null) {
-                throw new BadRequestHttpException('game.server.faction_not_found');
+                throw new NotFoundHttpException('game.server.faction_not_found');
             }
             $server->addFaction($faction);
         }
