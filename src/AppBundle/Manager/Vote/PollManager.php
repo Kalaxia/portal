@@ -34,7 +34,7 @@ class PollManager
     /**
      * @param Feedback $feedback
      */
-    public function createFeaturePoll(Feedback $feedback)
+    public function createFeaturePoll(Feedback $feedback): FeaturePoll
     {
         if ($feedback->getStatus() !== Feedback::STATUS_TO_SPECIFY) {
             throw new BadRequestHttpException('project.votes.already_accepted');

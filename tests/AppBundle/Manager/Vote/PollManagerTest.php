@@ -27,6 +27,26 @@ class PollManagerTest extends TestCase
         $poll = $this->manager->createFeaturePoll($this->getFeedbackMock('abcde'));
         
         $this->assertInstanceOf(FeaturePoll::class, $poll);
+        $this->assertInstanceOf(Feedback::class, $poll->getFeedback());
+        $this->assertEquals('abcde', $poll->getFeedback()->getId());
+    }
+    
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedExceptionMessage project.votes.already_accepted
+     */
+    public function testCreateFeaturePollFromInvalidFeedback()
+    {
+        $this->manager->createFeaturePoll($this->getFeedbackMock('invalid_status'));
+    }
+    
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedExceptionMessage project.votes.already_voting
+     */
+    public function testCreateFeaturePollWithExistingPoll()
+    {
+        $this->manager->createFeaturePoll($this->getFeedbackMock('existing_poll'));
     }
     
     public function testGet()
@@ -67,12 +87,18 @@ class PollManagerTest extends TestCase
         $repository = $this
             ->getMockBuilder(\Doctrine\ORM\EntityRepository::class)
             ->disableOriginalConstructor()
+            ->setMethods(['find', 'getLastFeaturePoll'])
             ->getMock()
         ;
         $repository
             ->expects($this->any())
             ->method('find')
             ->willReturnCallback([$this, 'getFeaturePollMock'])
+        ;
+        $repository
+            ->expects($this->any())
+            ->method('getLastFeaturePoll')
+            ->willReturnCallback([$this, 'getLastFeaturePollMock'])
         ;
         return $repository;
     }
@@ -83,6 +109,20 @@ class PollManagerTest extends TestCase
             (new FeaturePoll())
             ->setId($id)
             ->setFeedbackId('abcde')
+            ->setCreatedAt(new \DateTime())
+            ->setIsOver(false)
+        ;
+    }
+    
+    public function getLastFeaturePollMock($feedbackId)
+    {
+        if ($feedbackId !== 'existing_poll') {
+            return null;
+        }
+        return
+            (new FeaturePoll())
+            ->setId(1)
+            ->setFeedbackId($feedbackId)
             ->setCreatedAt(new \DateTime())
             ->setIsOver(false)
         ;
@@ -109,7 +149,7 @@ class PollManagerTest extends TestCase
             (new Feedback())
             ->setId($id)
             ->setTitle("J'aime les tartes")
-            ->setStatus(Feedback::STATUS_TO_SPECIFY)
+            ->setStatus(($id !== 'invalid_status') ? Feedback::STATUS_TO_SPECIFY : Feedback::STATUS_IN_PROGRESS)
         ;
     }
 }
