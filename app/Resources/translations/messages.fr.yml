@@ -136,6 +136,7 @@ polls:
     other_polls: 'Autres votes'
     not_user: 'Vous devez être connecté pour participer au vote'
     results: '%value% (%score%% de %nbVotes% votes)'
+    not_found_option: 'Cette option n''existe pas'
 
 profile:
     dashboard: 'Mon Profil'

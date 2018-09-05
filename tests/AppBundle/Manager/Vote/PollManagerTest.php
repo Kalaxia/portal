@@ -59,11 +59,7 @@ class PollManagerTest extends TestCase
     
     protected function getEntityManagerMock()
     {
-        $entityManagerMock = $this
-            ->getMockBuilder(\Doctrine\ORM\EntityManager::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $entityManagerMock = $this->createMock(\Doctrine\ORM\EntityManagerInterface::class);
         $entityManagerMock
             ->expects($this->any())
             ->method('persist')

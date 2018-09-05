@@ -50,7 +50,7 @@ class VoteManager
     public function vote(Poll $poll, User $user, $optionId)
     {
         if (($option = $this->optionManager->get($optionId)) === null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('polls.not_found_option');
         }
         if ($option->getPoll() !== $poll) {
             throw new BadRequestHttpException('polls.invalid_option');
