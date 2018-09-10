@@ -55,6 +55,13 @@ class User extends UserModel implements \JsonSerializable
         $this->createdAt = new \DateTime();
     }
     
+    public function setId($id)
+    {
+        $this->id = $id;
+        
+        return $this;
+    }
+    
     /**
      * @param \DateTime $createdAt
      * @return $this
