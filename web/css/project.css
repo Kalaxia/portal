@@ -351,3 +351,6 @@
     margin: auto;
     margin-top: 20px;
 }
+.ck-content {
+    background-color: #242424 !important;
+}
