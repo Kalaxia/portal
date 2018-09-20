@@ -64,7 +64,7 @@ class ServerController extends Controller
         return new JsonResponse($this->get(ServerManager::class)->create(
             $data['name'],
             $data['description'],
-            'default.png',
+            'default.jpg',
             $data['started_at'],
             $data['machine'],
             $data['subdomain'] ?? null,

@@ -18,17 +18,23 @@
             <section class="servers-list">
                 {% for server in app.user.servers %}
                     <div class="server">
-                        <div class="info">
-                            <strong>
-                                {{ server.name }}
-                            </strong>
-                            <em>
-                                {{ 'game.server.nb_players' | trans({"%nb_players%": players_count[server.id] }) }}
-                            </em>
-                        </div>
-                        <div class="actions">
-                            <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button success">{{ 'game.server.play' | trans }}</a>
-                        </div>
+                        <header>
+                            <img src="{{ asset('images/banners/' ~ server.banner) }}" />
+                        </header>
+                        <section>
+                            <div class="info">
+                                <strong>
+                                    {{ server.name }}
+                                </strong>
+                                <em>
+                                    {{ 'game.server.nb_players' | trans({"%nb_players%": players_count[server.id] }) }}
+                                </em>
+                            </div>
+                            <div class="actions">
+                                <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button success">{{ 'game.server.play' | trans }}</a>
+                            </div>
+                        </section>
+                        <footer></footer>
                     </div>
                 {% endfor %}
             </section>
@@ -39,17 +45,23 @@
             <section class="servers-list">
                 {% for server in available_servers %}
                     <div class="server">
-                        <div class="info">
-                            <strong>
-                                {{ server.name }}
-                            </strong>
-                            <em>
-                                {{ 'game.server.nb_players' | trans({"%nb_players%": players_count[server.id] }) }}
-                            </em>
-                        </div>
-                        <div class="actions">
-                            <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button warning">{{ 'game.server.join' | trans }}</a>
-                        </div>
+                        <header>
+                            <img src="{{ asset('images/banners/' ~ server.banner) }}" />
+                        </header>
+                        <section>
+                            <div class="info">
+                                <strong>
+                                    {{ server.name }}
+                                </strong>
+                                <em>
+                                    {{ 'game.server.nb_players' | trans({"%nb_players%": players_count[server.id] }) }}
+                                </em>
+                            </div>
+                            <div class="actions">
+                                <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button warning">{{ 'game.server.join' | trans }}</a>
+                            </div>
+                        </section>
+                        <footer></footer>
                     </div>
                 {% endfor %}
             </section>
