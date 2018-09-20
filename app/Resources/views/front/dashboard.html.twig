@@ -23,7 +23,7 @@
                                 {{ server.name }}
                             </strong>
                             <em>
-                                {{ server.startedAt | date('full_date' | trans) }}
+                                {{ 'game.server.nb_players' | trans({"%nb_players%": players_count[server.id] }) }}
                             </em>
                         </div>
                         <div class="actions">
@@ -44,7 +44,7 @@
                                 {{ server.name }}
                             </strong>
                             <em>
-                                {{ server.startedAt | date('full_date' | trans) }}
+                                {{ 'game.server.nb_players' | trans({"%nb_players%": players_count[server.id] }) }}
                             </em>
                         </div>
                         <div class="actions">

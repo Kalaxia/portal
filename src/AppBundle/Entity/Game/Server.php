@@ -50,6 +50,14 @@ abstract class Server extends ServerModel
      */
     protected $factions;
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", inversedBy="servers")
+     * @ORM\JoinTable(
+     *  name="game__players",
+     *  inverseJoinColumns={@ORM\JoinColumn(referencedColumnName="id")}
+     * )
+     */
+    protected $players;
+    /**
      * @ORM\Column(type="string", length=85) 
      */
     protected $signature;

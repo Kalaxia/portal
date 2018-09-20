@@ -170,6 +170,7 @@ game:
         started_at: 'Date de lancement'
         public_key: 'Clé publique RSA'
         validate: 'Valider'
+        nb_players: '%nb_players% joueurs'
 
     tutorial:
         launch: 'Lancer le tutoriel'
