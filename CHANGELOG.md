@@ -1,3 +1,10 @@
+## [0.2.3] - 2018-09-22
+### Added
+- Server banner in servers list
+- Server details view
+- Switch between login and registration form
+- Players count per server
+
 ## [0.2.2] - 2018-09-10
 ### Added
 - Unit tests for main managers
