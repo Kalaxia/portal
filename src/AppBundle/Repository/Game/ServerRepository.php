@@ -6,35 +6,37 @@ use Doctrine\ORM\EntityRepository;
 
 class ServerRepository extends EntityRepository
 {
-    /**
-     * @return array
-     */
-    public function getOpenedServers()
+    public function getOpenedServers(): array
     {
         return $this
-            ->getEntityManager()
-            ->createQueryBuilder()
-            ->select('s')
-            ->from($this->getEntityName(), 's')
+            ->createQueryBuilder('s')
+            ->select()
             ->where('s.startedAt <= CURRENT_TIMESTAMP()')
             ->getQuery()
             ->getResult()
         ;
     }
     
-    /**
-     * @return array
-     */
-    public function getNextServers()
+    public function getNextServers(): array
     {
         return $this
-            ->getEntityManager()
-            ->createQueryBuilder()
-            ->select('s')
-            ->from($this->getEntityName(), 's')
+            ->createQueryBuilder('s')
+            ->select()
             ->where('s.startedAt > CURRENT_TIMESTAMP()')
             ->getQuery()
             ->getResult()
+        ;
+    }
+    
+    public function countServersPlayers(): array
+    {
+        return $this
+            ->createQueryBuilder('s')
+            ->select('s.id', 'COUNT(p.id) as player_count')
+            ->leftJoin('s.players', 'p')
+            ->groupBy('s.id')
+            ->getQuery()
+            ->getScalarResult()
         ;
     }
 }

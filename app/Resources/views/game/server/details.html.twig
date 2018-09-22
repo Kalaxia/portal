@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ server.name }}" />
+    <meta property="og:description" content="{{ server.description | raw }}" />
+    <meta property="og:url" content="{{ absolute_url(path('server_details', {"id": server.id})) }}" />
+    <meta property="og:image" content="{{ absolute_url(asset('images/banners/' ~ server.banner)) }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/game.css') }}" />
+{% endblock %}
+
+{% block title %}{{ parent() }} - {{ server.name }}{% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block body %}
+    <div id="server-container" style="background-image: url('{{ asset('images/banners/' ~ server.banner) }}')">
+        <div id='server-wrapper'>
+            <header>
+                <h1>{{ server.name }}</h1>
+                <div>
+                    {% if app.user.hasServer(server) %}
+                        <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button success">{{ 'game.server.play' | trans }}</a>
+                    {% else %}
+                        <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button warning">{{ 'game.server.join' | trans }}</a>
+                    {% endif %}
+                </div>
+            </header>
+
+            <section>
+                <div id='description'>
+                    {{ server.description | raw }}
+                </div>
+            </section>
+
+            <footer></footer>
+        </div>
+    </div>
+{% endblock %}
+
+

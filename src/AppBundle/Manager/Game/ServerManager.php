@@ -48,6 +48,16 @@ class ServerManager
         return $this->entityManager->getRepository(Server::class)->find($id);
     }
     
+    public function countServersPlayers(): array
+    {
+        $counters = $this->entityManager->getRepository(Server::class)->countServersPlayers();
+        $result = [];
+        foreach ($counters as $counter) {
+            $result[$counter['id']] = $counter['player_count'];
+        }
+        return $result;
+    }
+    
     /**
      * @return array
      */

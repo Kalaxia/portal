@@ -38,6 +38,7 @@ class FrontController extends Controller
     public function dashboardAction(Request $request, ServerManager $serverManager, PollManager $pollManager)
     {
         return $this->render('front/dashboard.html.twig', [
+            'players_count' => $serverManager->countServersPlayers(),
             'available_servers' => $serverManager->getAvailableServers($this->getUser()),
             'next_servers' => $serverManager->getNextServers(),
             'current_polls' => $pollManager->getActivePolls()

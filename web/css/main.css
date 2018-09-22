@@ -215,7 +215,35 @@ body {
     text-align: right;
 }
 
-.server > .actions {
+.servers-list {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.servers-list > .server {
+    width: 350px;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.servers-list > .server > section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px 20px;
+    background: rgba(0,0,0,0.6);
+}
+
+.server > header > a > img {
+    width: 100%;
+}
+
+.server > section > .infos {
+    flex-basis: 60%;
+}
+
+.server > section > .actions {
     margin-left: 10px;
 }
 
@@ -274,17 +302,4 @@ body {
 .tooltip:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
-}
-
-.servers-list {
-    display:flex;
-    flex-wrap: wrap;
-}
-
-.servers-list > .server {
-    display: flex;
-    align-items: center;
-    padding:10px 20px;
-    margin: 10px;
-    background: rgba(0,0,0,0.6);
 }
