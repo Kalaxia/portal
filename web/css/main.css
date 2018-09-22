@@ -235,7 +235,7 @@ body {
     background: rgba(0,0,0,0.6);
 }
 
-.server > header > img {
+.server > header > a > img {
     width: 100%;
 }
 

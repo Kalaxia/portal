@@ -27,6 +27,19 @@ use AppBundle\Entity\Game\Server;
 class ServerController extends Controller
 {
     /**
+     * @Route("/servers/{id}", name="server_details", methods={"GET"})
+     */
+    public function getServer(ServerManager $serverManager, int $id)
+    {
+        if (($server = $serverManager->get($id)) === null) {
+            throw new NotFoundHttpException();
+        }
+        return $this->render('game/server/details.html.twig', [
+            'server' => $server
+        ]);        
+    }
+    
+    /**
      * @Route("/admin/servers/new", name="new_game_server")
      * @Security("has_role('ROLE_ADMIN')")
      */
