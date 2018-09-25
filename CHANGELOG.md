@@ -1,3 +1,10 @@
+## [0.2.4] - 2018-09-25
+### Fixed
+- Available servers banner size and link
+
+### Changed
+- Default picture for servers banner
+
 ## [0.2.3] - 2018-09-22
 ### Added
 - Server banner in servers list
