@@ -48,7 +48,9 @@
                 {% for server in available_servers %}
                     <div class="server">
                         <header>
-                            <img src="{{ asset('images/banners/' ~ server.banner) }}" />
+                            <a href="{{ path('server_details', {"id": server.id}) }}">
+                                <img src="{{ asset('images/banners/' ~ server.banner) }}" />
+                            </a>
                         </header>
                         <section>
                             <div class="info">
