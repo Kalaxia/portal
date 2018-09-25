@@ -22,6 +22,8 @@ use AppBundle\Model\Game\Server as ServerModel;
  */
 abstract class Server extends ServerModel
 {
+    const DEFAULT_BANNER = 'illu2_v5.png';
+    
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
