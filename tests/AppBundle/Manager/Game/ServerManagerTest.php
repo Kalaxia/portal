@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\AppBundle\Manager\Game;
+namespace Tests\App\Manager\Game;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Manager\Game\ServerManager;
+use App\Manager\Game\ServerManager;
 
-use AppBundle\Entity\Game\{
+use App\Entity\Game\{
     TutorialServer,
     SoloServer,
     Server,
@@ -15,7 +15,7 @@ use AppBundle\Entity\Game\{
     Machine
 };
 
-use AppBundle\Entity\User;
+use App\Entity\User;
 
 use GuzzleHttp\Psr7\Response;
 
@@ -150,7 +150,7 @@ class ServerManagerTest extends TestCase
     public function getRepositoryMock()
     {
         $repositoryMock = $this
-            ->getMockBuilder(\AppBundle\Repository\Game\ServerRepository::class)
+            ->getMockBuilder(\App\Repository\Game\ServerRepository::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -204,7 +204,7 @@ class ServerManagerTest extends TestCase
     public function getFactionManagerMock()
     {
         $factionManagerMock = $this
-            ->getMockBuilder(\AppBundle\Manager\Game\FactionManager::class)
+            ->getMockBuilder(\App\Manager\Game\FactionManager::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -230,7 +230,7 @@ class ServerManagerTest extends TestCase
     public function getMachineManagerMock()
     {
         $machineManagerMock = $this
-            ->getMockBuilder(\AppBundle\Manager\Game\MachineManager::class)
+            ->getMockBuilder(\App\Manager\Game\MachineManager::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -260,7 +260,7 @@ class ServerManagerTest extends TestCase
     public function getServerGatewayMock()
     {
         $serverGatewayMock = $this
-            ->getMockBuilder(\AppBundle\Gateway\ServerGateway::class)
+            ->getMockBuilder(\App\Gateway\ServerGateway::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -290,7 +290,7 @@ class ServerManagerTest extends TestCase
     public function getRsaEncryptionManagerMock()
     {
         $rsaEncryptionManagerMock = $this
-            ->getMockBuilder(\AppBundle\Security\RsaEncryptionManager::class)
+            ->getMockBuilder(\App\Security\RsaEncryptionManager::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -300,7 +300,7 @@ class ServerManagerTest extends TestCase
     public function getSluggerMock()
     {
         $sluggerMock = $this
-            ->getMockBuilder(\AppBundle\Utils\Slugger::class)
+            ->getMockBuilder(\App\Utils\Slugger::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;

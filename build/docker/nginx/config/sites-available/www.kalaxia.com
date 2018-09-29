@@ -21,22 +21,14 @@ server {
 
     merge_slashes on;
 
-    root /srv/app/web;
+    root /srv/app/public;
 
     location / {
         # try to serve file directly, fallback to app.php
-        try_files $uri /app.php$is_args$args;
+        try_files $uri /index.php$is_args$args;
     }
 
-    location ~ ^/(app_dev|config)\.php(/|$) {
-        fastcgi_pass portal_app:9000;
-        fastcgi_split_path_info ^(.+\.php)(/.*)$;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-        fastcgi_param DOCUMENT_ROOT $realpath_root;
-    }
-
-    location ~ ^/app\.php(/|$) {
+    location ~ ^/index\.php(/|$) {
         fastcgi_pass portal_app:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;

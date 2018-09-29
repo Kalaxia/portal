@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\AppBundle\Model\Vote;
+namespace Tests\App\Model\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Entity\Vote\{
+use App\Entity\Vote\{
     CommonPoll,
     Option
 };

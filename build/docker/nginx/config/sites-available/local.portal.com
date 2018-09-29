@@ -9,14 +9,14 @@ server {
 
     merge_slashes on;
 
-    root /srv/app/web;
+    root /srv/app/public;
 
     location / {
         # try to serve file directly, fallback to app.php
-        try_files $uri /app_dev.php$is_args$args;
+        try_files $uri /index.php$is_args$args;
     }
 
-    location ~ ^/(app_dev|config)\.php(/|$) {
+    location ~ ^/index\.php(/|$) {
         fastcgi_pass portal_app:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;

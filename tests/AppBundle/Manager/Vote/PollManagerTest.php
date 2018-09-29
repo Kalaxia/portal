@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\AppBundle\Manager\Vote;
+namespace Tests\App\Manager\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Manager\Vote\PollManager;
+use App\Manager\Vote\PollManager;
 
-use AppBundle\Model\Project\Feedback;
-use AppBundle\Entity\Vote\FeaturePoll;
+use App\Model\Project\Feedback;
+use App\Entity\Vote\FeaturePoll;
 
 class PollManagerTest extends TestCase
 {
@@ -127,7 +127,7 @@ class PollManagerTest extends TestCase
     protected function getFeedbackManagerMock()
     {
         $evolutionManagerMock = $this
-            ->getMockBuilder(\AppBundle\Manager\Project\FeedbackManager::class)
+            ->getMockBuilder(\App\Manager\Project\FeedbackManager::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;

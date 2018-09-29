@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\AppBundle\Model\Vote;
+namespace Tests\App\Model\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Entity\Vote\{
+use App\Entity\Vote\{
     FeaturePoll,
     Option
 };
-use AppBundle\Model\Project\Feedback;
+use App\Model\Project\Feedback;
 
 class FeaturePollTest extends TestCase
 {
