@@ -7,26 +7,48 @@ html {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     margin:0px;
 }
 
-#page-title h1 {
+body > header {
     display: flex;
-    align-items: center;
-    margin:0px;
-    padding-top: 30px;
-    padding-left: 100px;
     justify-content: space-between;
+    padding: 10px 20px;
+    order:0;
+}
+
+body > header > nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+body > header > nav:first-child > a > img {
+    height: 56px;
     padding-right: 20px;
 }
 
-#page-title h1 > img {
-    width:48px;
-    height:48px;
-    margin-right:15px;
-    background-color: rgba(0,0,0,0.6);
-    border-radius:25px;
-    border: 1px solid #EFEFEF;
+body > header > nav > a {
+    color: #E1BB81;
+    text-decoration: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 1.2em;
+    font-variant: small-caps;
+}
+
+body > header > nav > a > svg.mobile {
+    display: none;
+}
+
+body > section {
+    order: 2;
+}
+
+body > footer {
+    order: 3;
 }
 
 #notifications-dropdown {
@@ -302,4 +324,47 @@ body {
 .tooltip:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
+}
+
+@media (max-width: 500px) {
+    body > header {
+        width: 100%;
+        order: 3;
+        position: fixed;
+        bottom: 0px;
+        background-color: #010F2A;
+        border-top: 2px solid #E1BB81;
+        padding: 10px 0px;
+    }
+    
+    body > header > nav:first-child {
+        padding-left: 10px;
+    }
+    
+    body > header > nav:last-child {
+        padding-right: 10px;
+    }
+    
+    body > header > nav:first-child > a:first-child {
+        display: none;
+    }
+    
+    body > header > nav > a {
+        text-align: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 0.8em;
+    }
+    
+    body > header > nav > a > span {
+        display: none;
+    }
+    
+    body > header > nav > a > svg.mobile {
+        display: inline;
+    }
+    
+    body > footer {
+        padding-bottom: 100px;
+    }
 }

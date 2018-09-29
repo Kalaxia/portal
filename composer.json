@@ -24,7 +24,6 @@
         "friendsofsymfony/user-bundle": "^2.1",
         "guzzlehttp/guzzle": "^6.3",
         "sensio/framework-extra-bundle": "^5.2",
-        "suncat/mobile-detect-bundle": "^1.1",
         "symfony/asset": "^4.1",
         "symfony/console": "^4.1",
         "symfony/flex": "^1.0",
