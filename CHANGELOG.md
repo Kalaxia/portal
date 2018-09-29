@@ -1,3 +1,7 @@
+## [0.3.0] - 2018-09-29
+### Added
+- Symfony 4
+
 ## [0.2.4] - 2018-09-25
 ### Fixed
 - Available servers banner size and link
