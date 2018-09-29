@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\AppBundle\Manager;
+namespace Tests\App\Manager;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Manager\NotificationManager;
+use App\Manager\NotificationManager;
 
-use AppBundle\Entity\Notification;
-use AppBundle\Entity\User;
+use App\Entity\Notification;
+use App\Entity\User;
 
 class NotificationManagerTest extends TestCase
 {

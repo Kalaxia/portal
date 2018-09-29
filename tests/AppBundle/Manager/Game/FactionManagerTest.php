@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\AppBundle\Manager\Game;
+namespace Tests\App\Manager\Game;
 
-use AppBundle\Manager\Game\FactionManager;
+use App\Manager\Game\FactionManager;
 
-use AppBundle\Entity\Game\Faction;
+use App\Entity\Game\Faction;
 
 use PHPUnit\Framework\TestCase;
 

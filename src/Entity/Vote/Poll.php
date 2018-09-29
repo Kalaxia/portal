@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Entity\Vote;
+
+use Doctrine\ORM\Mapping as ORM;
+
+use App\Model\Vote\Poll as PollModel;
+
+/**
+ * @ORM\Table(name="vote__polls")
+ * @ORM\Entity()
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string", length=15)
+ * @ORM\DiscriminatorMap({
+ *     "common" = "CommonPoll",
+ *     "feature" = "FeaturePoll"
+ * })
+ * @ORM\HasLifecycleCallbacks
+ */
+abstract class Poll extends PollModel
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $createdAt;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $endedAt;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $isOver;
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vote\Option")
+     */
+    protected $winningOption;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $score;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $nbVotes;
+    
+    const TYPE_COMMON = 'common';
+    const TYPE_FEATURE = 'feature';
+    
+    /**
+     * @return string
+     */
+    abstract public function getType();
+    
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        $this->createdAt = new \DateTime();
+        $this->isOver = false;
+    }
+}

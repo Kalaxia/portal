@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\AppBundle\Manager\Vote;
+namespace Tests\App\Manager\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-use AppBundle\Manager\Vote\VoteManager;
+use App\Manager\Vote\VoteManager;
 
-use AppBundle\Entity\Vote\Vote;
-use AppBundle\Entity\Vote\FeaturePoll;
-use AppBundle\Entity\Vote\Option;
-use AppBundle\Entity\User;
+use App\Entity\Vote\Vote;
+use App\Entity\Vote\FeaturePoll;
+use App\Entity\Vote\Option;
+use App\Entity\User;
 
 class VoteManagerTest extends TestCase
 {
@@ -120,7 +120,7 @@ class VoteManagerTest extends TestCase
     public function getOptionManagerMock()
     {
         $optionManagerMock = $this
-            ->getMockBuilder(\AppBundle\Manager\Vote\OptionManager::class)
+            ->getMockBuilder(\App\Manager\Vote\OptionManager::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;

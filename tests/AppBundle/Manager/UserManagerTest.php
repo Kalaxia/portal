@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\AppBundle\Manager;
+namespace Tests\App\Manager;
 
-use AppBundle\Manager\UserManager;
+use App\Manager\UserManager;
 
-use AppBundle\Entity\User;
+use App\Entity\User;
 
 use PHPUnit\Framework\TestCase;
 
