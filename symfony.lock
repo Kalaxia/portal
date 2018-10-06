@@ -86,8 +86,8 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
-    "mobiledetect/mobiledetectlib": {
-        "version": "2.8.33"
+    "kalaxia/scrumban-bundle": {
+        "version": "0.1.0"
     },
     "monolog/monolog": {
         "version": "1.23.0"
@@ -123,15 +123,6 @@
             "branch": "master",
             "version": "5.2",
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        }
-    },
-    "suncat/mobile-detect-bundle": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "8284b33273c99974ef84c7e544e94aefac1a4c7f"
         }
     },
     "swiftmailer/swiftmailer": {

@@ -23,6 +23,7 @@
         "doctrine/orm": "^2.6",
         "friendsofsymfony/user-bundle": "^2.1",
         "guzzlehttp/guzzle": "^6.3",
+        "kalaxia/scrumban-bundle": "^0.1.0",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "^4.1",
         "symfony/console": "^4.1",
