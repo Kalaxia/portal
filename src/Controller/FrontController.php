@@ -32,7 +32,8 @@ class FrontController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'tickets' => $parser->items,
             'current_sprint' => $currentSprint,
-            'user_stories' => $userStoryManager->getSprintUserStories($currentSprint, ['updatedAt' => 'DESC'], 0, 4)
+            'previous_sprint' => $sprintManager->getPreviousSprint(),
+            'user_stories' => ($currentSprint !== null) ? $userStoryManager->getSprintUserStories($currentSprint, ['updatedAt' => 'DESC'], 0, 4) : null
         ]);
     }
 

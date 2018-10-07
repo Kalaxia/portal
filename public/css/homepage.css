@@ -27,6 +27,10 @@
     align-items: flex-start;
 }
 
+#current-sprint > section > .user-story > header > h5 {
+    padding-right: 10px;
+}
+
 #current-sprint > section > .user-story > header > .value {
     display: flex;
     justify-content: space-between;
@@ -127,6 +131,26 @@
     color: #E1BB81;
 }
 
+#previous-sprint {
+    flex-basis: 80%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+#previous-sprint > header > h3 {
+    text-align: center;
+}
+
+#previous-sprint > section {
+    display: flex;
+    justify-content: center;
+}
+
+#previous-sprint > section > iframe {
+    width: 600px;
+    height: 320px;
+}
+
 
 @media (max-width: 500px) {
     #social-networks {
@@ -157,5 +181,10 @@
     
     #social-networks > header {
         justify-content: center;
+    }
+    
+    #previous-sprint > section > iframe {
+        width: 250px;
+        height: 125px;
     }
 }

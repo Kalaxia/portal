@@ -78,5 +78,19 @@
             </section>
             <footer></footer>
         </div>
+        {% if previous_sprint.demoUrl | length > 0 %}
+            <div id="previous-sprint">
+                <header>
+                    <h3>Démonstration du sprint précédent</h3>
+                </header>
+                <section>
+                    <iframe src="{{ previous_sprint.demoUrl }}"
+                            frameborder="0"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen></iframe>
+                </section>
+                <footer></footer>
+        {% endif %}
+        <div id=""
     </div>
 {% endblock %}
