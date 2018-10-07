@@ -120,7 +120,12 @@
     border-radius: 5px;
 }
 
-#current-sprint > section > .user-story > section > .status.to_release {
+#current-sprint > section > .user-story > section > .status.todo {
+    background-color: #E0E0F0;
+    color: #003C71;
+}
+#current-sprint > section > .user-story > section > .status.to_release,
+#current-sprint > section > .user-story > section > .status.review {
     background-color: #08C;
 }
 #current-sprint > section > .user-story > section > .status.done {

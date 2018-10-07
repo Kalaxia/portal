@@ -108,6 +108,7 @@ project:
         validate: 'valider'
         
     status:
+        todo: 'À faire'
         backlog: 'Backlog'
         to_specify: 'À spécifier'
         ready: 'Prêt'
