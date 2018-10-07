@@ -9,11 +9,31 @@
     {#<div id="description">
         <h2>{{ 'homepage.description.title' | trans }}</h2>
         <div class="actions">
-            <a href="https://discord.gg/mDTms5c" class="button warning">{{ 'homepage.description.join_discord' | trans }}</a>
-            <a href="{{ (is_granted('ROLE_USER')) ? path('dashboard') : path('fos_user_registration_register') }}" class="button success">{{ 'homepage.description.play_game' | trans }}</a>
-            <a href="{{ path('project_description') }}" class="button warning">{{ 'homepage.description.read_info' | trans }}</a>
         </div>
     </div>#}
+    <div id="landing">
+        <header>
+            <h1>Kalaxia</h1>
+        </header>
+        <section>
+            <p>{{ 'homepage.description.title' | trans }}</p>
+            <p>{{ 'homepage.description.alpha' | trans }}</p>
+        </section>
+        <footer>
+            <a href="https://discord.gg/mDTms5c">
+                <img src="{{ asset('images/icons/discord.png') }}" />
+                <span>{{ 'homepage.description.join_discord' | trans }}</span>
+            </a>
+            <a href="{{ (is_granted('ROLE_USER')) ? path('dashboard') : path('fos_user_registration_register') }}" class="white">
+                <img src="{{ asset('images/logo.png') }}"/>
+                <span>{{ 'homepage.description.play_game' | trans }}</span>
+            </a>
+            <a href="{{ path('project_description') }}">
+                <img src="{{ asset('images/icons/github.png') }}"/>
+                <span>{{ 'homepage.description.fork_github' | trans }}</span>
+            </a>
+        </footer>
+    </div>
     <div id="container">
         <div id="current-sprint">
             <header>
@@ -78,19 +98,19 @@
             </section>
             <footer></footer>
         </div>
-        {% if previous_sprint.demoUrl | length > 0 %}
-            <div id="previous-sprint">
-                <header>
-                    <h3>Démonstration du sprint précédent</h3>
-                </header>
-                <section>
-                    <iframe src="{{ previous_sprint.demoUrl }}"
-                            frameborder="0"
-                            allow="autoplay; encrypted-media"
-                            allowfullscreen></iframe>
-                </section>
-                <footer></footer>
-        {% endif %}
-        <div id=""
     </div>
+    {% if previous_sprint.demoUrl | length > 0 %}
+        <div id="previous-sprint">
+            <header>
+                <h3>Démonstration du sprint précédent</h3>
+            </header>
+            <section>
+                <iframe src="{{ previous_sprint.demoUrl }}"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen></iframe>
+            </section>
+            <footer></footer>
+        </div>
+    {% endif %}
 {% endblock %}

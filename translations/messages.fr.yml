@@ -9,10 +9,11 @@ anonymous: 'Visiteur'
 homepage:
     title: 'Accueil'
     description:
-        title: 'Kalaxia est un jeu multijoueurs de stratégie spatiale 100% opensource, 100% gratuit et 100% conçu par sa communauté'
+        title: 'Kalaxia est un jeu multijoueurs de stratégie spatiale 100% gratuit, 100% opensource et conçu avec sa communauté !'
+        alpha: 'En cours de développement !'
         join_discord: 'Rejoindre la communauté sur Discord'
-        play_game: 'Jouer à Kalaxia'
-        read_info: 'Fonctionnement de la communauté'
+        play_game: 'Tester Kalaxia'
+        fork_github: 'Voir le code sur Github'
 
 admin:
     dashboard: 'Administration'

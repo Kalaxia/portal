@@ -1,8 +1,67 @@
+#landing > header > h1 {
+    text-align: center;
+    font-size: 2.5em;
+}
+
+#landing > section > p:first-child {
+    font-size: 1.4em;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#landing > section > p:last-child {
+    font-size: 1.2em;
+    color: #E1BB81;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+#landing > footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#landing > footer > a {
+    width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: #EFEFEF;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 20px;
+    background-color: #003C71;
+    border-radius: 20px;
+    transition: background-color 0.4s ease-out, color 0.4s ease-out;
+}
+
+#landing > footer > a:hover {
+    box-shadow: 0px 0px 15px rgba(255,255,255,0.8);
+}
+
+#landing > footer > a.white,
+#landing > footer > a:hover {
+    background-color: #E0E0F0;
+    color: #003C71;
+}
+
+#landing > footer > a > img {
+    width: 120px;
+}
+
+#landing > footer > a > span {
+    text-align: center;
+}
+
 #container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 #current-sprint {
@@ -153,6 +212,34 @@
 
 
 @media (max-width: 500px) {
+    #landing {
+        width: 90%;
+        margin: auto;
+    }
+    
+    #landing > section > p:first-child {
+        font-size: 1.2em;
+    }
+    
+    #landing > section > p:last-child {
+        margin-bottom: 50px;
+    }
+    
+    #landing > footer {
+        flex-direction: column;
+    }
+    
+    #landing > footer > a {
+        width: 200px;
+        height: 180px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    #container {
+        margin-top: 50px;
+    }
+    
     #social-networks {
         margin-top: 40px;
     }
