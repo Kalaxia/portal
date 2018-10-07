@@ -1,3 +1,14 @@
+## [0.3.1] - 2019-10-07
+### Added
+- ScrumbanBundle integration to retrieve project data
+- Current sprint overview
+- Previous sprint demonstration embedded video
+- New landing in homepage
+- Responsive design for homepage
+
+### Removed
+- MobileDetect bundle
+
 ## [0.3.0] - 2018-09-29
 ### Added
 - Symfony 4
