@@ -17,6 +17,9 @@
             <nav>
                 <a href="{{ path('homepage') }}">
                     <img src="{{ asset('images/white_logo.png') }}" />
+                    {% if app.request.attributes.get('_route') != 'homepage' %}
+                        <i class="fas fa-home fa-2x mobile"></i>
+                    {% endif %}
                 </a>
                 
                 {% if is_granted('ROLE_ADMIN') and app.request.attributes.get('_route') != 'admin_dashboard' %}
