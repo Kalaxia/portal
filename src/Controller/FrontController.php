@@ -33,7 +33,7 @@ class FrontController extends Controller
             'tickets' => $parser->items,
             'current_sprint' => $currentSprint,
             'previous_sprint' => $sprintManager->getPreviousSprint(),
-            'user_stories' => ($currentSprint !== null) ? $userStoryManager->getSprintUserStories($currentSprint, ['updatedAt' => 'DESC'], 0, 4) : null
+            'user_stories' => ($currentSprint !== null) ? $userStoryManager->getSprintUserStories($currentSprint, ['value' => 'DESC'], 0, 4) : null
         ]);
     }
 
