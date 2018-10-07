@@ -1546,16 +1546,16 @@
         },
         {
             "name": "kalaxia/scrumban-bundle",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kalaxia/ScrumbanBundle.git",
-                "reference": "89612ef67e093e48ca1af1ed49615afb15474e38"
+                "reference": "922908b572beeda5999acf07b170a3ac7f311dc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kalaxia/ScrumbanBundle/zipball/89612ef67e093e48ca1af1ed49615afb15474e38",
-                "reference": "89612ef67e093e48ca1af1ed49615afb15474e38",
+                "url": "https://api.github.com/repos/Kalaxia/ScrumbanBundle/zipball/922908b572beeda5999acf07b170a3ac7f311dc8",
+                "reference": "922908b572beeda5999acf07b170a3ac7f311dc8",
                 "shasum": ""
             },
             "require": {
@@ -1587,7 +1587,7 @@
                 }
             ],
             "description": "Symfony bundle to wrap your project sprints data from external boards",
-            "time": "2018-10-06T13:52:57+00:00"
+            "time": "2018-10-07T00:40:20+00:00"
         },
         {
             "name": "monolog/monolog",

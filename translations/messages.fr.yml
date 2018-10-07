@@ -107,10 +107,13 @@ project:
         validate: 'valider'
         
     status:
+        backlog: 'Backlog'
         to_specify: 'À spécifier'
         ready: 'Prêt'
         in_progress: 'En cours'
         to_validate: 'À valider'
+        review: 'À valider'
+        to_release: 'À déployer'
         to_deploy: 'À déployer'
         done: 'Terminé'
 
