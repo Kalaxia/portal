@@ -1,3 +1,9 @@
+## [0.3.2] - 2019-10-07
+### Added
+- Open external links in new tabs in homepage
+- New colors for user stories statuses
+- order the shown user stories in homepage by value
+
 ## [0.3.1] - 2019-10-07
 ### Added
 - ScrumbanBundle integration to retrieve project data
