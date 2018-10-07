@@ -30,11 +30,7 @@ class User extends UserModel implements \JsonSerializable
      */
     protected $notifications;
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Server")
-     * @ORM\JoinTable(
-     *  name="game__players",
-     *  inverseJoinColumns={@ORM\JoinColumn(referencedColumnName="id")}
-     * )
+     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Server", mappedBy="players")
      */
     protected $servers;
 

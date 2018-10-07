@@ -17,6 +17,9 @@
             <nav>
                 <a href="{{ path('homepage') }}">
                     <img src="{{ asset('images/white_logo.png') }}" />
+                    {% if app.request.attributes.get('_route') != 'homepage' %}
+                        <i class="fas fa-home fa-2x mobile"></i>
+                    {% endif %}
                 </a>
                 
                 {% if is_granted('ROLE_ADMIN') and app.request.attributes.get('_route') != 'admin_dashboard' %}
@@ -90,7 +93,6 @@
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/menu.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/notifications.js') }}"></script>
             <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
         {% endblock %}

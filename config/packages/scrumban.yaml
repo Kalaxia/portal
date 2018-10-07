@@ -1,0 +1,20 @@
+---
+scrumban:
+    trello:
+        has_plus_for_trello: true
+        boards:
+            kanban:
+                id: 0DxDo8vl
+        columns:
+            ready:
+                name: 'sprint_ready'
+                type: 'user_story'
+                status: 'ready'
+            review:
+                name: 'to_validate'
+                type: 'user_story'
+                status: 'review'
+            to_release:
+                name: 'to_deploy'
+                type: 'user_story'
+                status: 'to_release'

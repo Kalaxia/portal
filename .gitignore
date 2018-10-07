@@ -32,3 +32,4 @@ portal.env
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+/bundles/

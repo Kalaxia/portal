@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}" />
+{% endblock %}
+
+{% block page_title %}Sprint {{ sprint.id }}{% endblock %}
+
+{% block body %}
+    <div id="sprint">
+        <header>
+            <h1>
+                Sprint {{ sprint.id}}
+            </h1>
+        </header>
+    </div>
+{% endblock %}

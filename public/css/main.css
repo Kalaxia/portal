@@ -345,7 +345,7 @@ body > footer {
         padding-right: 10px;
     }
     
-    body > header > nav:first-child > a:first-child {
+    body > header > nav:first-child > a:first-child > img {
         display: none;
     }
     

@@ -12,6 +12,9 @@ use App\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Scrumban\Manager\SprintManager;
+use Scrumban\Manager\UserStoryManager;
+
 use App\RSS\Parser;
 
 class FrontController extends Controller
@@ -19,14 +22,18 @@ class FrontController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request, Parser $parser)
+    public function indexAction(Request $request, Parser $parser, SprintManager $sprintManager, UserStoryManager $userStoryManager)
     {
-        // replace this example code with whatever you need
         $parser->feed("https://kalaxia.org/?feed=rss2");
+        
+        $currentSprint = $sprintManager->getCurrentSprint();
 
         return $this->render('front/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'tickets' => $parser->items,
+            'current_sprint' => $currentSprint,
+            'previous_sprint' => $sprintManager->getPreviousSprint(),
+            'user_stories' => ($currentSprint !== null) ? $userStoryManager->getSprintUserStories($currentSprint, ['updatedAt' => 'DESC'], 0, 4) : null
         ]);
     }
 

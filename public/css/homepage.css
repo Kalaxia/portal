@@ -1,38 +1,277 @@
-#logo {
-    text-align:center;
-    padding-top:8%;
+#landing > header > h1 {
+    text-align: center;
+    font-size: 2.5em;
 }
 
-#description {
-    margin-top:50px;
-    text-align:center;
+#landing > section > p:first-child {
+    font-size: 1.4em;
+    text-align: center;
+    margin-top: 50px;
 }
 
-#description > .actions {
+#landing > section > p:last-child {
+    font-size: 1.2em;
+    color: #E1BB81;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+#landing > footer {
     display: flex;
-    flex-wrap: wrap ;
-    align-items: center;
     justify-content: space-around;
+    align-items: center;
 }
 
-#description > .actions > a {
-    margin-bottom: 8px;
+#landing > footer > a {
+    width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: #EFEFEF;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 20px;
+    background-color: #003C71;
+    border-radius: 20px;
+    transition: background-color 0.4s ease-out, color 0.4s ease-out;
 }
 
-#rss h2 {
+#landing > footer > a:hover {
+    box-shadow: 0px 0px 15px rgba(255,255,255,0.8);
+}
+
+#landing > footer > a.white,
+#landing > footer > a:hover {
+    background-color: #E0E0F0;
+    color: #003C71;
+}
+
+#landing > footer > a > img {
+    width: 120px;
+}
+
+#landing > footer > a > span {
     text-align: center;
 }
 
-#rss a {
+#container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+
+#current-sprint {
+    flex-basis: 40%;
+}
+
+#current-sprint > header > a {
+    color: #E1BB81;
+    text-decoration: none;
+}
+
+#current-sprint > section > .user-story {
+    margin: 10px 0px;
+    background-color: rgba(0,0,0,0.6);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#current-sprint > section > .user-story > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#current-sprint > section > .user-story > header > h5 {
+    padding-right: 10px;
+}
+
+#current-sprint > section > .user-story > header > .value {
+    display: flex;
+    justify-content: space-between;
+    width: 50px;
+    padding: 5px 10px;
+    background-color: #003C71;
+    border-radius: 5px;
+}
+
+#current-sprint > section > .user-story > header > .value > span {
+    margin-left: 5px;
+}
+
+#current-sprint > section > .user-story > header > h5 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#current-sprint > section > .user-story > section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#current-sprint > section > .user-story > section > .status {
+    padding: 5px 10px;
+    background-color: #CC7832;
+    border-radius: 5px;
+}
+
+#current-sprint > section > .user-story > section > .status.to_release {
+    background-color: #08C;
+}
+#current-sprint > section > .user-story > section > .status.done {
+    background-color: green;
+}
+
+#current-sprint > section > .user-story > section > .estimations {
+    display: flex;
+    justify-content: space-between;
+}
+
+#current-sprint > section > .user-story > section > .estimations > .estimated-time {
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: #2060A0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#current-sprint > section > .user-story > section > .estimations > progress {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#current-sprint > section > .user-story > section > .estimations > .spent-time.warning {
+    background-color: #D00;
+}
+
+#current-sprint > section > .user-story > section > .estimations > .spent-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: #2060A0;
+}
+
+#social-networks {
+    flex-basis: 40%;
+}
+
+#social-networks > header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#social-networks > header > a {
+    text-decoration: none;
+}
+
+#social-networks > section > h2 {
+    text-align: center;
+}
+
+#social-networks > section > .ticket {
+    color: #EFEFEF;
+    border-radius: 10px;
+
+    background: rgba(0,0,0,0.6);
+    
+    margin: 10px;
+    padding: 5px 20px;
+}
+
+#social-networks > section > .ticket a {
     color: #E1BB81;
 }
 
-.ticket {
-    border: 2px solid #EFEFEF;
-    color: #EFEFEF;
+#previous-sprint {
+    flex-basis: 80%;
+    margin: auto;
+    margin-top: 40px;
+}
 
-    padding: 5px;
-    margin-left: 7%;
-    margin-right: 7%;
-    margin-top: 2%;
+#previous-sprint > header > h3 {
+    text-align: center;
+}
+
+#previous-sprint > section {
+    display: flex;
+    justify-content: center;
+}
+
+#previous-sprint > section > iframe {
+    width: 600px;
+    height: 320px;
+}
+
+
+@media (max-width: 500px) {
+    #landing {
+        width: 90%;
+        margin: auto;
+    }
+    
+    #landing > section > p:first-child {
+        font-size: 1.2em;
+    }
+    
+    #landing > section > p:last-child {
+        margin-bottom: 50px;
+    }
+    
+    #landing > footer {
+        flex-direction: column;
+    }
+    
+    #landing > footer > a {
+        width: 200px;
+        height: 180px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    #container {
+        margin-top: 50px;
+    }
+    
+    #social-networks {
+        margin-top: 40px;
+    }
+    
+    #current-sprint, #social-networks {
+        flex-basis: 80%;
+    }
+    
+    #current-sprint > header > a {
+        text-align: center;
+    }
+    
+    #current-sprint > section > .user-story > section {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    
+    #current-sprint > section > .user-story > section > .status {
+        margin-bottom: 10px;
+    }
+    
+    #current-sprint > footer {
+        text-align: center;
+    }
+    
+    #social-networks > header {
+        justify-content: center;
+    }
+    
+    #previous-sprint > section > iframe {
+        width: 250px;
+        height: 125px;
+    }
 }
