@@ -1,6 +1,7 @@
 #container {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     margin-top: 50px;
 }
 
@@ -72,6 +73,9 @@
     padding: 2px 5px;
     border-radius: 5px;
     background-color: #2060A0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #current-sprint > section > .user-story > section > .estimations > progress {
@@ -84,6 +88,9 @@
 }
 
 #current-sprint > section > .user-story > section > .estimations > .spent-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 2px 5px;
     border-radius: 5px;
     background-color: #2060A0;
@@ -118,4 +125,37 @@
 
 #social-networks > section > .ticket a {
     color: #E1BB81;
+}
+
+
+@media (max-width: 500px) {
+    #social-networks {
+        margin-top: 40px;
+    }
+    
+    #current-sprint, #social-networks {
+        flex-basis: 80%;
+    }
+    
+    #current-sprint > header > a {
+        text-align: center;
+    }
+    
+    #current-sprint > section > .user-story > section {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    
+    #current-sprint > section > .user-story > section > .status {
+        margin-bottom: 10px;
+    }
+    
+    #current-sprint > footer {
+        text-align: center;
+    }
+    
+    #social-networks > header {
+        justify-content: center;
+    }
 }
