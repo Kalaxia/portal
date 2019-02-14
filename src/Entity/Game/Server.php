@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+use App\Entity\User;
+
 use App\Model\Game\Server as ServerModel;
 
 /**
@@ -118,7 +120,7 @@ abstract class Server extends ServerModel
      * @param Faction $faction
      * @return $this
      */
-    public function addFaction(Faction $faction)
+    public function addFaction(Faction $faction): self
     {
         $this->factions->add($faction);
         
@@ -131,6 +133,18 @@ abstract class Server extends ServerModel
     public function getFactions()
     {
         return $this->factions;
+    }
+
+    public function addPlayer(User $player): self
+    {
+        $this->players->add($player);
+
+        return $this;
+    }
+
+    public function getPlayers()
+    {
+        return $this->players;
     }
 }
 

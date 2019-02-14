@@ -156,7 +156,8 @@ class ServerManager
         
         if (!$user->hasServer($server)) {
             $user->addServer($server);
-            $this->entityManager->flush($user);
+            $server->addPlayer($user);
+            $this->entityManager->flush();
         }
         return $jwt;
     }
