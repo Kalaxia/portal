@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6406e9a871bcd7499eb6a42a86590680",
+    "content-hash": "e16f1c09e151e83095b08d48e56e919a",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1546,17 +1546,11 @@
         },
         {
             "name": "kalaxia/scrumban-bundle",
-            "version": "0.1.1",
+            "version": "dev-feature/trello-webhook",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kalaxia/ScrumbanBundle.git",
-                "reference": "922908b572beeda5999acf07b170a3ac7f311dc8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Kalaxia/ScrumbanBundle/zipball/922908b572beeda5999acf07b170a3ac7f311dc8",
-                "reference": "922908b572beeda5999acf07b170a3ac7f311dc8",
-                "shasum": ""
+                "reference": "4ff268bbb0d6239e1220f3263faa57dcd57d6e22"
             },
             "require": {
                 "doctrine/common": "^2.9",
@@ -1576,7 +1570,11 @@
                     "/Tests/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Scrumban\\Tests\\": "/Tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -1587,7 +1585,7 @@
                 }
             ],
             "description": "Symfony bundle to wrap your project sprints data from external boards",
-            "time": "2018-10-07T00:40:20+00:00"
+            "time": "2018-10-07T18:40:31+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5273,10 +5271,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
-        "doctrine/doctrine-migrations-bundle": 10,
-        "doctrine/migrations": 10
+        "kalaxia/scrumban-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

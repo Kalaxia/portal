@@ -2,6 +2,8 @@
 scrumban:
     trello:
         has_plus_for_trello: true
+        api_key: '%env(TRELLO_API_KEY)%'
+        api_token: '%env(TRELLO_API_TOKEN)%'
         boards:
             kanban:
                 id: 0DxDo8vl
