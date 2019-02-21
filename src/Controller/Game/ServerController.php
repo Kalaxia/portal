@@ -99,7 +99,7 @@ class ServerController extends Controller
         $jwt = $this->get(ServerManager::class)->joinServer($server, $this->getUser());
         
         return new Response('', Response::HTTP_OK, [
-            'Location' => "http://{$server->getHost()}?jwt=$jwt",
+            'Location' => "{$server->getHost()}?jwt=$jwt",
         ]);
     }
 }
