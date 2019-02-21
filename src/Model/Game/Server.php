@@ -169,8 +169,8 @@ class Server implements \JsonSerializable
     {
         return
             $this->machine->getIsLocal() === true
-            ? gethostbyname($this->machine->getHost())
-            : ((empty($this->subDomain))
+            ? 'http://' . gethostbyname($this->machine->getHost())
+            : 'https://' . ((empty($this->subDomain))
                 ? $this->machine->getHost()
                 : "{$this->subDomain}.{$this->machine->getHost()}")
         ;
