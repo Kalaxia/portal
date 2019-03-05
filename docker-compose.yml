@@ -53,7 +53,7 @@ services:
 
     mysql:
         container_name: portal_mysql
-        image: mysql
+        image: mysql:5.7
         env_file:
             - portal.env
         networks:
