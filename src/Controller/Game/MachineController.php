@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\{
 use App\Manager\Game\MachineManager;
 
 class MachineController extends Controller
-{    
+{
     /**
      * @Route("/admin/machines", name="create_machine", methods={"POST"})
      */
@@ -26,10 +26,10 @@ class MachineController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $data = json_decode($request->getContent(), true);
-        
+
         return new JsonResponse($this->get(MachineManager::class)->create(
             $data['name'],
-            (!empty($data['host'])) ? $data['host'] : 'http://kalaxia_nginx',
+            (!empty($data['host'])) ? $data['host'] : 'kalaxia_nginx',
             $data['public_key'],
             $data['is_local']
         ), 201);
