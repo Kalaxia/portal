@@ -23,7 +23,7 @@ class FactionController extends Controller
             'factions' => $this->get(FactionManager::class)->getAll()
         ]);
     }
-    
+
     /**
      * @Route("/admin/factions/new", name="game_new_faction")
      */
@@ -31,9 +31,9 @@ class FactionController extends Controller
     {
         return $this->render('admin/game/faction/new.html.twig');
     }
-    
+
     /**
-     * @Route("/admin/factions", name="game_create_faction", methods={"GET"})
+     * @Route("/admin/factions", name="game_create_faction", methods={"POST"})
      */
     public function createFactionAction(Request $request)
     {
