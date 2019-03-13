@@ -20,8 +20,23 @@
                 <textarea name="description"></textarea>
             </div>
             <div class="form-group">
-                <label for="color">{{ 'game.faction.color' | trans }}</label>
-                <input type="color" name="color" />
+                <label for="color-black">{{ 'game.faction.color.black' | trans }}</label>
+                <input type="color" name="color-black" />
+
+                <label for="color-grey">{{ 'game.faction.color.grey' | trans }}</label>
+                <input type="color" name="color-grey" />
+
+                <label for="color-white">{{ 'game.faction.color.white' | trans }}</label>
+                <input type="color" name="color-white" />
+
+                <label for="color-main">{{ 'game.faction.color.main' | trans }}</label>
+                <input type="color" name="color-main" />
+
+                <label for="color-mainLight">{{ 'game.faction.color.main_light' | trans }}</label>
+                <input type="color" name="color-mainLight" />
+
+                <label for="color-mainLighter">{{ 'game.faction.color.main_lighter' | trans }}</label>
+                <input type="color" name="color-mainLighter" />
             </div>
             <div class="form-group">
                 <label for="banner">{{ 'game.faction.banner' | trans }}</label>
@@ -31,4 +46,3 @@
         </form>
     </div>
 {% endblock %}
-

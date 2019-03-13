@@ -27,7 +27,8 @@ class Faction extends FactionModel
      */
     protected $description;
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\OneToOne(targetEntity="FactionColors")
+     * @ORM\JoinColumn(name="color", referencedColumnName="id")
      */
     protected $color;
     /**

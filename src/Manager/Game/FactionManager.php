@@ -5,12 +5,13 @@ namespace App\Manager\Game;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Entity\Game\Faction;
+use App\Entity\Game\FactionColors;
 
 class FactionManager
 {
     /** @var EntityManagerInterface **/
     protected $entityManager;
-    
+
     /**
      * @param EntityManagerInterface $entityManager
      */
@@ -18,7 +19,7 @@ class FactionManager
     {
         $this->entityManager = $entityManager;
     }
-    
+
     /**
      * @param int $id
      * @return Faction
@@ -35,8 +36,24 @@ class FactionManager
     {
         return $this->entityManager->getRepository(Faction::class)->findAll();
     }
-    
-    public function create(string $name, string $description, string $color, string $banner): Faction
+
+    public function createColorSet(array $colors): FactionColors
+    {
+        $colorSet =
+            (new FactionColors())
+            ->setBlack($colors['black'])
+            ->setGrey($colors['grey'])
+            ->setWhite($colors['white'])
+            ->setMain($colors['main'])
+            ->setMainLight($colors['mainLight'])
+            ->setMainLighter($colors['mainLighter'])
+        ;
+        $this->entityManager->persist($colorSet);
+        $this->entityManager->flush($colorSet);
+        return $colorSet;
+    }
+
+    public function create(string $name, string $description, FactionColors $color, string $banner): Faction
     {
         $faction =
             (new Faction())

@@ -25,7 +25,7 @@ class FrontController extends Controller
     public function indexAction(Request $request, Parser $parser, SprintManager $sprintManager, UserStoryManager $userStoryManager)
     {
         $parser->feed("https://kalaxia.org/?feed=rss2");
-        
+
         $currentSprint = $sprintManager->getCurrentSprint();
 
         return $this->render('front/index.html.twig', [
