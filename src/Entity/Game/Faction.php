@@ -27,7 +27,7 @@ class Faction extends FactionModel
      */
     protected $description;
     /**
-     * @ORM\OneToOne(targetEntity="FactionColors")
+     * @ORM\OneToOne(targetEntity="FactionColors", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="color", referencedColumnName="id")
      */
     protected $color;

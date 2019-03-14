@@ -37,10 +37,9 @@ class FactionManager
         return $this->entityManager->getRepository(Faction::class)->findAll();
     }
 
-    public function createColorSet(array $data): FactionColors
+    protected function createColorSet(array $data): FactionColors
     {
-        $colorSet =
-            (new FactionColors())
+        return (new FactionColors())
             ->setBlack($data['color-black'] ?? "#00000000")
             ->setGrey($data['color-grey'] ?? "#00000000")
             ->setWhite($data['color-white'] ?? "#00000000")
@@ -48,19 +47,16 @@ class FactionManager
             ->setMainLight($data['color-mainLight'] ?? "#00000000")
             ->setMainLighter($data['color-mainLighter'] ?? "#00000000")
         ;
-        $this->entityManager->persist($colorSet);
-        $this->entityManager->flush($colorSet);
-        return $colorSet;
     }
 
-    public function create(string $name, string $description, FactionColors $color, string $banner): Faction
+    public function create(array $data): Faction
     {
         $faction =
             (new Faction())
-            ->setName($name)
-            ->setDescription($description)
-            ->setColor($color)
-            ->setBanner($banner)
+            ->setName($data['name'])
+            ->setDescription($data['description'])
+            ->setColor($this->createColorSet($data))
+            ->setBanner($data['banner'])
         ;
         $this->entityManager->persist($faction);
         $this->entityManager->flush($faction);
