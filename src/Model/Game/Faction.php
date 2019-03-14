@@ -10,11 +10,11 @@ abstract class Faction implements \JsonSerializable
     protected $name;
     /** @var string **/
     protected $description;
-    /** @var string **/
-    protected $color;
+    /** @var FactionColors **/
+    protected $colors;
     /** @var string **/
     protected $banner;
-    
+
     /**
      * @param int $id
      * @return $this
@@ -22,10 +22,10 @@ abstract class Faction implements \JsonSerializable
     public function setId($id)
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
+
     /**
      * @return int
      */
@@ -33,7 +33,7 @@ abstract class Faction implements \JsonSerializable
     {
         return $this->id;
     }
-    
+
     /**
      * @param string $name
      * @return $this
@@ -41,10 +41,10 @@ abstract class Faction implements \JsonSerializable
     public function setName($name)
     {
         $this->name = $name;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -52,7 +52,7 @@ abstract class Faction implements \JsonSerializable
     {
         return $this->name;
     }
-    
+
     /**
      * @param string $description
      * @return $this
@@ -60,10 +60,10 @@ abstract class Faction implements \JsonSerializable
     public function setDescription($description)
     {
         $this->description = $description;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -71,38 +71,38 @@ abstract class Faction implements \JsonSerializable
     {
         return $this->description;
     }
-    
+
     /**
-     * @param string $color
+     * @param FactionColors $colors
      * @return $this
      */
-    public function setColor($color)
+    public function setColors($colors)
     {
-        $this->color = $color;
-        
+        $this->colors = $colors;
+
         return $this;
     }
-    
+
     /**
-     * @return string
+     * @return FactionColors
      */
-    public function getColor()
+    public function getColors()
     {
-        return $this->color;
+        return $this->colors;
     }
-    
+
     public function setBanner(string $banner): Faction
     {
         $this->banner = $banner;
-        
+
         return $this;
     }
-    
+
     public function getBanner(): string
     {
         return $this->banner;
     }
-    
+
     /**
      * @return array
      */

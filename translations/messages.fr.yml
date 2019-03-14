@@ -98,15 +98,15 @@ project:
         edit: 'Editer'
         update: 'Mettre à jour'
         confirm_cancel: 'Attention toutes les modifications apportées seront perdues. Voulez-continuer ?'
-        
+
         poll: 'Vote'
         launch_poll: 'Lancer un vote'
         goto_poll: 'Voir le vote'
         retry_poll: 'Relancer (%score%%)'
-        
+
         validation: 'Validation'
         validate: 'valider'
-        
+
     status:
         todo: 'À faire'
         backlog: 'Backlog'
@@ -122,12 +122,12 @@ project:
     comment:
         create: 'Poster mon commentaire'
         created_at: 'posté le %date%'
-        
+
     labels:
         title: 'Étiquettes'
         create: 'Ajouter'
         name: 'Nom'
-        
+
     votes:
         yes: 'Oui'
         no: 'Non'
@@ -155,7 +155,7 @@ profile:
         user: 'Membre'
         admin: 'Administrateur'
         guest: 'Invité'
-        
+
 notifications:
     all: 'Toutes les notifications'
 
@@ -179,14 +179,20 @@ game:
 
     tutorial:
         launch: 'Lancer le tutoriel'
-        
+
     faction:
         new: 'Créer une faction'
         list: 'Factions'
         name: 'Nom'
         banner: 'Fichier de bannière'
         description: 'Description'
-        color: 'Couleur'
+        color:
+            black: 'Noir'
+            grey: 'Gris'
+            white: 'Blanc'
+            main: 'Couleur principale'
+            main_light: 'Principale claire'
+            main_lighter: 'Principale plus claire'
         create: 'Nouvelle faction'
         validate: 'Valider'
         missing_name: 'Le nom doit être renseigné'
