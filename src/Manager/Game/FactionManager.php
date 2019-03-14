@@ -55,7 +55,7 @@ class FactionManager
             (new Faction())
             ->setName($data['name'])
             ->setDescription($data['description'])
-            ->setColor($this->createColorSet($data))
+            ->setColors($this->createColorSet($data))
             ->setBanner($data['banner'])
         ;
         $this->entityManager->persist($faction);

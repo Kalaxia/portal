@@ -30,7 +30,7 @@ class Faction extends FactionModel
      * @ORM\OneToOne(targetEntity="FactionColors", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="color", referencedColumnName="id")
      */
-    protected $color;
+    protected $colors;
     /**
      * @ORM\Column(type="string", length=50)
      */
