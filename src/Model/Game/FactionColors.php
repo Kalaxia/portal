@@ -155,7 +155,6 @@ abstract class FactionColors implements \JsonSerializable
      public function jsonSerialize()
      {
          return [
-             'id' => $this->id,
              'black' => $this->black,
              'grey' => $this->grey,
              'white' => $this->white,

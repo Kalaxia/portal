@@ -112,7 +112,7 @@ abstract class Faction implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'color' => $this->color,
+            'colors' => $this->colors,
             'banner' => $this->banner,
         ];
     }
