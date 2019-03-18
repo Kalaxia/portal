@@ -8,7 +8,7 @@ Anyone following the contributing rules are welcome to contribute to the project
 Setup
 --------
 
-This project uses [Kalaxia/game-docker](https://github.com/Kalaxia/game-docker) to setup the environment. 
+This project uses Docker and Docker Compose to setup the environment. 
 
 This environment consists in the following technologies:
 
@@ -19,29 +19,34 @@ This environment consists in the following technologies:
 * MongoDB
 * Citadel Technologies Feedback Manager
 
-Clone
---------
-
-
-Once it's done, install the local copy of the project on your computer.
+You can clone the project with the following command
 
 ```
 git clone git@github.com:Kalaxia/portal.git kalaxia-portal
+cd kalaxia-portal
+cp portal.dist.env portal.env
+cp .env.dist .env
 ```
 
-install each dependancies manually or throught  [Kalaxia/game-docker](https://github.com/Kalaxia/game-docker) 
+In the two configuration files that you copied, the default values can be kept to run the application in a dev environment.
 
+Once it's done, you can launch your Docker containers
 
+```
+docker-compose up -d
+```
 
 ### Application setup
 
-if you used docker, go inside the *portal_phpfpm* container/
+Now that the containers are running, you must setup the Symfony application for the portal.
+
+Go inside the portal container:
+
+```
+docker-compose exec app bash
+```
 
 Here, you can install the project dependencies and setup the files permissions.
-
-When setting up the dependencies with composer install, **you will be prompted some config parameter values**.
-
-Please leave the default values, they are related to the containers configuration.
 
 The Doctrine command line is a setup of the project database tables schema. It will create all the needed tables.
 
@@ -52,8 +57,8 @@ composer install
 chown -R www-data:www-data var/cache
 chown -R www-data:www-data var/logs
 chown -R www-data:www-data var/sessions
-php bin/console doctrine:migrations:migrate
-php bin/console security:rsa:generate
+./bin/console doctrine:schema:update --force
+./bin/console security:rsa:generate
 ```
 
 You have now to edit the /etc/hosts file to setup the application web address.
@@ -73,13 +78,12 @@ In your web browser, you can go to http://local.portal.com.
 Usage
 -----
 
-
 ### Admin tasks
 
-If you want to clear the cache, get into the container *portal_phpfpm* and then type the following commands:
+If you want to clear the cache, get into the portal container and then type the following commands:
 
 ```
-php bin/console cache:clear
+./bin/console cache:clear
 chown -R www-data:www-data var/cache
 ```
 
@@ -88,6 +92,28 @@ If you want to give roles to a user, use FOS User built-in command:
 ```
 php bin/console fos:user:promote
 ```
+
+To make an admin account, you must promote your user account to ROLE_SUPER_ADMIN. This will allow the account to access admin dashboard and servers administration.
+
+### Game server creation
+
+Once you're logged in with an admin account, you can access the administration dashboard.
+
+First, you must create one or many factions. In the "banner" field, set one of the following :
+
+* purple_blades.png
+* golden_companions.png
+* azure.png
+
+Set the colors you want. The game uses for now only the main color, used for fonts, borders and backgrounds styles in the game, so set a readable color for this value.
+
+Then, you must create a machine, representing a host that will run your servers.
+
+In the servers dashboard, create a local machine with the name you want, and copy the public game server RSA KEY content (``public.pub``) in the associated field. If the key is valid the interface will show a blue fingerprint of it.
+
+When the machine is created, you can create a server. Select the machine you just created, select the factions, and then choose a name and a begin date anterior to the current date. Leave the subdomain alone. You can type a short description.
+
+If the server creation worked, you shall be redirected to the admin dashboard. You can see the created server, and join it from the member dashboard "Mon espace".
 
 ### Code update
 
