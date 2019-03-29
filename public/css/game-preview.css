@@ -100,7 +100,7 @@
 @media (max-width: 500px) {
 
     #game-preview {
-        height: 180px;
+        height: 220px;
     }
     
     #game-preview .preview:not([data-number="3"]) {
@@ -131,9 +131,9 @@
     }
 }
 
-@media (max-width: 800px) {
+@media (min-width: 500px) and (max-width: 800px) {
     #game-preview {
-        height: 220px;
+        height: 280px;
     }
 
     #game-preview .preview[data-number="1"],
@@ -157,9 +157,9 @@
     }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 800px) and (max-width: 1200px) {
     #game-preview {
-        height: 260px;
+        height: 320px;
     }
 
     #game-preview .arrow:first-child {
