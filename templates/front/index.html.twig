@@ -51,6 +51,7 @@
         </footer>
     </div>
     <div id="container">
+        <div id="sprint">
         {% if current_sprint %}
             <div id="current-sprint">
                 <header>
@@ -97,22 +98,45 @@
                 </footer>
             </div>
         {% endif %}
+        </div>
+        <div id="join">
+            <section>
+                <a href="{{ (is_granted('ROLE_USER')) ? path('dashboard') : path('fos_user_registration_register') }}">
+                    <div>
+                        {{ 'homepage.description.play_game' | trans | raw }}
+                    </div>
+                </a>
+            </section>
+            <footer>
+                <h4>{{ 'homepage.follow_us' | trans }}</h4>
+                <div>
+                    <a href="https://www.facebook.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/facebook.png') }}" width="32" height="32" alt="Facebook" /> </a>
+                    <a href="https://instagram.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/instagram.png') }}" id="instagram-icon" width="28" height="28" /> </a>
+                    <a href="https://twitter.com/kalaxiagame" class="icon"> <img src="{{ asset('images/icons/social/twitter.png') }}" width="32" height="32" /> </a>
+                    <a href="https://www.linkedin.com/company/11369270/" class="icon"> <img src="{{ asset('images/icons/social/linkedin.png') }}" width="32" height="32" /> </a>
+                </div>
+            </footer>
+        </div>
         <div id="social-networks">
             <header>
-                <a href="https://www.facebook.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/facebook.png') }}" width="32" height="32" alt="Facebook" /> </a>
-                <a href="https://instagram.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/instagram.png') }}" id="instagram-icon" width="28" height="28" /> </a>
-                <a href="https://twitter.com/kalaxiagame" class="icon"> <img src="{{ asset('images/icons/social/twitter.png') }}" width="32" height="32" /> </a>
-                <a href="https://www.linkedin.com/company/11369270/" class="icon"> <img src="{{ asset('images/icons/social/linkedin.png') }}" width="32" height="32" /> </a>
-                <a href="https://kalaxia.org" class="icon"> <img src="{{ asset('images/icons/social/blogpost.png') }}" width="32" height="32" /> </a>
+                <h2>
+                    <a href="https://kalaxia.org" class="icon">
+                        <img src="{{ asset('images/icons/social/blogpost.png') }}" width="48" height="48" />
+                    </a>
+                    {{ 'homepage.blog' | trans }}
+                </h2>
             </header>
             <section>
-                <h2> Dernières nouvelles de Kalaxia :) </h2>
-                {% for ticket in tickets|slice(0,3) %}
-                    <div class="ticket">
-                        <p> <a href="{{ ticket.link }}"> {{ ticket.title }} </a> ( {{ ticket.date|date('full_date'|trans) }} ) </p>
-                        <p> {{ ticket.description|raw }} </p>
-                    </div>
+                <ul>
+                {% for ticket in tickets|slice(0,4) %}
+                    <li class="ticket">
+                        <a href="{{ ticket.link }}">
+                            <h4>{{ ticket.title }}</h4>
+                            <h5>{{ ticket.date|date('full_date' | trans) }}</h5>
+                        </a>
+                    </li>
                 {% endfor %}
+                </ul>
             </section>
             <footer></footer>
         </div>

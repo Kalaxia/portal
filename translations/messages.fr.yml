@@ -15,11 +15,17 @@ homepage:
         fleet: 'Flotte'
         ships: 'Chantier naval'
 
+    follow_us: 'Suivez le projet sur'
+    blog: 'Suivez-nous sur le blog !'
+
     description:
         title: 'Kalaxia est un jeu multijoueurs de stratégie spatiale 100% gratuit, 100% opensource et conçu avec sa communauté !'
         alpha: 'En cours de développement !'
         join_discord: 'Rejoindre la communauté sur Discord'
-        play_game: 'Tester Kalaxia'
+        play_game: | 
+            <span>Connectez ou inscrivez-vous et</span>
+            <p>testez</p>
+            <span>le jeu</span>
         fork_github: 'Voir le code sur Github'
 
 admin:

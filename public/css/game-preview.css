@@ -73,6 +73,10 @@
     position: absolute;
     top: 100%;
     text-align: center;
+    color: #F1DEC2;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 0.9em;
 }
 
 #game-preview .preview-points > section {
@@ -90,7 +94,7 @@
 }
 
 #game-preview .preview-point.active {
-    background-color: #EFEEEF;
+    background-color: #F1DEC2;
 }
 
 @media (max-width: 500px) {
