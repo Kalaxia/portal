@@ -3,98 +3,140 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/homepage.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/game-preview.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="/js/game-previews.js"></script>
 {% endblock %}
 
 {% block body %}
-    {#<div id="description">
-        <h2>{{ 'homepage.description.title' | trans }}</h2>
-        <div class="actions">
-        </div>
-    </div>#}
     <div id="landing">
         <header>
-            <h1>Kalaxia</h1>
+            <h1>
+                <img src="/images/logo_typo_white_small.png" alt="Kalaxia" />
+            </h1>
         </header>
         <section>
             <p>{{ 'homepage.description.title' | trans }}</p>
             <p>{{ 'homepage.description.alpha' | trans }}</p>
         </section>
+    </div>
+    <div id="game-preview">
+        <section>
+            <div class="arrow" onclick="previousPreview()">
+                <img src="/images/icons/left-arrow.png" />
+            </div>
+            {% for i, preview in ['ships', 'map', 'fight', 'techno', 'fleet'] %}
+                <div class="preview" data-number="{{ i + 1 }}" data-id="{{ i + 1 }}">
+                    <img src="/images/game/{{ preview }}.png" alt="{{ preview }}"/>
+                </div>
+            {% endfor %}
+            <div class="arrow" onclick="nextPreview()">
+                <img src="/images/icons/right-arrow.png" />
+            </div>
+        </section>
         <footer>
-            <a href="https://discord.gg/mDTms5c" target="_blank">
-                <img src="{{ asset('images/icons/discord.png') }}" />
-                <span>{{ 'homepage.description.join_discord' | trans }}</span>
-            </a>
-            <a href="{{ (is_granted('ROLE_USER')) ? path('dashboard') : path('fos_user_registration_register') }}" class="white">
-                <img src="{{ asset('images/logo.png') }}"/>
-                <span>{{ 'homepage.description.play_game' | trans }}</span>
-            </a>
-            <a href="https://github.com/Kalaxia" target="_blank">
-                <img src="{{ asset('images/icons/github.png') }}"/>
-                <span>{{ 'homepage.description.fork_github' | trans }}</span>
-            </a>
+            <div class="preview-points">
+                <section>
+                    {% for i, preview in ['ships', 'map', 'fight', 'techno', 'fleet'] %}
+                        <div class="preview-point {% if i == 2 %}active{% endif %}" data-number="{{ i + 1 }}" data-label="{{ ('homepage.game_previews.' ~ preview) | trans }}"></div>
+                    {% endfor %}
+                </section>
+                <footer>
+                    <p>{{ 'homepage.game_previews.fight' | trans }}</p>
+                </footer>
+            </div>
         </footer>
     </div>
     <div id="container">
-        <div id="current-sprint">
-            <header>
-                <a href="{{ path('sprint_details', {"id": current_sprint.id }) }}">
-                    <h2>Sprint {{ current_sprint.id }}</h2>
-                    <h4>Du [{{ current_sprint.beginAt.format('date' | trans) }}] au [{{ current_sprint.endedAt.format('date' | trans) }}]</h4>
-                </a>
-            </header>
+        <div id="sprint">
+        {% if current_sprint %}
+            <div id="current-sprint">
+                <header>
+                    <a href="{{ path('sprint_details', {"id": current_sprint.id }) }}">
+                        <h2>Sprint {{ current_sprint.id }}</h2>
+                        <h4>Du [{{ current_sprint.beginAt.format('date' | trans) }}] au [{{ current_sprint.endedAt.format('date' | trans) }}]</h4>
+                    </a>
+                </header>
+                <section>
+                    {% for user_story in user_stories %}
+                        <div class="user-story">
+                            <header>
+                                <h5>{{ user_story.title }}</h5>
+                                <div class="value">
+                                    <i class="fas fa-star"></i>
+                                    <span>{{ user_story.value }}</span>
+                                </div>
+                            </header>
+                            <section>
+                                <div class="status {{ user_story.status }}">
+                                    {{ ('project.status.' ~ user_story.status) | trans }}
+                                </div>
+                                <div class="estimations">
+                                    <div class="spent-time {% if user_story.spentTime > user_story.estimatedTime %}warning{% endif %}">
+                                        <i class="far fa-clock"></i>
+                                        {{ user_story.spentTime }}
+                                    </div>
+                                    <progress value="{{ user_story.spentTime }}" max="{{ user_story.estimatedTime }}"></progress>
+                                    <div class="estimated-time">
+                                        <i class="fas fa-hourglass-start"></i>
+                                        {{ user_story.estimatedTime }}
+                                    </div>
+                                </div>
+                            </section>
+                            <footer>
+                            </footer>
+                        </div>
+                    {% endfor %}
+                </section>
+                <footer>
+                    <a class="button" href="{{ path('sprint_details', {"id": current_sprint.id}) }}">
+                        Voir plus
+                    </a>
+                </footer>
+            </div>
+        {% endif %}
+        </div>
+        <div id="join">
             <section>
-                {% for user_story in user_stories %}
-                    <div class="user-story">
-                        <header>
-                            <h5>{{ user_story.title }}</h5>
-                            <div class="value">
-                                <i class="fas fa-star"></i>
-                                <span>{{ user_story.value }}</span>
-                            </div>
-                        </header>
-                        <section>
-                            <div class="status {{ user_story.status }}">
-                                {{ ('project.status.' ~ user_story.status) | trans }}
-                            </div>
-                            <div class="estimations">
-                                <div class="spent-time {% if user_story.spentTime > user_story.estimatedTime %}warning{% endif %}">
-                                    <i class="far fa-clock"></i>
-                                    {{ user_story.spentTime }}
-                                </div>
-                                <progress value="{{ user_story.spentTime }}" max="{{ user_story.estimatedTime }}"></progress>
-                                <div class="estimated-time">
-                                    <i class="fas fa-hourglass-start"></i>
-                                    {{ user_story.estimatedTime }}
-                                </div>
-                            </div>
-                        </section>
-                        <footer>
-                        </footer>
+                <a href="{{ (is_granted('ROLE_USER')) ? path('dashboard') : path('fos_user_registration_register') }}">
+                    <div>
+                        {{ 'homepage.description.play_game' | trans | raw }}
                     </div>
-                {% endfor %}
+                </a>
             </section>
             <footer>
-                <a class="button" href="{{ path('sprint_details', {"id": current_sprint.id}) }}">
-                    Voir plus
-                </a>
+                <h4>{{ 'homepage.follow_us' | trans }}</h4>
+                <div>
+                    <a href="https://www.facebook.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/facebook.png') }}" width="32" height="32" alt="Facebook" /> </a>
+                    <a href="https://instagram.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/instagram.png') }}" id="instagram-icon" width="28" height="28" /> </a>
+                    <a href="https://twitter.com/kalaxiagame" class="icon"> <img src="{{ asset('images/icons/social/twitter.png') }}" width="32" height="32" /> </a>
+                    <a href="https://www.linkedin.com/company/11369270/" class="icon"> <img src="{{ asset('images/icons/social/linkedin.png') }}" width="32" height="32" /> </a>
+                </div>
             </footer>
         </div>
         <div id="social-networks">
             <header>
-                <a href="https://www.facebook.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/facebook.png') }}" width="32" height="32" alt="Facebook" /> </a>
-                <a href="https://instagram.com/kalaxiagame/" class="icon"> <img src="{{ asset('images/icons/social/instagram.png') }}" id="instagram-icon" width="28" height="28" /> </a>
-                <a href="https://twitter.com/kalaxiagame" class="icon"> <img src="{{ asset('images/icons/social/twitter.png') }}" width="32" height="32" /> </a>
-                <a href="https://www.linkedin.com/company/11369270/" class="icon"> <img src="{{ asset('images/icons/social/linkedin.png') }}" width="32" height="32" /> </a>
-                <a href="https://kalaxia.org" class="icon"> <img src="{{ asset('images/icons/social/blogpost.png') }}" width="32" height="32" /> </a>
+                <h2>
+                    <a href="https://kalaxia.org" class="icon">
+                        <img src="{{ asset('images/icons/social/blogpost.png') }}" width="48" height="48" />
+                    </a>
+                    {{ 'homepage.blog' | trans }}
+                </h2>
             </header>
             <section>
-                <h2> Dernières nouvelles de Kalaxia :) </h2>
-                {% for ticket in tickets|slice(0,3) %}
-                    <div class="ticket">
-                        <p> <a href="{{ ticket.link }}"> {{ ticket.title }} </a> ( {{ ticket.date|date('full_date'|trans) }} ) </p>
-                        <p> {{ ticket.description|raw }} </p>
-                    </div>
+                <ul>
+                {% for ticket in tickets|slice(0,4) %}
+                    <li class="ticket">
+                        <a href="{{ ticket.link }}">
+                            <h4>{{ ticket.title }}</h4>
+                            <h5>{{ ticket.date|date('full_date' | trans) }}</h5>
+                        </a>
+                    </li>
                 {% endfor %}
+                </ul>
             </section>
             <footer></footer>
         </div>

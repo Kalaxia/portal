@@ -1,0 +1,172 @@
+#game-preview {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    max-width: 1800px;
+    margin: auto;
+}
+
+#game-preview .arrow {
+    position: absolute;
+    top: calc(50% - 21px);
+    padding: 10px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+#game-preview .preview {
+    position: absolute;
+    border: white solid 3px;
+    border-radius: 5px;
+    opacity: 1;
+    transition: all 0.4s ease-out;
+}
+
+#game-preview .preview > img {
+    width: 100%;
+}
+
+#game-preview .arrow:first-child {
+    left: 2%;
+}
+
+#game-preview .preview[data-number="1"] {
+    top: 10%;
+    left: 5%;
+    width: 30%;
+    z-index: 1;
+}
+
+#game-preview .preview[data-number="2"] {
+    top: 5%;
+    left: 15%;
+    width: 40%;
+    z-index: 2;
+}
+
+#game-preview .preview[data-number="3"] {
+    left: 25%;
+    width: 50%;
+    z-index: 3;
+}
+
+#game-preview .preview[data-number="4"] {
+    top: 5%;
+    left: 45%;
+    width: 40%;
+    z-index: 2;
+}
+
+#game-preview .preview[data-number="5"] {
+    top: 10%;
+    left: 65%;
+    width: 30%;
+    z-index: 1;
+}
+
+#game-preview .arrow:last-child {
+    right: 2%;
+}
+
+#game-preview .preview-points {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    text-align: center;
+    color: #F1DEC2;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+#game-preview .preview-points > section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+#game-preview  .preview-point {
+    width: 22px;
+    height: 22px;
+    background-color: #323232;
+    border-radius: 50%;
+}
+
+#game-preview .preview-point.active {
+    background-color: #F1DEC2;
+}
+
+@media (max-width: 500px) {
+
+    #game-preview {
+        height: 220px;
+    }
+    
+    #game-preview .preview:not([data-number="3"]) {
+        display: none;
+        opacity: 0;
+    }
+
+    #game-preview .arrow {
+        padding: 2px;
+    }
+
+    #game-preview .arrow img {
+        width: 26px;
+        height: 26px;
+    }
+
+    #game-preview .arrow:first-child {
+        left: 5px;
+    }
+
+    #game-preview .arrow:last-child {
+        right: 5px;
+    }
+
+    #game-preview .preview[data-number="3"] {
+        left: 10%;
+        width: 80%;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+    #game-preview {
+        height: 280px;
+    }
+
+    #game-preview .preview[data-number="1"],
+    #game-preview .preview[data-number="5"] {
+        opacity: 0;
+    }
+
+    #game-preview .preview[data-number="2"] {
+        left: 10%;
+        width: 40%;
+    }
+
+    #game-preview .preview[data-number="3"] {
+        left: 20%;
+        width: 60%;
+    }
+
+    #game-preview .preview[data-number="4"] {
+        left: 50%;
+        width: 40%;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1200px) {
+    #game-preview {
+        height: 320px;
+    }
+
+    #game-preview .arrow:first-child {
+        left: 0px;
+    }
+
+    #game-preview .arrow:last-child {
+        right: 0px;
+    }
+}

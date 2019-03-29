@@ -4,6 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width">
         <title>{% block title %}{{ 'website_name' | trans }}{% if nbNotifications > 0 %} ({{ nbNotifications }}){% endif %}{% endblock %}</title>
         {% block meta %}{% endblock %}
         {% block stylesheets %}

@@ -1,12 +1,15 @@
 #landing > header > h1 {
     text-align: center;
-    font-size: 2.5em;
+    margin: 0px;
+}
+
+#landing > header > h1 > img {
+    width: 126px;
 }
 
 #landing > section > p:first-child {
     font-size: 1.4em;
     text-align: center;
-    margin-top: 50px;
 }
 
 #landing > section > p:last-child {
@@ -14,58 +17,18 @@
     color: #E1BB81;
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 100px;
-}
-
-#landing > footer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-#landing > footer > a {
-    width: 250px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    color: #EFEFEF;
-    text-decoration: none;
-    font-size: 1.2em;
-    padding: 20px;
-    background-color: #003C71;
-    border-radius: 20px;
-    transition: background-color 0.4s ease-out, color 0.4s ease-out;
-}
-
-#landing > footer > a:hover {
-    box-shadow: 0px 0px 15px rgba(255,255,255,0.8);
-}
-
-#landing > footer > a.white,
-#landing > footer > a:hover {
-    background-color: #E0E0F0;
-    color: #003C71;
-}
-
-#landing > footer > a > img {
-    width: 120px;
-}
-
-#landing > footer > a > span {
-    text-align: center;
+    margin-bottom: 20px;
 }
 
 #container {
     display: flex;
+    align-items: flex-start;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 100px;
 }
 
-#current-sprint {
-    flex-basis: 40%;
+#container > div {
+    flex-basis: 30%;
 }
 
 #current-sprint > header > a {
@@ -164,35 +127,91 @@
     background-color: #2060A0;
 }
 
-#social-networks {
-    flex-basis: 40%;
-}
-
-#social-networks > header {
+#join {
+    margin-top: 100px;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
 }
 
-#social-networks > header > a {
+#join > section > a {
+    display: block;
+    color: #F1DEC2;
+    text-decoration: none;
+    padding: 15px;
+    clip-path: polygon(5% 0%, 90% 0%, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0% 45%, 0% 20%);
+    background-color: #F1DEC2;
+}
+
+#join > section > a > div {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-variant: small-caps;
+    font-size: 0.8em;
+    padding: 10px 100px;
+    clip-path: polygon(5% 0%, 90% 0%, 100% 20%, 100% 80%, 95% 100%, 19% 100%, 0% 40%, 0% 20%);
+}
+
+#join > section > a p {
+    font-weight: bold;
+    font-size: 4em;
+    margin: 0px;
+}
+
+#join > footer > div {
+    display: flex;
+    justify-content: center;
+}
+
+#social-networks {
+    background-color: #2C2825;
+    border-radius: 10px;
+}
+
+#social-networks > header > h2 {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-variant: small-caps;
+    color: #F1DEC2;
+}
+
+#social-networks > header > h2 > a {
     text-decoration: none;
 }
 
-#social-networks > section > h2 {
-    text-align: center;
+#social-networks > header > h2 > a > img {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-#social-networks > section > .ticket {
-    color: #EFEFEF;
-    border-radius: 10px;
-
-    background: rgba(0,0,0,0.6);
-    
-    margin: 10px;
-    padding: 5px 20px;
+#social-networks > section > ul {
+    color: #F1DEC2;
 }
 
-#social-networks > section > .ticket a {
-    color: #E1BB81;
+#social-networks > section > ul > .ticket {
+    margin: 10px 0px;
+}
+
+#social-networks > section > ul > .ticket a {
+    display: block;
+    color: #F1DEC2;
+    text-decoration: none;
+}
+
+#social-networks > section > ul > .ticket h4,
+#social-networks > section > ul > .ticket h5 {
+    margin: 0px;
+    font-weight: normal;
+    font-size: 0.7em;
+}
+
+#social-networks > section > ul > .ticket h4 {
+    font-size: 1.1em;
+    font-style: italic;
 }
 
 #previous-sprint {
@@ -278,5 +297,23 @@
     #previous-sprint > section > iframe {
         width: 250px;
         height: 125px;
+    }
+}
+
+@media (max-width: 1200px) {
+    #container {
+        width: 95%;
+        margin: auto;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 100px;
+    }
+
+    #container > div {
+        flex-basis: auto;
+    }
+
+    #social-networks {
+        margin-top: 20px;
     }
 }
