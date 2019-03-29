@@ -3,6 +3,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/homepage.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/game-preview.css') }}" />
 {% endblock %}
 
 {% block javascripts %}
@@ -28,7 +29,7 @@
                 <img src="/images/icons/left-arrow.png" />
             </div>
             {% for i, preview in ['ships', 'map', 'fight', 'techno', 'fleet'] %}
-                <div class="preview" data-number="{{ i + 1 }}">
+                <div class="preview" data-number="{{ i + 1 }}" data-id="{{ i + 1 }}">
                     <img src="/images/game/{{ preview }}.png" alt="{{ preview }}"/>
                 </div>
             {% endfor %}
@@ -36,6 +37,18 @@
                 <img src="/images/icons/right-arrow.png" />
             </div>
         </section>
+        <footer>
+            <div class="preview-points">
+                <section>
+                    {% for i, preview in ['ships', 'map', 'fight', 'techno', 'fleet'] %}
+                        <div class="preview-point {% if i == 2 %}active{% endif %}" data-number="{{ i + 1 }}" data-label="{{ ('homepage.game_previews.' ~ preview) | trans }}"></div>
+                    {% endfor %}
+                </section>
+                <footer>
+                    <p>{{ 'homepage.game_previews.fight' | trans }}</p>
+                </footer>
+            </div>
+        </footer>
     </div>
     <div id="container">
         {% if current_sprint %}

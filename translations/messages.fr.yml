@@ -8,6 +8,13 @@ anonymous: 'Visiteur'
 
 homepage:
     title: 'Accueil'
+    game_previews:
+        fight: 'Rapport de combat'
+        map: "Zones d'influence territoriale"
+        techno: 'Recherche technologique'
+        fleet: 'Flotte'
+        ships: 'Chantier naval'
+
     description:
         title: 'Kalaxia est un jeu multijoueurs de stratégie spatiale 100% gratuit, 100% opensource et conçu avec sa communauté !'
         alpha: 'En cours de développement !'
