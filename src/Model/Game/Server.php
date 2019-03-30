@@ -14,6 +14,8 @@ class Server implements \JsonSerializable
     protected $description;
     /** @var string **/
     protected $banner;
+    /** @var int **/
+    protected $gameId;
     /** @var string **/
     protected $signature;
     /** @var Machine **/
@@ -120,6 +122,18 @@ class Server implements \JsonSerializable
     public function getBanner()
     {
         return $this->banner;
+    }
+
+    public function setGameId(int $gameId): self
+    {
+        $this->gameId = $gameId;
+
+        return $this;
+    }
+
+    public function getGameId(): int
+    {
+        return $this->gameId;
     }
     
     /**

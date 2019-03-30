@@ -62,6 +62,10 @@ abstract class Server extends ServerModel
      */
     protected $players;
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $gameId;
+    /**
      * @ORM\Column(type="string", length=85) 
      */
     protected $signature;
@@ -92,6 +96,7 @@ abstract class Server extends ServerModel
     
     public function __construct()
     {
+        $this->players = new ArrayCollection();
         $this->factions = new ArrayCollection();
     }
     
@@ -138,6 +143,13 @@ abstract class Server extends ServerModel
     public function addPlayer(User $player): self
     {
         $this->players->add($player);
+
+        return $this;
+    }
+
+    public function removePlayer(User $player): self
+    {
+        $this->players->removeElement($player);
 
         return $this;
     }
