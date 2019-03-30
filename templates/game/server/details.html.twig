@@ -34,6 +34,13 @@
                 <div id='description'>
                     {{ server.description | raw }}
                 </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div id="server-admin">
+                        <a class="button" href="{{ path('remove_server', { 'id': server.id }) }}">
+                            Supprimer le serveur
+                        </a>
+                    </div>
+                {% endif %}
             </section>
 
             <footer></footer>

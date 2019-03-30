@@ -23,7 +23,13 @@
 }
 
 #server-container > #server-wrapper > section {
+    display: flex;
+    justify-content: space-around;
     margin-left: 50%;
     margin-right: 10%;
     margin-top: 100px;
+}
+
+#server-admin {
+    
 }

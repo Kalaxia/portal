@@ -4,6 +4,7 @@ namespace App\Manager\Game;
 
 use Doctrine\ORM\EntityManagerInterface;
 
+use App\Entity\Notification;
 use App\Entity\User;
 use App\Entity\Game\{
     MultiplayerServer,
@@ -17,6 +18,8 @@ use App\Security\RsaEncryptionManager;
 use App\Utils\Slugger;
 
 use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use GuzzleHttp\Exception\RequestException;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ServerManager
 {
@@ -30,20 +33,23 @@ class ServerManager
     protected $serverGateway;
     /** @var RsaEncryptionManager **/
     protected $rsaEncryptionManager;
+    /** @var TranslatorInterface */
+    protected $translator;
     /** @var Slugger **/
     protected $slugger;
     
-    public function __construct(EntityManagerInterface $entityManager, FactionManager $factionManager, MachineManager $machineManager, ServerGateway $serverGateway, RsaEncryptionManager $rsaEncryptionManager, Slugger $slugger)
+    public function __construct(EntityManagerInterface $entityManager, FactionManager $factionManager, MachineManager $machineManager, ServerGateway $serverGateway, RsaEncryptionManager $rsaEncryptionManager, TranslatorInterface $translator, Slugger $slugger)
     {
         $this->entityManager = $entityManager;
         $this->factionManager = $factionManager;
         $this->machineManager = $machineManager;
         $this->serverGateway = $serverGateway;
         $this->rsaEncryptionManager = $rsaEncryptionManager;
+        $this->translator = $translator;
         $this->slugger = $slugger;
     }
     
-    public function get(int $id): Server
+    public function get(int $id): ?Server
     {
         return $this->entityManager->getRepository(Server::class)->find($id);
     }
@@ -128,6 +134,8 @@ class ServerManager
         if ($response->getStatusCode() !== 201) {
             throw new \ErrorException($response->getBody()->getContents());
         }
+        $data = json_decode($response->getBody()->getContents(), true);
+        $server->setGameId($data['id']);
         $this->entityManager->persist($server);
         $this->entityManager->flush($server);
         return $server;
@@ -160,5 +168,41 @@ class ServerManager
             $this->entityManager->flush();
         }
         return $jwt;
+    }
+
+    public function removeServer(int $id)
+    {
+        if (($server = $this->get($id)) === null) {
+            throw new NotFoundHttpException('Server not found');
+        }
+        try {
+            $this->serverGateway->removeServer(
+                $server->getHost(),
+                $server->getGameId(),
+                $this->rsaEncryptionManager->encrypt($server, json_encode([
+                    'name' => $server->getName(),
+                    'signature' => $server->getSignature()
+                ]))
+            );
+        } catch(RequestException $ex) {
+            if ($ex->getCode() === 500) {
+                throw new \ErrorException('Server error');
+            }
+        }
+        $notification =
+            (new Notification())
+            ->setTitle($this->translator->trans('servers.removal_title'))
+            ->setContent($this->translator->trans('servers.removal_content', ['%server_name%' => $server->getName()]))
+        ;
+        foreach ($server->getPlayers() as $player) {
+            $n = clone $notification;
+            $n->setUser($player);
+
+            $this->entityManager->persist($n);
+
+            $server->removePlayer($player);
+        }
+        $this->entityManager->remove($server);
+        $this->entityManager->flush();
     }
 }
