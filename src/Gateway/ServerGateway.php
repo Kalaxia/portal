@@ -31,6 +31,18 @@ class ServerGateway
             'body' => $data['cipher']
         ]);
     }
+
+    public function removeServer(string $host, int $id, array $data)
+    {
+        return $this->client->post("$host/api/servers/$id", [
+            'headers' => [
+                'Content-Type' => 'application/octet-stream',
+                'Application-Key' => $data['key'],
+                'Application-Iv' => $data['iv']
+            ],
+            'body' => $data['cipher']
+        ]);
+    }
     
     /**
      * @param string $host

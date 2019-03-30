@@ -189,6 +189,8 @@ game:
         public_key: 'Clé publique RSA'
         validate: 'Valider'
         nb_players: '%nb_players% joueurs'
+        removal_title: 'Serveur supprimé'
+        removal_content: 'Le serveur "%server_name%" a été supprimé'
 
     tutorial:
         launch: 'Lancer le tutoriel'

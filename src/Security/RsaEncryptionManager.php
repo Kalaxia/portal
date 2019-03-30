@@ -20,7 +20,7 @@ class RsaEncryptionManager
     /**
      * @param Server $server
      * @param string $data
-     * @return string
+     * @return array
      */
     public function encrypt(Server $server, $data)
     {

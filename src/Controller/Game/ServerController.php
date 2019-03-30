@@ -21,6 +21,7 @@ use App\Manager\Game\{
     ServerManager
 };
 use App\Entity\Game\Server;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ServerController extends Controller
 {
@@ -101,5 +102,17 @@ class ServerController extends Controller
         return new Response('', Response::HTTP_OK, [
             'Location' => "{$server->getHost()}?jwt=$jwt",
         ]);
+    }
+
+    /**
+     * @Route("/admin/servers/{id}", name="remove_server", methods={"GET"})
+     */
+    public function removeServer(int $id, ServerManager $serverManager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $serverManager->removeServer($id);
+
+        return new RedirectResponse($this->generateUrl('admin_dashboard'));
     }
 }
