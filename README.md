@@ -19,7 +19,7 @@ This environment consists in the following technologies:
 * MongoDB
 * Citadel Technologies Feedback Manager
 
-You can clone the project with the following command
+You can clone the project with the following command:
 
 ```
 git clone git@github.com:Kalaxia/portal.git kalaxia-portal
@@ -30,7 +30,7 @@ cp .env.dist .env
 
 In the two configuration files that you copied, the default values can be kept to run the application in a dev environment.
 
-Once it's done, you can launch your Docker containers
+Once it's done, you can launch your Docker containers:
 
 ```
 docker-compose up -d
@@ -47,31 +47,28 @@ docker-compose exec app bash
 ```
 
 Here, you can install the project dependencies and setup the files permissions.
-
 The Doctrine command line is a setup of the project database tables schema. It will create all the needed tables.
-
 The security command line generates the RSA keypair, used to establish a communication with the game servers.
+
+You can do it like this:
 
 ```
 composer install
 chown -R www-data:www-data var/cache
-chown -R www-data:www-data var/logs
+chown -R www-data:www-data var/log
 chown -R www-data:www-data var/sessions
 ./bin/console doctrine:schema:update --force
 ./bin/console security:rsa:generate
 ```
 
-You have now to edit the /etc/hosts file to setup the application web address.
-
-In Windows, this file is located in C:\Windows\System32\drivers\etc\hosts.
-
-In both cases, the file must be edited in administrator mode.
-
-You have to add the following line:
+You have now to edit the /etc/hosts file to setup the application web address, by adding the following line:
 
 ```
 127.0.0.1 local.portal.com
 ```
+
+In Windows, this file is located in C:\Windows\System32\drivers\etc\hosts.
+In both cases, the file must be edited in administrator mode.
 
 In your web browser, you can go to http://local.portal.com.
 
@@ -152,7 +149,13 @@ If you need to add tables or modify it, use Doctrine documentation to generate a
 
 ### System update
 
-Sometimes, dependencies are updated. Then you have to run this into a console :
+Sometimes, dependencies are updated. Then you have to launch the app bash into a console :
+
+```
+docker-compose exec app bash
+```
+
+Then run the following command:
 
 ```
 composer install
