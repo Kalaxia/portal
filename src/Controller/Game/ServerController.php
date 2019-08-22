@@ -86,18 +86,15 @@ class ServerController extends Controller
     }
     
     /**
-     * @Route("/play/{server_id}", name="join_game", methods={"GET"})
+     * @Route("/play/{serverId}", name="join_game", methods={"GET"})
      */
-    public function joinServerAction(Request $request)
+    public function joinServerAction(int $serverId, ServerManager $serverManager)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        if (empty($serverId = $request->attributes->get('server_id'))) {
-            throw new BadRequestHttpException('game.server.missing_server_id');
-        }
-        if (($server = $this->get(ServerManager::class)->get($serverId)) === null) {
+        if (($server = $serverManager->get($serverId)) === null) {
             throw new NotFoundHttpException('game.server.not_found');
         }
-        $jwt = $this->get(ServerManager::class)->joinServer($server, $this->getUser());
+        $jwt = $serverManager->joinServer($server, $this->getUser());
         
         return new Response('', Response::HTTP_OK, [
             'Location' => "{$server->getHost()}?jwt=$jwt",
@@ -114,6 +111,23 @@ class ServerController extends Controller
         $serverManager->removeServer($id);
 
         return new RedirectResponse($this->generateUrl('admin_dashboard'));
+    }
+
+    /**
+     * @Route("/api/play/{serverId}", name="join_game", methods={"GET"})
+     */
+    public function joinServerRemotely(int $serverId, ServerManager $serverManager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        if (($server = $serverManager->get($serverId)) === null) {
+            throw new NotFoundHttpException('game.server.not_found');
+        }
+        $jwt = $serverManager->joinServer($server, $this->getUser());
+        
+        return new JsonResponse([
+            'host' => $server->getHost(),
+            'token' => $jwt,
+        ]);
     }
 
     /**
