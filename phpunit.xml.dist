@@ -44,6 +44,12 @@
         
         <env name="DISCORD_API_URL" value="http://discord_bot"/>
         <env name="PROJECT_FEEDBACK_URL" value="http://portal_feedback_manager"/>
+
+        <!-- ###+ lexik/jwt-authentication-bundle ### -->
+        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem"/>
+        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem"/>
+        <env name="JWT_PASSPHRASE" value="65ec7bc3835f9dd92f5db18a3bae9984"/>
+        <!-- ###- lexik/jwt-authentication-bundle ### -->
     </php>
 
     <filter>

@@ -33,3 +33,7 @@ portal.env
 /vendor/
 ###< symfony/framework-bundle ###
 /bundles/
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

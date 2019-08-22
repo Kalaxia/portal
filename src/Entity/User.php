@@ -111,7 +111,7 @@ class User extends UserModel implements \JsonSerializable
      */
     public function getServers()
     {
-        return $this->servers;
+        return $this->servers->toArray();
     }
     
     /**

@@ -31,7 +31,7 @@ class ServerController extends Controller
     public function getServer(ServerManager $serverManager, int $id)
     {
         if (($server = $serverManager->get($id)) === null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('servers.not_found');
         }
         return $this->render('game/server/details.html.twig', [
             'server' => $server
@@ -114,5 +114,28 @@ class ServerController extends Controller
         $serverManager->removeServer($id);
 
         return new RedirectResponse($this->generateUrl('admin_dashboard'));
+    }
+
+    /**
+     * @Route("/api/servers/me", name="get_player_servers_data", methods={"GET"})
+     */
+    public function getPlayerServersData()
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        return new JsonResponse($this->getUser()->getServers());
+    }
+
+    /**
+     * @Route("/api/servers/{id}", name="get_server_data", methods={"GET"})
+     */
+    public function getServerData(int $id, ServerManager $serverManager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        if (($server = $serverManager->get($id)) === null) {
+            throw new NotFoundHttpException('servers.not_found');
+        }
+        return new JsonResponse($server);
     }
 }
