@@ -114,7 +114,7 @@ class ServerController extends Controller
     }
 
     /**
-     * @Route("/api/play/{serverId}", name="join_game", methods={"GET"})
+     * @Route("/api/play/{serverId}", name="join_game_remotely", methods={"GET"})
      */
     public function joinServerRemotely(int $serverId, ServerManager $serverManager)
     {

@@ -23,9 +23,9 @@
                 <h1>{{ server.name }}</h1>
                 <div>
                     {% if app.user.hasServer(server) %}
-                        <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button success">{{ 'game.server.play' | trans }}</a>
+                        <a href="{{ path('join_game', {'serverId': server.id }) }}" class="button success">{{ 'game.server.play' | trans }}</a>
                     {% else %}
-                        <a href="{{ path('join_game', {'server_id': server.id }) }}" class="button warning">{{ 'game.server.join' | trans }}</a>
+                        <a href="{{ path('join_game', {'serverId': server.id }) }}" class="button warning">{{ 'game.server.join' | trans }}</a>
                     {% endif %}
                 </div>
             </header>
