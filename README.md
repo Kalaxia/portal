@@ -109,7 +109,8 @@ Set the colors you want. The game uses for now only the main color, used for fon
 
 Then, you must create a machine, representing a host that will run your servers.
 
-In the servers dashboard, create a local machine with the name you want, and copy the public game server RSA KEY content (``public.pub``) in the associated field. If the key is valid the interface will show a blue fingerprint of it.
+In the servers dashboard, create a local machine with the name you want, and copy the public game server RSA KEY content (``public.pub``) in the associated field. If the key is valid the interface will show a blue fingerprint of it. The value to use if you are using the docker-compose in local is `kalaxia_nginx`
+
 
 When the machine is created, you can create a server. Select the machine you just created, select the factions, and then choose a name and a begin date anterior to the current date. Leave the subdomain alone. You can type a short description.
 
