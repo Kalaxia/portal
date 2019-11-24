@@ -142,7 +142,7 @@
             <footer></footer>
         </div>
     </div>
-    {% if previous_sprint.demoUrl | length > 0 %}
+    {% if previous_sprint is not null and previous_sprint.demoUrl | length > 0 %}
         <div id="previous-sprint">
             <header>
                 <h3>Démonstration du sprint précédent</h3>
