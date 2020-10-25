@@ -12,40 +12,36 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\App\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7",
-        "doctrine/doctrine-bundle": "^1.9",
-        "doctrine/doctrine-migrations-bundle": "v2.0.0-beta1",
-        "doctrine/migrations": "v2.0.0-beta1",
-        "doctrine/orm": "^2.6",
-        "friendsofsymfony/user-bundle": "^2.1",
-        "guzzlehttp/guzzle": "^6.3",
-        "kalaxia/scrumban-bundle": "~0.1",
-        "lexik/jwt-authentication-bundle": "^2.0@dev",
-        "sensio/framework-extra-bundle": "^5.2",
-        "symfony/asset": "^4.1",
-        "symfony/console": "^4.1",
+        "doctrine/doctrine-bundle": "^2.1",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/migrations": "^3.0",
+        "doctrine/orm": "^2.7",
+        "guzzlehttp/guzzle": "^7.2",
+        "lexik/jwt-authentication-bundle": "^2.8",
+        "symfony/asset": "^5.1",
+        "symfony/console": "^5.1",
         "symfony/flex": "^1.0",
-        "symfony/monolog-bundle": "^3.3",
-        "symfony/security": "^4.1",
-        "symfony/security-bundle": "^4.1",
-        "symfony/swiftmailer-bundle": "^3.2",
-        "symfony/translation": "^4.1",
-        "symfony/twig-bundle": "^4.1",
-        "symfony/validator": "^4.1",
-        "symfony/yaml": "^4.1",
-        "twig/twig": "^2.5"
+        "symfony/monolog-bundle": "^3.6",
+        "symfony/security-bundle": "^5.1",
+        "symfony/swiftmailer-bundle": "^3.5",
+        "symfony/translation": "^5.1",
+        "symfony/twig-bundle": "^5.1",
+        "symfony/validator": "^5.1",
+        "symfony/yaml": "^5.1",
+        "twig/twig": "^3.1"
     },
     "require-dev": {
-        "symfony/dotenv": "^4.1",
-        "symfony/phpunit-bridge": "^4.1",
+        "symfony/dotenv": "^5.1",
+        "symfony/phpunit-bridge": "^5.1",
         "symfony/profiler-pack": "^1.0",
         "symfony/test-pack": "^1.0",
-        "symfony/var-dumper": "^4.1"
+        "symfony/var-dumper": "^5.1"
     },
     "scripts": {
         "auto-scripts": {
@@ -68,7 +64,8 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": true
+            "allow-contrib": true,
+            "require": "^5.1"
         }
     }
 }

@@ -1,11 +1,9 @@
-{% set notifications = (is_granted('ROLE_USER')) ? app.user.unreadNotifications : [] %}
-{% set nbNotifications = (is_granted('ROLE_USER')) ? notifications.count() : 0 %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width">
-        <title>{% block title %}{{ 'website_name' | trans }}{% if nbNotifications > 0 %} ({{ nbNotifications }}){% endif %}{% endblock %}</title>
+        <title>{% block title %}{{ 'website_name' | trans }}{% endblock %}</title>
         {% block meta %}{% endblock %}
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
@@ -14,83 +12,6 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     </head>
     <body>
-        <header>
-            <nav>
-                <a href="{{ path('homepage') }}">
-                    <img src="{{ asset('images/white_logo.png') }}" />
-                    {% if app.request.attributes.get('_route') != 'homepage' %}
-                        <i class="fas fa-home fa-2x mobile"></i>
-                    {% endif %}
-                </a>
-                
-                {% if is_granted('ROLE_ADMIN') and app.request.attributes.get('_route') != 'admin_dashboard' %}
-                    <a href="{{ path('admin_dashboard') }}">
-                        <i class="fas fa-unlock-alt fa-2x mobile"></i>
-                        <span>{{ 'admin.dashboard' | trans }}</span>
-                    </a>
-                {% endif %}
-                {% if is_granted('ROLE_USER') and app.request.attributes.get('_route') != 'dashboard' %}
-                    <a href="{{ path('dashboard') }}">
-                        <i class="fas fa-tachometer-alt fa-2x mobile"></i>
-                        <span>{{ 'user.dashboard' | trans }}</span>
-                    </a>
-                {% endif %}
-            </nav>
-            <nav>
-                {% if is_granted('ROLE_USER') == false %}
-                    <a href="{{ path('fos_user_registration_register') }}">
-                        <i class="fas fa-edit fa-2x mobile"></i>
-                        <span>{{ 'registration' | trans }}</span>
-                    </a>
-                    <a href="{{ path('fos_user_security_login') }}">
-                        <i class="fas fa-tachometer-alt fa-2x mobile"></i>
-                        <span>{{ 'connection' | trans }}</span>
-                    </a>
-                {% else %}
-                    <a href="{{ path('profile') }}">
-                        <i class="fas fa-user fa-2x mobile"></i>
-                        <span>{{ app.user.username }}</span>
-                    </a>
-                    
-                    <a href="#" onclick="toggleNotifications();" id="notifications">
-                        <span class="fa-layers fa-fw fa-2x mobile">
-                            <i class="far fa-bell"></i>
-                            {% if nbNotifications > 0 %}
-                                <span class="fa-layers-counter" style="background:Tomato">{{ nbNotifications }}</span>
-                            {% endif %}
-                        </span>
-                    </a>
-
-                    <a href="{{ path('fos_user_security_logout') }}">
-                        <i class="fas fa-sign-out-alt fa-2x"></i>
-                    </a>
-                {% endif %}
-            </nav>
-        </header>
-        <section>
-            
-        </section>
-        <footer>
-            
-        </footer>
-        <div id="notifications-dropdown" class="menu-dropdown">
-            {% for notification in notifications %}
-                <div class="notification {{ notification.isRead ? '' : 'unread' }}" data-id="{{ notification.id }}">
-                    <header onclick="toggleNotification(event);">
-                        {{ notification.title }}
-                    </header>
-                    <section>
-                        {{ notification.content | raw }}
-                    </section>
-                </div>
-            {% endfor %}
-            <footer>
-                <a href="#">
-                    {{ 'notifications.all' | trans }}
-                </a>
-            </footer>
-        </div>
-                
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
