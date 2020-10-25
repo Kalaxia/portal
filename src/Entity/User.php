@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-use App\Entity\Game\Server;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
@@ -29,16 +27,11 @@ class User extends UserModel implements \JsonSerializable
      * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="user")
      */
     protected $notifications;
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Server", mappedBy="players")
-     */
-    protected $servers;
 
     public function __construct()
     {
         parent::__construct();
         $this->notifications = new ArrayCollection();
-        $this->servers = new ArrayCollection();
     }
     
     /**
@@ -73,45 +66,6 @@ class User extends UserModel implements \JsonSerializable
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-    
-    /**
-     * @param Server $server
-     * @return $this
-     */
-    public function addServer(Server $server)
-    {
-        $this->servers->add($server);
-        
-        return $this;
-    }
-    
-    /**
-     * @param Server $server
-     * @return bool
-     */
-    public function hasServer(Server $server)
-    {
-        return $this->servers->contains($server);
-    }
-    
-    /**
-     * @param Server $server
-     * @return $this
-     */
-    public function removeServer(Server $server)
-    {
-        $this->servers->removeElement($server);
-        
-        return $this;
-    }
-    
-    /**
-     * @return ArrayCollection
-     */
-    public function getServers()
-    {
-        return $this->servers->toArray();
     }
     
     /**

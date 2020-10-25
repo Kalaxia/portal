@@ -17,17 +17,11 @@ class RegistrationSubscriber implements EventSubscriberInterface
     /** @var UrlGeneratorInterface **/
     protected $router;
 
-    /**
-     * @param UrlGeneratorInterface $router
-     */
     public function __construct(UrlGeneratorInterface $router)
     {
         $this->router = $router;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -35,9 +29,6 @@ class RegistrationSubscriber implements EventSubscriberInterface
         );
     }
 
-    /**
-     * @param FormEvent $event
-     */
     public function onRegistrationSuccess(FormEvent $event)
     {
         $event->setResponse(new RedirectResponse($this->router->generate('dashboard')));

@@ -51,54 +51,6 @@
         </footer>
     </div>
     <div id="container">
-        <div id="sprint">
-        {% if current_sprint %}
-            <div id="current-sprint">
-                <header>
-                    <a href="{{ path('sprint_details', {"id": current_sprint.id }) }}">
-                        <h2>Sprint {{ current_sprint.id }}</h2>
-                        <h4>Du [{{ current_sprint.beginAt.format('date' | trans) }}] au [{{ current_sprint.endedAt.format('date' | trans) }}]</h4>
-                    </a>
-                </header>
-                <section>
-                    {% for user_story in user_stories %}
-                        <div class="user-story">
-                            <header>
-                                <h5>{{ user_story.title }}</h5>
-                                <div class="value">
-                                    <i class="fas fa-star"></i>
-                                    <span>{{ user_story.value }}</span>
-                                </div>
-                            </header>
-                            <section>
-                                <div class="status {{ user_story.status }}">
-                                    {{ ('project.status.' ~ user_story.status) | trans }}
-                                </div>
-                                <div class="estimations">
-                                    <div class="spent-time {% if user_story.spentTime > user_story.estimatedTime %}warning{% endif %}">
-                                        <i class="far fa-clock"></i>
-                                        {{ user_story.spentTime }}
-                                    </div>
-                                    <progress value="{{ user_story.spentTime }}" max="{{ user_story.estimatedTime }}"></progress>
-                                    <div class="estimated-time">
-                                        <i class="fas fa-hourglass-start"></i>
-                                        {{ user_story.estimatedTime }}
-                                    </div>
-                                </div>
-                            </section>
-                            <footer>
-                            </footer>
-                        </div>
-                    {% endfor %}
-                </section>
-                <footer>
-                    <a class="button" href="{{ path('sprint_details', {"id": current_sprint.id}) }}">
-                        Voir plus
-                    </a>
-                </footer>
-            </div>
-        {% endif %}
-        </div>
         <div id="join">
             <section>
                 <a href="{{ (is_granted('ROLE_USER')) ? path('dashboard') : path('fos_user_registration_register') }}">
@@ -142,18 +94,4 @@
             <footer></footer>
         </div>
     </div>
-    {% if previous_sprint is not null and previous_sprint.demoUrl | length > 0 %}
-        <div id="previous-sprint">
-            <header>
-                <h3>Démonstration du sprint précédent</h3>
-            </header>
-            <section>
-                <iframe src="{{ previous_sprint.demoUrl }}"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen></iframe>
-            </section>
-            <footer></footer>
-        </div>
-    {% endif %}
 {% endblock %}

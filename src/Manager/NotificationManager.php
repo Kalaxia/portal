@@ -18,20 +18,14 @@ class NotificationManager
     protected $entityManager;
     
     /**
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
-    
-    /**
-     * @param User $user
-     * @param string $title
-     * @param string $content
-     * @return Notification
-     */
-    public function create(User $user, $title, $content)
+
+    public function create(User $user, string $title, string $content): Notification
     {
         $notification =
             (new Notification())
@@ -43,14 +37,8 @@ class NotificationManager
         $this->entityManager->flush($notification);
         return $notification;
     }
-    
-    /**
-     * @param int $id
-     * @param User $user
-     * @throws NotFoundHttpException
-     * @throws AccessDeniedHttpException
-     */
-    public function read($id, User $user)
+
+    public function read(int $id, User $user)
     {
         if (($notification = $this->entityManager->getRepository(Notification::class)->find($id)) === null) {
             throw new NotFoundHttpException('notifications.not_found');
