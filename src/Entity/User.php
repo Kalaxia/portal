@@ -1,17 +1,17 @@
 <?php
 namespace App\Entity;
 
-use FOS\UserBundle\Model\User as UserModel;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="user__users")
  * @ORM\HasLifecycleCallbacks
  */
-class User extends UserModel implements \JsonSerializable
+class User implements UserInterface, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -19,10 +19,42 @@ class User extends UserModel implements \JsonSerializable
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    protected $username;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    protected $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $password;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $activationToken;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $isEnabled;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    protected $roles = [];
+
     /**
      * @ORM\Column(type="datetime")
      */
     protected $createdAt;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="user")
      */
@@ -30,7 +62,6 @@ class User extends UserModel implements \JsonSerializable
 
     public function __construct()
     {
-        parent::__construct();
         $this->notifications = new ArrayCollection();
     }
     
@@ -42,63 +73,125 @@ class User extends UserModel implements \JsonSerializable
         $this->createdAt = new \DateTime();
     }
     
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
         
         return $this;
     }
-    
-    /**
-     * @param \DateTime $createdAt
-     * @return $this
-     */
-    public function setCreatedAt(\DateTime $createdAt)
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getSalt(): string
+    {
+        return '';
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function enable(bool $isEnabled): self
+    {
+        $this->isEnabled = $isEnabled;
+
+        return $this;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function getRoles(): array
+    {
+        return array_merge(['ROLE_USER'], $this->roles);
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
         
         return $this;
     }
-    
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
-    
-    /**
-     * @param \App\Entity\Notification $notification
-     * @return $this
-     */
-    public function addNotification(Notification $notification)
+
+    public function addNotification(Notification $notification): self
     {
         $this->notifications->add($notification);
         
         return $this;
     }
-    
-    /**
-     * @param \App\Entity\Notification $notification
-     * @return $this
-     */
-    public function removeNotification(Notification $notification)
+
+    public function removeNotification(Notification $notification): self
     {
         $this->notifications->removeElement($notification);
         
         return $this;
     }
-    
-    /**
-     * @return ArrayCollection
-     */
-    public function getNotifications()
+
+    public function getNotifications(): ArrayCollection
     {
         return $this->notifications;
     }
     
-    public function getUnreadNotifications()
+    public function getUnreadNotifications(): ArrayCollection
     {
         $data = new ArrayCollection();
         foreach ($this->notifications as $notification) {
@@ -109,7 +202,7 @@ class User extends UserModel implements \JsonSerializable
         return $data;
     }
     
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'username' => $this->username,
