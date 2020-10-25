@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Manager\Project\LabelManager;
@@ -13,19 +14,26 @@ use App\Manager\UserManager;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\RSS\Parser;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class FrontController extends AbstractController
 {
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request, Parser $parser)
+    public function indexAction(Parser $parser)
     {
-        $parser->feed("https://kalaxia.org/?feed=rss2");
+        $cache = new FilesystemAdapter();
+        $rssFeedItems = $cache->get('blog_rss_feed', function(ItemInterface $item) use ($parser) {
+            $item->expiresAfter(3600);
 
+            $parser->feed("https://kalaxia.org/?feed=rss2");
+
+            return $parser->items;
+        });
         return $this->render('front/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-            'tickets' => $parser->items,
+            'tickets' => $rssFeedItems,
         ]);
     }
 
