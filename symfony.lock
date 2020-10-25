@@ -135,6 +135,9 @@
     "namshi/jose": {
         "version": "7.2.3"
     },
+    "nikic/php-parser": {
+        "version": "v4.10.2"
+    },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
@@ -293,6 +296,15 @@
     "symfony/intl": {
         "version": "v4.1.4"
     },
+    "symfony/maker-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+        }
+    },
     "symfony/monolog-bridge": {
         "version": "v4.1.4"
     },
@@ -367,6 +379,9 @@
     },
     "symfony/polyfill-util": {
         "version": "1.12-dev"
+    },
+    "symfony/polyfill-uuid": {
+        "version": "v1.20.0"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.3"
@@ -488,6 +503,9 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
+    },
+    "symfony/uid": {
+        "version": "v5.1.7"
     },
     "symfony/validator": {
         "version": "4.3",
