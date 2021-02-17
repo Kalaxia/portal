@@ -21,6 +21,7 @@ rsa_vault/*
 *.DS_Store
 *.sublime-workspace
 portal.env
+.idea
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
