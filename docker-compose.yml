@@ -35,6 +35,7 @@ services:
             - portal.env
         volumes:
             - "./:/srv/app"
+            - "./var/ssl:/etc/ssl"
             - "./var/log:/var/log/nginx"
         networks:
             - portal
