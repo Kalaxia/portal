@@ -1,63 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- http://phpunit.de/manual/4.1/en/appendixes.configuration.html -->
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="bin/.phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="tests/bootstrap.php"
 >
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
+    </php>
+
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
 
-    <php>
-        <ini name="error_reporting" value="-1" />
-        <ini name="memory_limit" value="-1" />
-        <server name="KERNEL_CLASS" value="App\Kernel" />
-
-        <!-- ###+ doctrine/doctrine-bundle ### -->
-        <!-- Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url -->
-        <!-- For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db" -->
-        <!-- Configure your db driver and server_version in config/packages/doctrine.yaml -->
-        <env name="DATABASE_URL" value="sqlite:///var/kalaxia_test.sqlite"/>
-        <!-- ###- doctrine/doctrine-bundle ### -->
-
-        <!-- ###+ symfony/swiftmailer-bundle ### -->
-        <!-- For Gmail as a transport, use: "gmail://username:password@localhost" -->
-        <!-- For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode=" -->
-        <!-- Delivery is disabled by default via "null://localhost" -->
-        <env name="MAILER_URL" value="null://localhost"/>
-        <!-- ###- symfony/swiftmailer-bundle ### -->
-
-        <!-- ###+ symfony/framework-bundle ### -->
-        <env name="APP_ENV" value="test"/>
-        <env name="APP_SECRET" value="secret"/>
-        <!-- env name="TRUSTED_PROXIES" value="127.0.0.1,127.0.0.2" -->
-        <!-- env name="TRUSTED_HOSTS" value="localhost,example.com" -->
-        <!-- ###- symfony/framework-bundle ### -->
-        <env name="MAILER_NAME" value="local.kalaxia.com"/>
-        <env name="MAILER_SENDER" value="postmaster@local.kalaxia.com"/>
-        <env name="WEBSITE_URL" value="http://local.kalaxia.com"/>
-        
-        <env name="DISCORD_API_URL" value="http://discord_bot"/>
-        <env name="PROJECT_FEEDBACK_URL" value="http://portal_feedback_manager"/>
-
-        <!-- ###+ lexik/jwt-authentication-bundle ### -->
-        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem"/>
-        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem"/>
-        <env name="JWT_PASSPHRASE" value="65ec7bc3835f9dd92f5db18a3bae9984"/>
-        <!-- ###- lexik/jwt-authentication-bundle ### -->
-    </php>
-
     <filter>
-        <whitelist>
-            <directory>src</directory>
-            <exclude>
-                <directory>src/Resources</directory>
-            </exclude>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
 </phpunit>

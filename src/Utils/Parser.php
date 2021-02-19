@@ -4,11 +4,7 @@ namespace App\Utils;
 
 class Parser
 {
-    /**
-     * @param string $content
-     * @return string
-     */
-    public function parse($content)
+    public function parse(string $content): string
     {
         return str_replace("\n", '<br>', trim($content));
     }

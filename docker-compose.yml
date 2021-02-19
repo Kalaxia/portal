@@ -2,13 +2,8 @@
 version: '3.5'
 
 networks:
-    game:
-        external:
-            name: kalaxia_game
     portal:
         name: kalaxia_portal
-        driver: bridge
-    mongo:
         driver: bridge
 
 services:
@@ -20,7 +15,6 @@ services:
             - portal.env
         networks:
             - portal
-            - game
         volumes:
             - "./:/srv/app"
 
@@ -40,11 +34,8 @@ services:
         env_file:
             - portal.env
         volumes:
-            # applications
             - "./:/srv/app"
-            # nginx
-            - "./volumes/ssl:/etc/ssl"
-            - "./volumes/logs:/var/log/nginx"
+            - "./var/log:/var/log/nginx"
         networks:
             - portal
         ports:
@@ -59,27 +50,4 @@ services:
         networks:
             - portal
         volumes:
-            - "./volumes/mysql:/var/lib/mysql"
-
-    phpmyadmin:
-        container_name: portal_phpmyadmin
-        image: nazarpc/phpmyadmin
-        networks:
-            - portal
-        ports:
-            - 8082:80
-
-    mongodb:
-        container_name: portal_mongodb
-        image: mongo
-        networks:
-            - mongo
-
-    feedback_manager:
-        container_name: portal_feedback_manager
-        image: citadeltechnologies/feedback-manager
-        env_file:
-            - portal.env
-        networks:
-            - portal
-            - mongo
+            - "./var/data:/var/lib/mysql"
