@@ -15,3 +15,9 @@ framework:
     #fragments: true
     php_errors:
         log: true
+    http_client:
+        scoped_clients:
+            itch:
+                base_uri: 'https://itch.io/api/1/key'
+                headers:
+                    Authorization: '%env(ITCH_API_KEY)%'

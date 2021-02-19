@@ -18,6 +18,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=7",
+        "ext-json": "*",
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/migrations": "^3.0",
