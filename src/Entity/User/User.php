@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace App\Entity\User;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\User\UserRepository")
  * @ORM\Table(name="user__users")
  * @ORM\HasLifecycleCallbacks
  */
@@ -18,47 +18,47 @@ class User implements UserInterface, \JsonSerializable
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    protected $username;
+    protected string $username;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    protected $email;
+    protected string $email;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $password;
+    protected string $password;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      */
-    protected $activationToken;
+    protected ?string $activationToken;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $isEnabled;
+    protected bool $isEnabled;
 
     /**
      * @ORM\Column(type="json")
      */
-    protected $roles = [];
+    protected array $roles = [];
 
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    protected \DateTime $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\User\Notification", mappedBy="user")
      */
-    protected $notifications;
+    protected \DateTime $notifications;
 
     public function __construct()
     {

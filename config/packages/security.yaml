@@ -1,13 +1,13 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
-        App\Entity\User:
+        App\Entity\User\User:
             algorithm: auto
     providers:
         users:
             entity:
                 # the class of the entity that represents users
-                class: 'App\Entity\User'
+                class: 'App\Entity\User\User'
                 # the property to query by - e.g. username, email, etc
                 property: 'username'
                 # optional: if you're using multiple Doctrine entity

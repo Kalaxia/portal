@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Manager;
+namespace App\Manager\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use App\Entity\Notification;
-use App\Entity\User;
+use App\Entity\User\Notification;
+use App\Entity\User\User;
 
 use Symfony\Component\HttpKernel\Exception\{
     AccessDeniedHttpException,

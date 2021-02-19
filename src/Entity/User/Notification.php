@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="notifications")
+ * @ORM\Table(name="user__notifications")
  * @ORM\HasLifecycleCallbacks
  */
 class Notification
@@ -18,7 +18,7 @@ class Notification
      */
     protected $id;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="notifications") 
+     * @ORM\ManyToOne(targetEntity="App\Entity\User\User", inversedBy="notifications")
      */
     protected $user;
     /**

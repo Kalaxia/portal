@@ -1,20 +1,20 @@
 <?php
 
-namespace Tests\App\Manager;
+namespace Tests\App\Manager\User;
 
 use PHPUnit\Framework\TestCase;
 
-use App\Manager\NotificationManager;
+use App\Manager\User\NotificationManager;
 
-use App\Entity\Notification;
-use App\Entity\User;
+use App\Entity\User\Notification;
+use App\Entity\User\User;
 
 class NotificationManagerTest extends TestCase
 {
     /** @var NotificationManager **/
     protected $manager;
     
-    public function setUp()
+    public function setUp(): void
     {
         $this->manager = new NotificationManager($this->getEntityManagerMock());
     }

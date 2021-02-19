@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\App\Manager;
+namespace Tests\App\Manager\User;
 
-use App\Manager\UserManager;
+use App\Manager\User\UserManager;
 
-use App\Entity\User;
+use App\Entity\User\User;
 
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +13,7 @@ class UserManagerTest extends TestCase
     /** @var UserManager **/
     protected $manager;
     
-    public function setUp()
+    public function setUp(): void
     {
         $this->manager = new UserManager($this->getEntityManagerMock());
     }
