@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity\User;
 
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -58,7 +59,7 @@ class User implements UserInterface, \JsonSerializable
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User\Notification", mappedBy="user")
      */
-    protected \DateTime $notifications;
+    protected Collection $notifications;
 
     public function __construct()
     {
