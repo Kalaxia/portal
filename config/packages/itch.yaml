@@ -1,0 +1,5 @@
+itch:
+    games:
+        client:
+            id: '%env(ITCH_GAME_ID)%'
+            download_key: '%env(ITCH_GAME_DOWNLOAD_KEY)%'

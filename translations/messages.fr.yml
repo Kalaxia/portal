@@ -173,6 +173,9 @@ notifications:
     all: 'Toutes les notifications'
 
 game:
+    download_cta: 'Télécharger'
+    download_from_itch: 'Télécharger sur Itch'
+    downloads_count: '%count% téléchargements'
     available_servers: 'Serveurs en cours'
     next_servers: 'Serveurs à venir'
     my_servers: 'Mes serveurs'
