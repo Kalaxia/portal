@@ -2,14 +2,10 @@
 
 namespace App\Controller;
 
+use App\Manager\Game\ItchManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Routing\Annotation\Route;
-
-use App\Manager\Project\LabelManager;
-use App\Manager\Game\ServerManager;
-use App\Manager\Vote\PollManager;
-use App\Manager\UserManager;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,10 +36,16 @@ class FrontController extends AbstractController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction(Request $request)
+    public function dashboardAction(Request $request, ItchManager $itchManager)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render('front/dashboard.html.twig');
+
+        $gameData = $this->getParameter('itch_games')['client'];
+
+        return $this->render('front/dashboard.html.twig', [
+            'game' => $itchManager->getGame($gameData['id']),
+            'download_key' => $gameData['download_key'],
+        ]);
     }
 
     /**

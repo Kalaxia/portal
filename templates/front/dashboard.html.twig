@@ -9,4 +9,21 @@
 
 {% block body %}
     <h1>Dashboard</h1>
+
+    <div id="game-download">
+
+        <img src="{{ game.cover_url }}" />
+
+        <div>
+            <h4>{{ 'game.download_from_itch'|trans }}</h4>
+
+            <a href="{{ game.url ~ '/download/' ~ download_key }}" target="_blank">
+                <button>
+                    {{ 'game.download_cta'|trans }}
+                </button>
+            </a>
+
+            <span>{{ 'game.downloads_count'|trans({'%count%': game.downloads_count}) }}</span>
+        </div>
+    </div>
 {% endblock %}
