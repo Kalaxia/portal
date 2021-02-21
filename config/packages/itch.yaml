@@ -1,5 +1,5 @@
 itch:
     games:
         client:
-            id: 687094
-            download_key: 'LFMeRgeh1w9DNm255UerrRPjZFjatGad0oOP8YXq'
+            id: '%env(ITCH_GAME_ID)%'
+            download_key: '%env(ITCH_GAME_DOWNLOAD_KEY)%'
